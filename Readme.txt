@@ -16,4 +16,4 @@ Nombre: Santiago Nicolás Maresco
 Legajo: 1522790
 
 Nombre: Nicolas Matías Pfeger
-Legajo: 14022547
+Legajo: 1402547
