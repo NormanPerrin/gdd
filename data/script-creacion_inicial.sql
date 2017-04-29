@@ -338,7 +338,7 @@ GO
 
 INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, id_facturacion) -- Me carga los que tienen factura
 	SELECT DISTINCT
-		cl.id_usuario, ch.id_usuario, t.id_turno, axch.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros, m.Factura_Fecha_Inicio, m.Factura_Fecha_Fin, f.id_facturacion
+		cl.id_usuario, ch.id_usuario, t.id_turno, axch.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros, f.id_facturacion
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Persona pcl, CRAZYDRIVER.Usuario cl, CRAZYDRIVER.Persona pch,
 		CRAZYDRIVER.Usuario ch, CRAZYDRIVER.AutoPorChofer axch, CRAZYDRIVER.Turno t, CRAZYDRIVER.Facturacion f
@@ -353,7 +353,7 @@ GO
 
 INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, id_facturacion) -- Me carga los que no tienen factura
 	SELECT DISTINCT
-		cl.id_usuario, ch.id_usuario, t.id_turno, axch.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros, m.Factura_Fecha_Inicio, m.Factura_Fecha_Fin, null
+		cl.id_usuario, ch.id_usuario, t.id_turno, axch.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros, null
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Persona pcl, CRAZYDRIVER.Usuario cl, CRAZYDRIVER.Persona pch,
 		CRAZYDRIVER.Usuario ch, CRAZYDRIVER.AutoPorChofer axch, CRAZYDRIVER.Turno t
