@@ -140,12 +140,13 @@ CREATE TABLE CRAZYDRIVER.Turno(
 GO
 
 CREATE TABLE CRAZYDRIVER.Rendicion(
+	id_rendicion INT IDENTITY PRIMARY KEY,
 	id_chofer INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario), -- no se si va not null porque lo que esta en la maestra no tiene vinculacion
 	id_turno INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Turno(id_turno), -- idem
 	fecha DATETIME NOT NULL,
 	numero NUMERIC(18,0) NOT NULL,
 	importe NUMERIC(18,2) NOT NULL,
-	PRIMARY KEY (id_chofer, id_turno, fecha)
+	-- PRIMARY KEY (id_chofer, id_turno, fecha) puede ser tranquilamente una primary key pero las fechas se repiten por idchofer,idturno
 );
 GO
 
@@ -365,13 +366,14 @@ INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, c
 			AND (axch.id_turno = t.id_turno)
 GO
 
-/*INSERT INTO CRAZYDRIVER.Rendicion(id_chofer, id_turno, fecha, numero, importe)
+INSERT INTO CRAZYDRIVER.Rendicion(id_chofer, id_turno, fecha, numero, importe)
 	SELECT DISTINCT
 		u.id_usuario, t.id_turno, m.Rendicion_Fecha, m.Rendicion_Nro, m.Rendicion_Importe
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u, CRAZYDRIVER.Persona p, CRAZYDRIVER.Turno t
 	WHERE
 	 m.Rendicion_Fecha IS NOT NULL
-	 	AND (m.Chofer_Dni = p.dni AND p.id_persona = u.id_persona)
-	 	AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
-GO*/
+		AND (m.Chofer_Dni = p.dni AND p.id_persona = u.id_persona)
+		AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
+	ORDER BY u.id_usuario, t.id_turno, m.Rendicion_Fecha
+GO
