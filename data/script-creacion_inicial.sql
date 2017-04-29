@@ -114,7 +114,7 @@ CREATE TABLE CRAZYDRIVER.Usuario(
 	id_usuario INT IDENTITY PRIMARY KEY, -- no estoy seguro del not null porque el admin por ejemplo no va a tener una persona
 	username NVARCHAR(225),
 	pass VARBINARY(225),
-	id_persona INT NOT NULL,
+	id_persona INT FOREIGN KEY REFERENCES CRAZYDRIVER.Persona(id_persona),
 	habilitado TINYINT,
 	intentos TINYINT
 );
@@ -241,7 +241,7 @@ DECLARE @hash_password VARBINARY(225)
 	SELECT @hash_password = HASHBYTES('SHA2_256', N'w23e');
 INSERT INTO CRAZYDRIVER.Usuario(username, pass, id_persona, habilitado, intentos)
 	values
-		('admin', HASHBYTES('SHA2_256', N'w23e'), 0, 1, 0)
+		('admin', HASHBYTES('SHA2_256', N'w23e'), null, 1, 0)
 GO
 
 INSERT INTO CRAZYDRIVER.RolPorUsuario(id_usuario, id_rol)
