@@ -1,19 +1,19 @@
 ﻿# gdd
 TP de gestión de datos 1C 2017
 
-Curso:
+Curso: K3114
 
-Nombre del grupo:
+Nombre del grupo: CRAZYDRIVER
 
-Nombre:
-Legajo:
-Email responsable:
+Nombre: Ruben Maier Enzler
+Legajo: 1506420
+Email responsable: ruben.maier@hotmail.com
 
-Nombre:
-Legajo
+Nombre: Norman Perrin
+Legajo: 1472150
 
-Nombre:
-Legajo:
+Nombre: Santiago Nicolás Maresco
+Legajo: 1522790
 
-Nombre:
-Legajo:
+Nombre: Nicolas Matías Pfeger
+Legajo: 14022547
