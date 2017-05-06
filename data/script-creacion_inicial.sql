@@ -140,14 +140,9 @@ CREATE TABLE CRAZYDRIVER.Turno(
 GO
 
 CREATE TABLE CRAZYDRIVER.Rendicion(
-	id_rendicion INT IDENTITY PRIMARY KEY,
-	id_chofer INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario), -- no se si va not null porque lo que esta en la maestra no tiene vinculacion
-	id_turno INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Turno(id_turno), -- idem
+	nro_rendicion NUMERIC(18,0) PRIMARY KEY, --cambie id_rendicion por nro_rendicion ya que nro es unica en la maestra para este grupo de datos
 	fecha DATETIME NOT NULL,
-	numero NUMERIC(18,0) NOT NULL,
-	importe NUMERIC(18,2) NOT NULL,
-	-- PRIMARY KEY (id_chofer, id_turno, fecha) puede ser tranquilamente una primary key pero las fechas se repiten por idchofer,idturno
-);
+  );
 GO
 
 CREATE TABLE CRAZYDRIVER.Auto(
@@ -166,17 +161,14 @@ CREATE TABLE CRAZYDRIVER.AutoPorChofer(
 	id_chofer INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario),
 	id_turno INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Turno(id_turno),
 	PRIMARY KEY (id_auto, id_chofer, id_turno)
-);
+); --si no la vamos a usar para viaje y tenemos 3 keys en viaje es al pedo ya que cubrimos cualquier posibilidad en viaje de turno chofer y auto.
 GO
 
 CREATE TABLE CRAZYDRIVER.Facturacion(
-	id_facturacion INT IDENTITY PRIMARY KEY,
-	id_cliente INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario),
+	nro_facturacion NUMERIC(18,0) PRIMARY KEY, --cambie id_facturacion por nro_facturacion ya que nro es unico para este grupo de datos
 	fecha_facturacion DATETIME NOT NULL,
-	numero NUMERIC(18,0) NOT NULL,
 	fecha_inicio DATETIME NOT NULL,
 	fecha_fin DATETIME NOT NULL
-	-- (id_cliente, fecha_facturacion) podria ser una primary key porque no voy a tener tuplas repetidas de estos datos en la tabla
 );
 GO
 
@@ -188,7 +180,8 @@ CREATE TABLE CRAZYDRIVER.Viaje(
 	id_auto INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Auto(id_auto), -- en realidad no hace falta, pero para hacer el estadistico nos haria pegarle menos a la db al querer obtener el dato
 	fecha DATETIME NOT NULL,
 	cant_km NUMERIC(18,0) NOT NULL,
-	id_facturacion INT FOREIGN KEY REFERENCES CRAZYDRIVER.Facturacion(id_facturacion)
+	nro_facturacion NUMERIC(18,0) FOREIGN KEY REFERENCES CRAZYDRIVER.Facturacion(nro_facturacion),
+	nro_rendicion NUMERIC(18,0) FOREIGN KEY REFERENCES CRAZYDRIVER.Rendicion(nro_rendicion)
 	-- PRIMARY KEY (id_cliente, id_chofer, id_turno, id_auto, fecha) podria ser pero los boludos del tp no pusieron fechas exactas en la db
 );
 GO
@@ -252,32 +245,28 @@ GO
 ---- MIGRACION
 
 INSERT INTO CRAZYDRIVER.Persona(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, localidad, cod_postal)
-	SELECT DISTINCT
+	SELECT
 		m.Chofer_Dni, m.Chofer_Apellido, m.Chofer_Nombre, m.Chofer_Telefono, m.Chofer_Mail, m.Chofer_Fecha_Nac, m.Chofer_Direccion, null, null, null
 	FROM
 		gd_esquema.Maestra m
 	WHERE
 		m.Chofer_Dni IS NOT NULL
-GO
-
-INSERT INTO CRAZYDRIVER.Persona(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, localidad, cod_postal)
-	SELECT DISTINCT
+    UNION
+	SELECT
 		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null
 	FROM
-		gd_esquema.Maestra m, CRAZYDRIVER.Persona p
+		gd_esquema.Maestra m
 	WHERE
-		m.Cliente_Dni IS NOT NULL AND m.Cliente_Dni != p.dni
+		m.Cliente_Dni IS NOT NULL
 GO
 
 DECLARE @hash_password VARBINARY(225)
 	SELECT @hash_password = HASHBYTES('SHA2_256', N'w23e');
 INSERT INTO CRAZYDRIVER.Usuario(username, pass, id_persona, habilitado, intentos)
-	SELECT DISTINCT
+	SELECT 
 		(SELECT CAST(p.dni AS NVARCHAR(225))), @hash_password, p.id_persona, 1, 0
 	FROM
 		CRAZYDRIVER.Persona p
-	WHERE
-		p.dni IS NOT NULL
 GO
 
 INSERT INTO CRAZYDRIVER.RolPorUsuario(id_rol, id_usuario) -- cargo usuarios con rol de clientes
@@ -327,53 +316,67 @@ INSERT INTO CRAZYDRIVER.AutoPorChofer(id_auto, id_chofer, id_turno)
 			AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
 GO
 
-INSERT INTO CRAZYDRIVER.Facturacion(id_cliente, fecha_facturacion, numero, fecha_inicio, fecha_fin)
-	SELECT DISTINCT
-		cl.id_usuario, m.Factura_Fecha, m.Factura_Nro, m.Factura_Fecha_Inicio, m.Factura_Fecha_Fin
-	FROM
-		gd_esquema.Maestra m, CRAZYDRIVER.Usuario cl, CRAZYDRIVER.Persona pcl
-	WHERE
-		m.Factura_Fecha IS NOT NULL
-		AND (m.Cliente_Dni = pcl.Dni AND pcl.id_persona = cl.id_persona)
+INSERT INTO CRAZYDRIVER.Facturacion(nro_facturacion, fecha_facturacion, fecha_inicio, fecha_fin)
+	select DISTINCT Factura_Nro,Factura_Fecha,Factura_Fecha_Fin,Factura_Fecha_Inicio
+    from gd_esquema.Maestra where Factura_Nro is not null
 GO
 
-INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, id_facturacion) -- Me carga los que tienen factura
-	SELECT DISTINCT
-		cl.id_usuario, ch.id_usuario, t.id_turno, axch.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros, f.id_facturacion
-	FROM
-		gd_esquema.Maestra m, CRAZYDRIVER.Persona pcl, CRAZYDRIVER.Usuario cl, CRAZYDRIVER.Persona pch,
-		CRAZYDRIVER.Usuario ch, CRAZYDRIVER.AutoPorChofer axch, CRAZYDRIVER.Turno t, CRAZYDRIVER.Facturacion f
-	WHERE
-		(m.Viaje_Fecha IS NOT NULL AND m.Factura_Fecha IS NOT NULL)
-			AND (m.Chofer_Dni = pch.dni AND ch.id_persona = pch.id_persona)
-			AND (m.Cliente_Dni = pcl.dni AND cl.id_persona = pcl.id_persona AND axch.id_chofer = ch.id_usuario)
-			AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
-			AND (axch.id_turno = t.id_turno)
-			AND (cl.id_persona = f.id_cliente AND m.Viaje_Fecha >= f.fecha_inicio AND m.Viaje_Fecha <=f.fecha_fin)
+
+
+INSERT INTO CRAZYDRIVER.Rendicion(nro_rendicion, fecha)
+	select DISTINCT Rendicion_Nro,Rendicion_Fecha
+	from gd_esquema.Maestra
+	where Rendicion_Nro is not null
 GO
 
-INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, id_facturacion) -- Me carga los que no tienen factura
-	SELECT DISTINCT
-		cl.id_usuario, ch.id_usuario, t.id_turno, axch.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros, null
-	FROM
-		gd_esquema.Maestra m, CRAZYDRIVER.Persona pcl, CRAZYDRIVER.Usuario cl, CRAZYDRIVER.Persona pch,
-		CRAZYDRIVER.Usuario ch, CRAZYDRIVER.AutoPorChofer axch, CRAZYDRIVER.Turno t
-	WHERE
-		(m.Viaje_Fecha IS NOT NULL AND m.Factura_Fecha IS NULL)
-			AND (m.Chofer_Dni = pch.dni AND ch.id_persona = pch.id_persona)
-			AND (m.Cliente_Dni = pcl.dni AND cl.id_persona = pcl.id_persona AND axch.id_chofer = ch.id_usuario)
-			AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
-			AND (axch.id_turno = t.id_turno)
+INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, nro_facturacion,nro_rendicion)
+
+ select DISTINCT ucl.id_usuario,uch.id_usuario,t.id_turno,a.id_auto,m.Viaje_Fecha,m.Viaje_Cant_Kilometros,
+(select DISTINCT Factura_Nro
+from gd_esquema.Maestra
+where chofer_dni = m.Chofer_Dni
+and Cliente_Dni = m.Cliente_Dni
+and Viaje_Cant_Kilometros = m.Viaje_Cant_Kilometros
+and Viaje_Fecha = m.Viaje_Fecha
+and Turno_Descripcion = m.Turno_Descripcion
+and Turno_Hora_Fin = m.Turno_Hora_Fin
+and Turno_Hora_Inicio = m.Turno_Hora_Inicio
+and Turno_Precio_Base = m.Turno_Precio_Base
+and Turno_Valor_Kilometro = m.Turno_Valor_Kilometro
+and Auto_Patente = m.Auto_Patente
+and Factura_nro is not null),
+
+(select DISTINCT Rendicion_Nro
+from gd_esquema.Maestra
+where chofer_dni = m.Chofer_Dni
+and Cliente_Dni = m.Cliente_Dni
+and Viaje_Cant_Kilometros = m.Viaje_Cant_Kilometros
+and Viaje_Fecha = m.Viaje_Fecha
+and Turno_Descripcion = m.Turno_Descripcion
+and Turno_Hora_Fin = m.Turno_Hora_Fin
+and Turno_Hora_Inicio = m.Turno_Hora_Inicio
+and Turno_Precio_Base = m.Turno_Precio_Base
+and Turno_Valor_Kilometro = m.Turno_Valor_Kilometro
+and Auto_Patente = m.Auto_Patente
+and Rendicion_Nro is not null)
+
+from gd_esquema.Maestra m 
+	JOIN CRAZYDRIVER.Persona cl
+	    on m.Cliente_Dni = cl.dni
+	JOIN CRAZYDRIVER.Persona ch 
+		on m.Chofer_Dni = ch.dni
+	JOIN CRAZYDRIVER.Turno t  
+		on m.Turno_Descripcion = t.descripcion 
+		and m.Turno_Hora_Fin = t.hora_fin
+		and m.Turno_Hora_Inicio = t.hora_inicio
+		and m.Turno_Precio_Base = t.precio_base
+		and m.Turno_Valor_Kilometro = t.valor_km
+	JOIN CRAZYDRIVER.Auto a
+		on m.Auto_Patente = a.patente
+	JOIN CRAZYDRIVER.Usuario uch on uch.id_persona = ch.id_persona
+	JOIN CRAZYDRIVER.Usuario ucl on ucl.id_persona = cl.id_persona
+
+	
 GO
 
-INSERT INTO CRAZYDRIVER.Rendicion(id_chofer, id_turno, fecha, numero, importe)
-	SELECT DISTINCT
-		u.id_usuario, t.id_turno, m.Rendicion_Fecha, m.Rendicion_Nro, m.Rendicion_Importe
-	FROM
-		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u, CRAZYDRIVER.Persona p, CRAZYDRIVER.Turno t
-	WHERE
-	 m.Rendicion_Fecha IS NOT NULL
-		AND (m.Chofer_Dni = p.dni AND p.id_persona = u.id_persona)
-		AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
-	ORDER BY u.id_usuario, t.id_turno, m.Rendicion_Fecha
-GO
+
