@@ -331,34 +331,7 @@ GO
 
 INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, nro_facturacion,nro_rendicion)
 
- select DISTINCT ucl.id_usuario,uch.id_usuario,t.id_turno,a.id_auto,m.Viaje_Fecha,m.Viaje_Cant_Kilometros,
-(select DISTINCT Factura_Nro
-from gd_esquema.Maestra
-where chofer_dni = m.Chofer_Dni
-and Cliente_Dni = m.Cliente_Dni
-and Viaje_Cant_Kilometros = m.Viaje_Cant_Kilometros
-and Viaje_Fecha = m.Viaje_Fecha
-and Turno_Descripcion = m.Turno_Descripcion
-and Turno_Hora_Fin = m.Turno_Hora_Fin
-and Turno_Hora_Inicio = m.Turno_Hora_Inicio
-and Turno_Precio_Base = m.Turno_Precio_Base
-and Turno_Valor_Kilometro = m.Turno_Valor_Kilometro
-and Auto_Patente = m.Auto_Patente
-and Factura_nro is not null),
-
-(select DISTINCT Rendicion_Nro
-from gd_esquema.Maestra
-where chofer_dni = m.Chofer_Dni
-and Cliente_Dni = m.Cliente_Dni
-and Viaje_Cant_Kilometros = m.Viaje_Cant_Kilometros
-and Viaje_Fecha = m.Viaje_Fecha
-and Turno_Descripcion = m.Turno_Descripcion
-and Turno_Hora_Fin = m.Turno_Hora_Fin
-and Turno_Hora_Inicio = m.Turno_Hora_Inicio
-and Turno_Precio_Base = m.Turno_Precio_Base
-and Turno_Valor_Kilometro = m.Turno_Valor_Kilometro
-and Auto_Patente = m.Auto_Patente
-and Rendicion_Nro is not null)
+select DISTINCT ucl.id_usuario,uch.id_usuario,t.id_turno,a.id_auto,m.Viaje_Fecha,m.Viaje_Cant_Kilometros,MAX(Factura_Nro),MAX(Rendicion_Nro)
 
 from gd_esquema.Maestra m 
 	JOIN CRAZYDRIVER.Persona cl
@@ -375,7 +348,7 @@ from gd_esquema.Maestra m
 		on m.Auto_Patente = a.patente
 	JOIN CRAZYDRIVER.Usuario uch on uch.id_persona = ch.id_persona
 	JOIN CRAZYDRIVER.Usuario ucl on ucl.id_persona = cl.id_persona
-
+group by ucl.id_usuario,uch.id_usuario,t.id_turno,a.id_auto,m.Viaje_Fecha,m.Viaje_Cant_Kilometros;
 	
 GO
 
