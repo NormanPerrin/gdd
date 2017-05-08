@@ -249,15 +249,11 @@ INSERT INTO CRAZYDRIVER.Persona(dni, apellido, nombre, telefono, mail, fecha_nac
 		m.Chofer_Dni, m.Chofer_Apellido, m.Chofer_Nombre, m.Chofer_Telefono, m.Chofer_Mail, m.Chofer_Fecha_Nac, m.Chofer_Direccion, null, null, null
 	FROM
 		gd_esquema.Maestra m
-	WHERE
-		m.Chofer_Dni IS NOT NULL
     UNION
 	SELECT
 		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null
 	FROM
 		gd_esquema.Maestra m
-	WHERE
-		m.Cliente_Dni IS NOT NULL
 GO
 
 DECLARE @hash_password VARBINARY(225)
@@ -275,7 +271,7 @@ INSERT INTO CRAZYDRIVER.RolPorUsuario(id_rol, id_usuario) -- cargo usuarios con 
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u, CRAZYDRIVER.Persona p
 	WHERE
-		m.Cliente_Dni IS NOT NULL AND m.Cliente_Dni = p.dni AND p.id_persona = u.id_persona
+		m.Cliente_Dni = p.dni AND p.id_persona = u.id_persona
 GO
 
 INSERT INTO CRAZYDRIVER.RolPorUsuario(id_rol, id_usuario) -- cargo usuarios con rol de choferes
@@ -284,7 +280,7 @@ INSERT INTO CRAZYDRIVER.RolPorUsuario(id_rol, id_usuario) -- cargo usuarios con 
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u, CRAZYDRIVER.Persona p
 	WHERE
-		m.Chofer_Dni IS NOT NULL AND m.Chofer_Dni = p.dni AND p.id_persona = u.id_persona
+        m.Chofer_Dni = p.dni AND p.id_persona = u.id_persona
 GO
 
 INSERT INTO CRAZYDRIVER.Turno(hora_inicio, hora_fin, descripcion, valor_km, precio_base, habilitado)
@@ -292,8 +288,6 @@ INSERT INTO CRAZYDRIVER.Turno(hora_inicio, hora_fin, descripcion, valor_km, prec
 		m.Turno_Hora_Inicio, m.Turno_Hora_Fin, m.Turno_Descripcion, m.Turno_Valor_Kilometro, m.Turno_Precio_Base, 1
 	FROM
 		gd_esquema.Maestra m
-	WHERE
-		m.Turno_Descripcion IS NOT NULL
 GO
 
 INSERT INTO CRAZYDRIVER.Auto(patente, marca, modelo, licencia, rodado, habilitado)
@@ -301,8 +295,6 @@ INSERT INTO CRAZYDRIVER.Auto(patente, marca, modelo, licencia, rodado, habilitad
 		m.Auto_Patente, m.Auto_Marca, m.Auto_Modelo, m.Auto_Licencia, m.Auto_Rodado, 1
 	FROM
 		gd_esquema.Maestra m
-	WHERE
-		m.Auto_Patente IS NOT NULL
 	GO
 
 INSERT INTO CRAZYDRIVER.AutoPorChofer(id_auto, id_chofer, id_turno)
@@ -311,14 +303,15 @@ INSERT INTO CRAZYDRIVER.AutoPorChofer(id_auto, id_chofer, id_turno)
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Turno t, CRAZYDRIVER.Usuario u, CRAZYDRIVER.Persona p, CRAZYDRIVER.Auto a
 	WHERE
-		m.Auto_Patente IS NOT NULL AND m.Auto_Patente = a.patente
+		    m.Auto_Patente = a.patente
 			AND (m.Chofer_Dni = p.dni AND p.id_persona = u.id_persona)
 			AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
 GO
 
 INSERT INTO CRAZYDRIVER.Facturacion(nro_facturacion, fecha_facturacion, fecha_inicio, fecha_fin)
 	select DISTINCT Factura_Nro,Factura_Fecha,Factura_Fecha_Fin,Factura_Fecha_Inicio
-    from gd_esquema.Maestra where Factura_Nro is not null
+    from gd_esquema.Maestra 
+	where Factura_Nro is not null
 GO
 
 
