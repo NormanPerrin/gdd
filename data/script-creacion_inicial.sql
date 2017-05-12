@@ -1,7 +1,19 @@
 USE GD1C2017;
 	GO
 
----- BORRO TABLAS Y REACTUALIZO
+---- BORRO PROCEDIMIENTOS
+
+IF OBJECT_ID('CRAZYDRIVER.spLogin') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spLogin;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spEditarIntentosUsuario') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spEditarIntentosUsuario;
+END;
+
+---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.Viaje','U') IS NOT NULL
 BEGIN
@@ -303,46 +315,66 @@ INSERT INTO CRAZYDRIVER.AutoPorChofer(id_auto, id_chofer, id_turno)
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Turno t, CRAZYDRIVER.Usuario u, CRAZYDRIVER.Persona p, CRAZYDRIVER.Auto a
 	WHERE
-		    m.Auto_Patente = a.patente
-			AND (m.Chofer_Dni = p.dni AND p.id_persona = u.id_persona)
-			AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
+		m.Auto_Patente = a.patente
+		AND (m.Chofer_Dni = p.dni AND p.id_persona = u.id_persona)
+		AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
 GO
 
 INSERT INTO CRAZYDRIVER.Facturacion(nro_facturacion, fecha_facturacion, fecha_inicio, fecha_fin)
-	select DISTINCT Factura_Nro,Factura_Fecha,Factura_Fecha_Fin,Factura_Fecha_Inicio
-    from gd_esquema.Maestra 
-	where Factura_Nro is not null
+	SELECT DISTINCT 
+		Factura_Nro, Factura_Fecha, Factura_Fecha_Fin, Factura_Fecha_Inicio
+    FROM 
+		gd_esquema.Maestra 
+	WHERE 
+		Factura_Nro IS NOT NULL
 GO
-
-
 
 INSERT INTO CRAZYDRIVER.Rendicion(nro_rendicion, fecha)
-	select DISTINCT Rendicion_Nro,Rendicion_Fecha
-	from gd_esquema.Maestra
-	where Rendicion_Nro is not null
+	SELECT DISTINCT 
+		Rendicion_Nro, Rendicion_Fecha
+	FROM 
+		gd_esquema.Maestra
+	WHERE 
+		Rendicion_Nro IS NOT NULL
 GO
 
-INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, nro_facturacion,nro_rendicion)
-
-select DISTINCT ucl.id_usuario,uch.id_usuario,t.id_turno,a.id_auto,m.Viaje_Fecha,m.Viaje_Cant_Kilometros,MAX(Factura_Nro),MAX(Rendicion_Nro)
-
-from gd_esquema.Maestra m 
-	JOIN CRAZYDRIVER.Persona cl
-	    on m.Cliente_Dni = cl.dni
-	JOIN CRAZYDRIVER.Persona ch 
-		on m.Chofer_Dni = ch.dni
-	JOIN CRAZYDRIVER.Turno t  
-		on m.Turno_Descripcion = t.descripcion 
-		and m.Turno_Hora_Fin = t.hora_fin
-		and m.Turno_Hora_Inicio = t.hora_inicio
-		and m.Turno_Precio_Base = t.precio_base
-		and m.Turno_Valor_Kilometro = t.valor_km
-	JOIN CRAZYDRIVER.Auto a
-		on m.Auto_Patente = a.patente
-	JOIN CRAZYDRIVER.Usuario uch on uch.id_persona = ch.id_persona
-	JOIN CRAZYDRIVER.Usuario ucl on ucl.id_persona = cl.id_persona
-group by ucl.id_usuario,uch.id_usuario,t.id_turno,a.id_auto,m.Viaje_Fecha,m.Viaje_Cant_Kilometros;
-	
+INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, nro_facturacion, nro_rendicion)
+	SELECT DISTINCT 
+		ucl.id_usuario, uch.id_usuario, t.id_turno, a.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros, MAX(Factura_Nro), MAX(Rendicion_Nro)
+	FROM 
+		gd_esquema.Maestra m 
+			JOIN CRAZYDRIVER.Persona cl
+				ON m.Cliente_Dni = cl.dni
+			JOIN CRAZYDRIVER.Persona ch 
+				ON m.Chofer_Dni = ch.dni
+			JOIN CRAZYDRIVER.Turno t  
+				ON m.Turno_Descripcion = t.descripcion 
+				AND m.Turno_Hora_Fin = t.hora_fin
+				AND m.Turno_Hora_Inicio = t.hora_inicio
+				AND m.Turno_Precio_Base = t.precio_base
+				AND m.Turno_Valor_Kilometro = t.valor_km
+			JOIN CRAZYDRIVER.Auto a
+				ON m.Auto_Patente = a.patente
+			JOIN CRAZYDRIVER.Usuario uch ON uch.id_persona = ch.id_persona
+			JOIN CRAZYDRIVER.Usuario ucl ON ucl.id_persona = cl.id_persona
+	GROUP BY 
+		ucl.id_usuario, uch.id_usuario, t.id_turno, a.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros;
 GO
 
+---- PROCEDIMIENTOS ALMACENADOS
 
+CREATE PROC CRAZYDRIVER.spLogin
+	@username NVARCHAR(255)
+	AS
+	SELECT id_usuario, pass, id_persona, intentos
+		FROM CRAZYDRIVER.Usuario
+		WHERE username=@username
+GO
+
+CREATE PROC CRAZYDRIVER.spEditarIntentosUsuario
+	@idUsuario INT,
+	@intentos INT
+	AS
+		UPDATE CRAZYDRIVER.Usuario SET intentos=@intentos
+		WHERE id_usuario=@idUsuario
+GO

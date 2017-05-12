@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A07A4359-5DDB-4119-84B2-D71B45190295}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UberFrba</RootNamespace>
+    <AssemblyName>UberFrba</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbmAuto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmAuto.Designer.cs">
+      <DependentUpon>AbmAuto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmChofer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer.Designer.cs">
+      <DependentUpon>AbmChofer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente.Designer.cs">
+      <DependentUpon>AbmCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol.Designer.cs">
+      <DependentUpon>AbmRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturacion.Designer.cs">
+      <DependentUpon>Facturacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Index.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Index.Designer.cs">
+      <DependentUpon>Index.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListadoEstadistico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListadoEstadistico.Designer.cs">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistroUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroUsuarios.Designer.cs">
+      <DependentUpon>RegistroUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroViajes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroViajes.Designer.cs">
+      <DependentUpon>RegistroViajes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RendicionViajes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RendicionViajes.Designer.cs">
+      <DependentUpon>RendicionViajes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeleccionarRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionarRol.Designer.cs">
+      <DependentUpon>SeleccionarRol.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Index.resx">
+      <DependentUpon>Index.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="RegistroUsuarios.resx">
+      <DependentUpon>RegistroUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionarRol.resx">
+      <DependentUpon>SeleccionarRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CapaInterfaz\CapaInterfaz.csproj">
+      <Project>{c59420ed-4736-402c-a0b3-79174d360ece}</Project>
+      <Name>CapaInterfaz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CapaNegocio\CapaNegocio.csproj">
+      <Project>{e1c015de-bec9-464f-8b4c-08edefa8a1f4}</Project>
+      <Name>CapaNegocio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

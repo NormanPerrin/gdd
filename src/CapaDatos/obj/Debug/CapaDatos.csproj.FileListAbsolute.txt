@@ -1,0 +1,6 @@
+C:\Users\ruben\git\gdd\src\CapaDatos\bin\Debug\CapaDatos.dll.config
+C:\Users\ruben\git\gdd\src\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\ruben\git\gdd\src\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\ruben\git\gdd\src\CapaDatos\obj\Debug\CapaDatos.csprojResolveAssemblyReference.cache
+C:\Users\ruben\git\gdd\src\CapaDatos\obj\Debug\CapaDatos.dll
+C:\Users\ruben\git\gdd\src\CapaDatos\obj\Debug\CapaDatos.pdb
