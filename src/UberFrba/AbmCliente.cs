@@ -12,9 +12,50 @@ namespace UberFrba
 {
     public partial class AbmCliente : Form
     {
-        public AbmCliente()
-        {
-            InitializeComponent();
-        }
+        #region Atributos
+
+            private static AbmCliente _Instancia;
+
+        #endregion
+
+        #region Constructor
+
+            public AbmCliente()
+            {
+                InitializeComponent();
+            }
+
+        #endregion
+
+        #region Acciones
+
+        #endregion
+
+        #region Metodos y funciones auxiliares
+
+            private void formatearAtributos()
+            {
+            }
+
+            public static AbmCliente ObtenerInstancia()
+            {
+                if (Instancia == null)
+                {
+                    Instancia = new AbmCliente();
+                }
+                return Instancia;
+            }
+
+        #endregion
+
+        #region Getters/Setters
+
+            public static AbmCliente Instancia
+            {
+                get { return AbmCliente._Instancia; }
+                set { AbmCliente._Instancia = value; }
+            }
+
+        #endregion
     }
 }

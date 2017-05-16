@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace UberFrba
 {
-    public partial class AbmChofer : Form
+    public partial class AbmTurno : Form
     {
         #region Atributos
 
-            private static AbmChofer _Instancia;
+            private static AbmTurno _Instancia;
 
         #endregion
 
         #region Constructor
 
-            public AbmChofer()
+            public AbmTurno()
             {
                 InitializeComponent();
             }
@@ -37,11 +37,11 @@ namespace UberFrba
             {
             }
 
-            public static AbmChofer ObtenerInstancia()
+            public static AbmTurno ObtenerInstancia()
             {
                 if (Instancia == null)
                 {
-                    Instancia = new AbmChofer();
+                    Instancia = new AbmTurno();
                 }
                 return Instancia;
             }
@@ -50,10 +50,10 @@ namespace UberFrba
 
         #region Getters/Setters
 
-            public static AbmChofer Instancia
+            public static AbmTurno Instancia
             {
-                get { return AbmChofer._Instancia; }
-                set { AbmChofer._Instancia = value; }
+                get { return AbmTurno._Instancia; }
+                set { AbmTurno._Instancia = value; }
             }
 
         #endregion

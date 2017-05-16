@@ -1,6 +1,13 @@
 E:\src\UberFrba\UberFrba\bin\Debug\UberFrba.exe.config
 C:\Users\Ruben\Git\gdd\src\bin\Debug\UberFrba.exe.config
 D:\Users\ruben\Desktop\Gestion de datos\Proyecto\gdd\src\UberFrba\bin\Debug\UberFrba.exe.config
+C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
+C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.Funcionalidades.resources
+C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.Login.resources
+C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
+C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.RegistroUsuarios.resources
+C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.SeleccionarRol.resources
+C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache
 C:\Users\ruben\git\gdd\src\UberFrba\bin\Debug\UberFrba.exe.config
 C:\Users\ruben\git\gdd\src\UberFrba\bin\Debug\UberFrba.exe
 C:\Users\ruben\git\gdd\src\UberFrba\bin\Debug\UberFrba.pdb
@@ -10,12 +17,5 @@ C:\Users\ruben\git\gdd\src\UberFrba\bin\Debug\CapaDatos.dll
 C:\Users\ruben\git\gdd\src\UberFrba\bin\Debug\CapaInterfaz.pdb
 C:\Users\ruben\git\gdd\src\UberFrba\bin\Debug\CapaNegocio.pdb
 C:\Users\ruben\git\gdd\src\UberFrba\bin\Debug\CapaDatos.pdb
-C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
-C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.Index.resources
-C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.Login.resources
-C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.Properties.Resources.resources
-C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.RegistroUsuarios.resources
-C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.SeleccionarRol.resources
-C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.Cache
 C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.exe
 C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.pdb

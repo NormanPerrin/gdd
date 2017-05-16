@@ -1,6 +1,6 @@
 ﻿namespace UberFrba
 {
-    partial class Index
+    partial class AbmTurno
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Index
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 415);
-            this.Name = "Index";
-            this.Text = "Index";
-            this.Load += new System.EventHandler(this.Index_Load);
-            this.ResumeLayout(false);
-
+            this.Text = "AbmTurno";
         }
 
         #endregion

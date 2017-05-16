@@ -12,9 +12,50 @@ namespace UberFrba
 {
     public partial class RegistroViajes : Form
     {
-        public RegistroViajes()
-        {
-            InitializeComponent();
-        }
+        #region Atributos
+
+            private static RegistroViajes _Instancia;
+
+        #endregion
+
+        #region Constructor
+
+            public RegistroViajes()
+            {
+                InitializeComponent();
+            }
+
+        #endregion
+
+        #region Acciones
+
+        #endregion
+
+        #region Metodos y funciones auxiliares
+
+            private void formatearAtributos()
+            {
+            }
+
+            public static RegistroViajes ObtenerInstancia()
+            {
+                if (Instancia == null)
+                {
+                    Instancia = new RegistroViajes();
+                }
+                return Instancia;
+            }
+
+        #endregion
+
+        #region Getters/Setters
+
+            public static RegistroViajes Instancia
+            {
+                get { return RegistroViajes._Instancia; }
+                set { RegistroViajes._Instancia = value; }
+            }
+
+        #endregion
     }
 }
