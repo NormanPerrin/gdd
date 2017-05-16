@@ -154,6 +154,7 @@ GO
 CREATE TABLE CRAZYDRIVER.Rendicion(
 	nro_rendicion NUMERIC(18,0) PRIMARY KEY, --cambie id_rendicion por nro_rendicion ya que nro es unica en la maestra para este grupo de datos
 	fecha DATETIME NOT NULL,
+	importe NUMERIC(18,2)
   );
 GO
 
@@ -180,7 +181,8 @@ CREATE TABLE CRAZYDRIVER.Facturacion(
 	nro_facturacion NUMERIC(18,0) PRIMARY KEY, --cambie id_facturacion por nro_facturacion ya que nro es unico para este grupo de datos
 	fecha_facturacion DATETIME NOT NULL,
 	fecha_inicio DATETIME NOT NULL,
-	fecha_fin DATETIME NOT NULL
+	fecha_fin DATETIME NOT NULL,
+	importe NUMERIC(18,2)
 );
 GO
 
@@ -279,7 +281,7 @@ GO
 
 INSERT INTO CRAZYDRIVER.RolPorUsuario(id_rol, id_usuario) -- cargo usuarios con rol de clientes
 	SELECT DISTINCT
-		2, u.id_persona
+		2, u.id_usuario
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u, CRAZYDRIVER.Persona p
 	WHERE
@@ -288,7 +290,7 @@ GO
 
 INSERT INTO CRAZYDRIVER.RolPorUsuario(id_rol, id_usuario) -- cargo usuarios con rol de choferes
 	SELECT DISTINCT
-		3, u.id_persona
+		3, u.id_usuario
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u, CRAZYDRIVER.Persona p
 	WHERE
@@ -320,22 +322,24 @@ INSERT INTO CRAZYDRIVER.AutoPorChofer(id_auto, id_chofer, id_turno)
 		AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
 GO
 
-INSERT INTO CRAZYDRIVER.Facturacion(nro_facturacion, fecha_facturacion, fecha_inicio, fecha_fin)
-	SELECT DISTINCT 
-		Factura_Nro, Factura_Fecha, Factura_Fecha_Fin, Factura_Fecha_Inicio
+INSERT INTO CRAZYDRIVER.Facturacion(nro_facturacion, fecha_facturacion, fecha_inicio, fecha_fin,importe)
+	SELECT 
+		Factura_Nro, Factura_Fecha, Factura_Fecha_Fin, Factura_Fecha_Inicio, CAST( ROUND((SUM(Viaje_Cant_Kilometros * Turno_Valor_Kilometro + Turno_Precio_Base)),2) AS NUMERIC(18,2))
     FROM 
 		gd_esquema.Maestra 
 	WHERE 
 		Factura_Nro IS NOT NULL
+		group by Factura_Nro, Factura_Fecha, Factura_Fecha_Fin, Factura_Fecha_Inicio
 GO
 
-INSERT INTO CRAZYDRIVER.Rendicion(nro_rendicion, fecha)
-	SELECT DISTINCT 
-		Rendicion_Nro, Rendicion_Fecha
+INSERT INTO CRAZYDRIVER.Rendicion(nro_rendicion, fecha,importe)
+	SELECT 
+		Rendicion_Nro, Rendicion_Fecha, CAST( ROUND( SUM(Rendicion_Importe), 2) as NUMERIC(18,2))
 	FROM 
 		gd_esquema.Maestra
 	WHERE 
 		Rendicion_Nro IS NOT NULL
+		group by Rendicion_Nro, Rendicion_Fecha
 GO
 
 INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km, nro_facturacion, nro_rendicion)
