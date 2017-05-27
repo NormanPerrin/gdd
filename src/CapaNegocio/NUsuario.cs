@@ -16,7 +16,6 @@ namespace CapaNegocio
         private int _IdUsuario;
         private string _Username;
         private string _Pass;
-        private int _IdPersona;
         private int _Intentos;
 
         #endregion
@@ -36,7 +35,6 @@ namespace CapaNegocio
                 DUsuario Objeto = new DUsuario();
                 Objeto.Username = username;
                 Objeto.Pass = pass;
-                Objeto.IdPersona = -1; // por creamos usuarios con identidad de "persona"
                 Objeto.Intentos = 0; // Arranca con 0 intentos de login
                 return Objeto.Insertar(Objeto);
             }
@@ -76,12 +74,6 @@ namespace CapaNegocio
         {
             get { return _Pass; }
             set { _Pass = value; }
-        }
-
-        public int IdPersona
-        {
-            get { return _IdPersona; }
-            set { _IdPersona = value; }
         }
 
         public int Intentos

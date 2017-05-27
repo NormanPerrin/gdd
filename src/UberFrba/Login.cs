@@ -29,6 +29,9 @@ namespace UberFrba
                 InitializeComponent();
                 Usuario = new NUsuario();
                 formatearAtributos();
+                StartPosition = FormStartPosition.CenterScreen;
+                AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                MaximizeBox = false;
             }
 
         #endregion
@@ -44,7 +47,7 @@ namespace UberFrba
                     if (CapaInterfaz.IUsuario.esPassCorrecta(txtPass.Text, Usuario))
                     {
                         CapaInterfaz.IUsuario.formatearIntentos(Usuario);
-                        SeleccionarRol siguienteVentana = SeleccionarRol.ObtenerInstancia(Usuario.IdUsuario, Usuario.IdPersona);
+                        SeleccionarRol siguienteVentana = SeleccionarRol.ObtenerInstancia(Usuario.IdUsuario);
                         siguienteVentana.Show(); // muestro la seleccion de rol
                         this.Hide(); // escondo el login
                         formatearAtributos();
@@ -95,7 +98,6 @@ namespace UberFrba
                 Usuario.IdUsuario = (-1);
                 Usuario.Username = string.Empty;
                 Usuario.Pass = string.Empty;
-                Usuario.IdPersona = (-1);
                 Usuario.Intentos = (-1);
                 txtUsername.Text = string.Empty;
                 txtPass.Text = string.Empty;

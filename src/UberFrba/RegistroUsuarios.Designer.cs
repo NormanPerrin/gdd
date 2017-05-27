@@ -32,7 +32,7 @@
             this.btnCrear = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbxRol = new System.Windows.Forms.ComboBox();
+            this.cbxRoles = new System.Windows.Forms.ComboBox();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,7 +43,7 @@
             // 
             // btnIniciarSesion
             // 
-            this.btnIniciarSesion.Location = new System.Drawing.Point(12, 226);
+            this.btnIniciarSesion.Location = new System.Drawing.Point(12, 199);
             this.btnIniciarSesion.Name = "btnIniciarSesion";
             this.btnIniciarSesion.Size = new System.Drawing.Size(85, 23);
             this.btnIniciarSesion.TabIndex = 7;
@@ -53,7 +53,7 @@
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(432, 226);
+            this.btnCrear.Location = new System.Drawing.Point(275, 199);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(75, 23);
             this.btnCrear.TabIndex = 6;
@@ -63,7 +63,7 @@
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(294, 226);
+            this.btnCerrar.Location = new System.Drawing.Point(194, 199);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 5;
@@ -73,7 +73,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cbxRol);
+            this.groupBox1.Controls.Add(this.cbxRoles);
             this.groupBox1.Controls.Add(this.txtPass);
             this.groupBox1.Controls.Add(this.txtUsername);
             this.groupBox1.Controls.Add(this.label3);
@@ -81,29 +81,30 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(495, 181);
+            this.groupBox1.Size = new System.Drawing.Size(338, 181);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registrar nuevo usuario";
             // 
-            // cbxRol
+            // cbxRoles
             // 
-            this.cbxRol.FormattingEnabled = true;
-            this.cbxRol.Location = new System.Drawing.Point(147, 130);
-            this.cbxRol.Name = "cbxRol";
-            this.cbxRol.Size = new System.Drawing.Size(210, 21);
-            this.cbxRol.TabIndex = 5;
+            this.cbxRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxRoles.FormattingEnabled = true;
+            this.cbxRoles.Location = new System.Drawing.Point(100, 122);
+            this.cbxRoles.Name = "cbxRoles";
+            this.cbxRoles.Size = new System.Drawing.Size(210, 21);
+            this.cbxRoles.TabIndex = 5;
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(147, 86);
+            this.txtPass.Location = new System.Drawing.Point(100, 83);
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(210, 20);
             this.txtPass.TabIndex = 4;
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(147, 42);
+            this.txtUsername.Location = new System.Drawing.Point(100, 42);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(210, 20);
             this.txtUsername.TabIndex = 3;
@@ -111,7 +112,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 130);
+            this.label3.Location = new System.Drawing.Point(59, 125);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 2;
@@ -129,7 +130,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 42);
+            this.label1.Location = new System.Drawing.Point(53, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 0;
@@ -139,7 +140,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 263);
+            this.ClientSize = new System.Drawing.Size(363, 237);
             this.Controls.Add(this.btnIniciarSesion);
             this.Controls.Add(this.btnCrear);
             this.Controls.Add(this.btnCerrar);
@@ -158,7 +159,7 @@
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cbxRol;
+        private System.Windows.Forms.ComboBox cbxRoles;
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label3;

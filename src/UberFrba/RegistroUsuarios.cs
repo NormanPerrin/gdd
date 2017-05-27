@@ -15,6 +15,7 @@ namespace UberFrba
         public RegistroUsuarios()
         {
             InitializeComponent();
+            CapaInterfaz.IRol.CargarRoles(cbxRoles);
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)

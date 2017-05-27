@@ -385,9 +385,9 @@ GO
 
 INSERT INTO CRAZYDRIVER.Turno(hora_inicio, hora_fin, descripcion, valor_km, precio_base, habilitado)
 	SELECT DISTINCT
-		m.Turno_Hora_Inicio, m.Turno_Hora_Fin, m.Turno_Descripcion, m.Turno_Valor_Kilometro, m.Turno_Precio_Base, 1
+		Turno_Hora_Inicio, Turno_Hora_Fin, Turno_Descripcion, Turno_Valor_Kilometro, Turno_Precio_Base, 1
 	FROM
-		gd_esquema.Maestra m
+		gd_esquema.Maestra
 GO
 
 INSERT INTO CRAZYDRIVER.Marca(nombre)

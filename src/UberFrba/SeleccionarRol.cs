@@ -28,12 +28,11 @@ namespace UberFrba
                 formatearAtributos();
             }
 
-            public SeleccionarRol(int idUsuario, int idPersona)
+            public SeleccionarRol(int idUsuario)
             {
                 InitializeComponent();
                 formatearAtributos();
                 this.IdUsuario = idUsuario;
-                this.IdPersona = idPersona;
                 CapaInterfaz.IRol.CargarRoles(cbxRoles, idUsuario);
             }
 
@@ -64,7 +63,6 @@ namespace UberFrba
             private void formatearAtributos()
             {
                 IdUsuario = (-1);
-                IdPersona = (-1);
                 cbxRoles.Items.Clear();
             }
 
@@ -77,17 +75,16 @@ namespace UberFrba
                 return Instancia;
             }
 
-            public static SeleccionarRol ObtenerInstancia(int idUsuario, int idPersona)
+            public static SeleccionarRol ObtenerInstancia(int idUsuario)
             {
                 if (Instancia == null)
                 {
-                    Instancia = new SeleccionarRol(idUsuario, idPersona);
+                    Instancia = new SeleccionarRol(idUsuario);
                 }
                 else
                 {
                     Instancia.formatearAtributos();
                     Instancia.IdUsuario = idUsuario;
-                    Instancia.IdPersona = idPersona;
                     CapaInterfaz.IRol.CargarRoles(Instancia.cbxRoles, idUsuario);
                 }
                 return Instancia;

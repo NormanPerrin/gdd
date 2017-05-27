@@ -29,6 +29,16 @@ namespace CapaDatos
 
         #region Metodos/Atributos
 
+            public DataTable ObtenerRoles()
+            {
+                Conexion Conexion = new Conexion();
+
+                DataTable DtResultado = new DataTable("Roles");
+                DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerRoles");
+
+                return DtResultado;
+            }
+
             public DataTable ObtenerRoles(int idUsuario)
             {
                 Conexion Conexion = new Conexion();
@@ -41,7 +51,7 @@ namespace CapaDatos
                 parametros[0].Value = idUsuario;
 
                 DataTable DtResultado = new DataTable("Roles");
-                DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerRoles");
+                DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerRolesPorUsuario");
 
                 return DtResultado;
             }
@@ -59,7 +69,7 @@ namespace CapaDatos
                 parametros[0].Value = nombreRol;
 
                 DataTable DtResultado = new DataTable("Funcionalidades");
-                DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerFuncionalidades");
+                DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerFuncionalidadesPorRol");
 
                 return DtResultado;
             }

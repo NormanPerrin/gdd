@@ -108,7 +108,7 @@ namespace UberFrba
 
             private void btnCambiarRol_Click(object sender, EventArgs e)
             {
-                SeleccionarRol siguienteVentana = SeleccionarRol.ObtenerInstancia(); // aca necesito arreglarlo porque si no le paso los parametros no va a cargar nada ya que esta formateado
+                Login siguienteVentana = Login.ObtenerInstancia();
                 siguienteVentana.Show();
                 this.Hide();
                 formatearAtributos();

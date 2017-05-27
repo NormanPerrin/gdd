@@ -16,7 +16,6 @@ namespace CapaDatos
             private int _IdUsuario;
             private string _Username;
             private string _Pass;
-            private int _IdPersona;
             private int _Intentos;
 
         #endregion
@@ -53,11 +52,6 @@ namespace CapaDatos
                 parametros[2].SqlDbType = SqlDbType.VarBinary;
                 parametros[2].Size = 255;
                 parametros[2].Value = Usuario.Pass;
-
-                parametros[1] = new SqlParameter();
-                parametros[3].ParameterName = "@idPersona";
-                parametros[3].SqlDbType = SqlDbType.Int;
-                parametros[3].Value = Usuario.IdPersona;
 
                 parametros[4] = new SqlParameter();
                 parametros[4].ParameterName = "@intentos";
@@ -152,12 +146,6 @@ namespace CapaDatos
         {
             get { return _Pass; }
             set { _Pass = value; }
-        }
-
-        public int IdPersona
-        {
-            get { return _IdPersona; }
-            set { _IdPersona = value; }
         }
 
         public int Intentos

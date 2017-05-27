@@ -28,8 +28,7 @@ namespace CapaInterfaz
                 usuario.IdUsuario = System.Convert.ToInt32(Datos.Rows[0][0]); // dato 1
                 byte[] binaryString = (byte[])Datos.Rows[0][1]; // dato 2
                 usuario.Pass = BitConverter.ToString(binaryString).Replace("-", ""); // convierto dato 2 en string
-                usuario.IdPersona = (int)System.Convert.ToInt32(Datos.Rows[0][2]); // dato 3
-                usuario.Intentos = System.Convert.ToInt32(Datos.Rows[0][3]); // dato 4
+                usuario.Intentos = System.Convert.ToInt32(Datos.Rows[0][2]); // dato 4
             }
             else
             {

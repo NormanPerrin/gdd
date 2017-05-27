@@ -29,6 +29,11 @@ namespace CapaNegocio
 
         #region Metodos/Atributos
 
+            public static DataTable ObtenerRoles()
+            {
+                DRol Objeto = new DRol();
+                return Objeto.ObtenerRoles();
+            }
             public static DataTable ObtenerRoles(int idUsuario)
             {
                 DRol Objeto = new DRol();

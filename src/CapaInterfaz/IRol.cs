@@ -28,6 +28,20 @@ namespace CapaInterfaz
                 }
             }
 
+            public static void CargarRoles(ComboBox cbxRoles)
+            {
+                DataTable Datos = CapaNegocio.NRol.ObtenerRoles();
+                if (Datos.Rows.Count != 0)
+                {
+                    int cantidadDeItems = Datos.Rows.Count;
+                    for (int i = 0; i < cantidadDeItems; i++)
+                    {
+                        cbxRoles.Items.Add(Datos.Rows[i][0]);
+                    }
+                    cbxRoles.SelectedIndex = 0;
+                }
+            }
+
             public static void CargarFuncionalidades(ComboBox cbxFuncionalidades, string nombreRol)
             {
                 DataTable Datos = CapaNegocio.NRol.ObtenerFuncionalidades(nombreRol);
