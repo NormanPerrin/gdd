@@ -58,6 +58,37 @@ namespace CapaInterfaz
                     cbxFuncionalidades.Items.Add(nombreRol);
             }
 
+            public static DataTable CargarFuncionalidades()
+            {
+                DataTable Datos = CapaNegocio.NRol.ObtenerFuncionalidades();
+                return Datos;
+            }
+
+            public static void OcultarColumnas(DataGridView tablaFuncionalidades)
+            {
+                tablaFuncionalidades.Columns[1].Visible = false; // oculto la columna del id
+            }
+
+            public static string AgregarRol(string nombreRol, DataGridView tablaFuncionalidades)
+            {
+                string respuesta = CapaNegocio.NRol.AgregarRol(nombreRol);
+                DataTable Rol = CapaNegocio.NRol.ObtenerRol(nombreRol);
+                if (Rol.Rows.Count != 0)
+                {
+                    int idRol = System.Convert.ToInt32(Rol.Rows[0][0]);
+                    int idFuncionalidad;
+                    foreach (DataGridViewRow row in tablaFuncionalidades.Rows)
+                    {
+                        if (Convert.ToBoolean(row.Cells[0].Value)) // aca agregi las funcionalidades para el rol
+                        {
+                            idFuncionalidad = System.Convert.ToInt32(row.Cells[1].Value);
+                            CapaNegocio.NRol.AgregarRolFuncionalidad(idRol, idFuncionalidad); // tomo el id_funcionalidad que es la columna 1 de la tabla
+                        }
+                    }
+                }
+                return respuesta;
+            }
+
         #endregion
     }
 }

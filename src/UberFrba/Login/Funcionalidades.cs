@@ -43,7 +43,7 @@ namespace UberFrba
             {
                 if (cbxFuncionalidades.Text == "ABM Rol") // despues veo como mejoro este codigo porque no me gusta que sea tan asi
                 {
-                    AbmRol siguienteVentana = AbmRol.ObtenerInstancia();
+                    AbmRol.AbmRol siguienteVentana = AbmRol.AbmRol.ObtenerInstancia();
                     siguienteVentana.Show();
                     this.Hide();
                     formatearAtributos();

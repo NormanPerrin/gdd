@@ -1,6 +1,6 @@
-﻿namespace UberFrba
+﻿namespace UberFrba.AbmRol
 {
-    partial class AbmRol
+    partial class Listado
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "AbmRol";
+            this.Text = "Listado";
         }
 
         #endregion

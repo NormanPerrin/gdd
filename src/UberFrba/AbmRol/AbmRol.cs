@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UberFrba
+namespace UberFrba.AbmRol
 {
     public partial class AbmRol : Form
     {
         #region Atributos
 
-            private static AbmRol _Instancia;
+        private static AbmRol _Instancia;
 
         #endregion
 
@@ -57,5 +57,11 @@ namespace UberFrba
             }
 
         #endregion
+
+            private void button1_Click(object sender, EventArgs e)
+            {
+                Alta ventana = new Alta();
+                ventana.ShowDialog(this);
+            }
     }
 }

@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CapaNegocio;
 using CapaInterfaz;
 
 namespace UberFrba
@@ -17,7 +16,7 @@ namespace UberFrba
     {
         #region Atributos
 
-            private static NUsuario Usuario = null;
+            private static IUsuario Usuario = null;
             private static Login _Instancia;
 
         #endregion
@@ -27,7 +26,7 @@ namespace UberFrba
             public Login()
             {
                 InitializeComponent();
-                Usuario = new NUsuario();
+                Usuario = new IUsuario();
                 formatearAtributos();
                 StartPosition = FormStartPosition.CenterScreen;
                 AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -40,7 +39,7 @@ namespace UberFrba
 
             private void btnIngresar_Click(object sender, EventArgs e)
             {
-                Usuario = CapaInterfaz.IUsuario.Login(txtUsername.Text, Usuario);
+                CapaInterfaz.IUsuario.Login(txtUsername.Text, Usuario);
 
                 if (Usuario != null)
                 {

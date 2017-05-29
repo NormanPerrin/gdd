@@ -55,6 +55,15 @@ namespace CapaDatos
 
                 return DtResultado;
             }
+            public DataTable ObtenerFuncionalidades()
+            {
+                Conexion Conexion = new Conexion();
+
+                DataTable DtResultado = new DataTable("Funcionalidades");
+                DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerFuncionalidades");
+
+                return DtResultado;
+            }
 
             public DataTable ObtenerFuncionalidades(string nombreRol)
             {
@@ -72,6 +81,91 @@ namespace CapaDatos
                 DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerFuncionalidadesPorRol");
 
                 return DtResultado;
+            }
+
+            public string AgregarRol(string nombreRol)
+            {
+                Conexion Conexion = new Conexion();
+
+                SqlParameter[] parametros = new SqlParameter[2];
+
+                parametros[0] = new SqlParameter();
+                parametros[0].ParameterName = "@idRol";
+                parametros[0].SqlDbType = SqlDbType.Int;
+                parametros[0].Direction = ParameterDirection.Output;
+
+                parametros[1] = new SqlParameter();
+                parametros[1].ParameterName = "@nombreRol";
+                parametros[1].SqlDbType = SqlDbType.NVarChar;
+                parametros[1].Size = 100;
+                parametros[1].Value = nombreRol;
+
+                int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRol");
+                string respuesta = string.Empty;
+                switch (resultado)
+                {
+                    case -1:
+                        respuesta = "Se capturo un error al intentar agregar un rol";
+                        break;
+                    case 0:
+                        respuesta = "No se logro agregar un rol";
+                        break;
+                    case 1:
+                        respuesta = "Se agrego un usuario";
+                        break;
+                }
+                return respuesta;
+            }
+
+            public DataTable ObtenerRol(string nombreRol)
+            {
+                Conexion Conexion = new Conexion();
+
+                SqlParameter[] parametros = new SqlParameter[1];
+
+                parametros[0] = new SqlParameter();
+                parametros[0].ParameterName = "@nombreRol";
+                parametros[0].SqlDbType = SqlDbType.NVarChar;
+                parametros[0].Size = 100;
+                parametros[0].Value = nombreRol;
+
+                DataTable DtResultado = new DataTable("Rol");
+                DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerRol");
+
+                return DtResultado;
+            }
+
+            public string AgregarRol(int idRol, int idFuncionalidad)
+            {
+                Conexion Conexion = new Conexion();
+
+                SqlParameter[] parametros = new SqlParameter[2];
+
+                parametros[0] = new SqlParameter();
+                parametros[0].ParameterName = "@idRol";
+                parametros[0].SqlDbType = SqlDbType.Int;
+                parametros[0].Value = idRol;
+
+                parametros[1] = new SqlParameter();
+                parametros[1].ParameterName = "@idFuncionalidad";
+                parametros[1].SqlDbType = SqlDbType.Int;
+                parametros[1].Value = idFuncionalidad;
+
+                int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRolFuncionalidad");
+                string respuesta = string.Empty;
+                switch (resultado)
+                {
+                    case -1:
+                        respuesta = "Se capturo un error al intentar agregar una funcionalidad al rol";
+                        break;
+                    case 0:
+                        respuesta = "No se logro agregar una funcionalidad al rol";
+                        break;
+                    case 1:
+                        respuesta = "Se agrego un usuario";
+                        break;
+                }
+                return respuesta;
             }
 
         #endregion

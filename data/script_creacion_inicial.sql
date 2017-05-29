@@ -13,20 +13,42 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spEditarIntentosUsuario;
 END;
 
-IF OBJECT_ID('CRAZYDRIVER.spObtenerRolesPorUsuario') IS NOT NULL
-BEGIN
-	DROP PROCEDURE CRAZYDRIVER.spObtenerRolesPorUsuario;
-END;
-
 IF OBJECT_ID('CRAZYDRIVER.spObtenerFuncionalidadesPorRol') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerFuncionalidadesPorRol;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerFuncionalidades') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerFuncionalidades;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerRolesPorUsuario') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerRolesPorUsuario;
 END;
 
 IF OBJECT_ID('CRAZYDRIVER.spObtenerRoles') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerRoles;
 END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerRol') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerRol;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarRol') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarRol;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarRolFuncionalidad') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarRolFuncionalidad;
+END;
+
+
 
 ---- BORRO TABLAS
 
@@ -554,3 +576,34 @@ CREATE PROC CRAZYDRIVER.spObtenerRoles
 		SELECT DISTINCT nombre 
 		FROM CRAZYDRIVER.Rol
 GO
+
+CREATE PROC CRAZYDRIVER.spObtenerFuncionalidades
+	AS
+		SELECT DISTINCT * 
+		FROM CRAZYDRIVER.Funcionalidad
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerRol
+	@nombreRol NVARCHAR(100)
+	AS
+		SELECT DISTINCT *
+		FROM CRAZYDRIVER.Rol
+		WHERE nombre = @nombreRol
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarRol
+	@idRol INT OUTPUT,
+	@nombreRol NVARCHAR(100)
+	AS
+		INSERT INTO CRAZYDRIVER.Rol 
+			(nombre) VALUES (@nombreRol)
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarRolFuncionalidad
+	@idRol INT ,
+	@idFuncionalidad INT
+	AS
+		INSERT INTO CRAZYDRIVER.FuncionalidadPorRol 
+			(id_rol, id_funcionalidad, habilitado) VALUES (@idRol, @idFuncionalidad, 1)
+GO
+

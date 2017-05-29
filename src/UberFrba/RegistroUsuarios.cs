@@ -15,7 +15,6 @@ namespace UberFrba
         public RegistroUsuarios()
         {
             InitializeComponent();
-            CapaInterfaz.IRol.CargarRoles(cbxRoles);
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
@@ -32,8 +31,8 @@ namespace UberFrba
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
-            string resultado = CapaNegocio.NUsuario.Insertar(this.txtUsername.Text, this.txtPass.Text);
-            mostrarError(resultado);
+            //string resultado = CapaNegocio.NUsuario.Insertar(this.txtUsername.Text, this.txtPass.Text);
+            //mostrarError(resultado);
         }
 
         private void mostrarError(string error)
@@ -42,6 +41,11 @@ namespace UberFrba
 
             txtUsername.Text = "";
             txtPass.Text = "";
+        }
+
+        private void RegistroUsuarios_Load(object sender, EventArgs e)
+        {
+            CapaInterfaz.IRol.CargarRoles(cbxRoles);
         }
     }
 }

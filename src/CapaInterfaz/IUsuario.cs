@@ -12,6 +12,15 @@ namespace CapaInterfaz
 {
     public class IUsuario
     {
+        #region Atributos
+
+        private int _IdUsuario;
+        private string _Username;
+        private string _Pass;
+        private int _Intentos;
+
+        #endregion
+        
         #region Metodos/Atributos abstractos
 
         public static void Insertar(string username, string pass)
@@ -19,7 +28,7 @@ namespace CapaInterfaz
             CapaNegocio.NUsuario.Insertar(username, pass);
         }
 
-        public static NUsuario Login(string usernameIngresado, NUsuario usuario)
+        public static void Login(string usernameIngresado, IUsuario usuario)
         {
             DataTable Datos = CapaNegocio.NUsuario.Login(usernameIngresado);
 
@@ -34,10 +43,9 @@ namespace CapaInterfaz
             {
                 usuario = null;
             }
-            return usuario;
         }
 
-        public static bool esPassCorrecta(string password, NUsuario usuario)
+        public static bool esPassCorrecta(string password, IUsuario usuario)
         {
             SHA256 encripter = SHA256Managed.Create();
             byte[] passBytes = encripter.ComputeHash(Encoding.Unicode.GetBytes(password)); // encripto la password ingresada por teclado
@@ -48,22 +56,50 @@ namespace CapaInterfaz
             return false;
         }
 
-        public static void formatearIntentos(NUsuario usuario)
+        public static void formatearIntentos(IUsuario usuario)
         {
             usuario.Intentos = 0;
             CapaNegocio.NUsuario.EditarIntentos(usuario.IdUsuario, usuario.Intentos);
         }
 
-        public static bool tieneIntentosDisponibles(NUsuario usuario)
+        public static bool tieneIntentosDisponibles(IUsuario usuario)
         {
             if (usuario.Intentos < 3) return true;
             return false;
         }
 
-        public static string aumentarIntentos(NUsuario usuario)
+        public static string aumentarIntentos(IUsuario usuario)
         {
             usuario.Intentos++;
             return CapaNegocio.NUsuario.EditarIntentos(usuario.IdUsuario, usuario.Intentos);
+        }
+
+        #endregion
+
+        #region Getters y Setters
+
+        public int IdUsuario
+        {
+            get { return _IdUsuario; }
+            set { _IdUsuario = value; }
+        }
+
+        public string Username
+        {
+            get { return _Username; }
+            set { _Username = value; }
+        }
+
+        public string Pass
+        {
+            get { return _Pass; }
+            set { _Pass = value; }
+        }
+
+        public int Intentos
+        {
+            get { return _Intentos; }
+            set { _Intentos = value; }
         }
 
         #endregion

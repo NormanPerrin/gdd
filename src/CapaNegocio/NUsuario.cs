@@ -11,15 +11,6 @@ namespace CapaNegocio
 {
     public class NUsuario
     {
-        #region Atributos
-
-        private int _IdUsuario;
-        private string _Username;
-        private string _Pass;
-        private int _Intentos;
-
-        #endregion
-        
         #region Constructores
 
         public NUsuario()
@@ -53,34 +44,6 @@ namespace CapaNegocio
                 Objeto.Username = username;
                 return Objeto.Login(Objeto);
             }
-
-        #endregion
-
-        #region Getters y Setters
-
-        public int IdUsuario
-        {
-            get { return _IdUsuario; }
-            set { _IdUsuario = value; }
-        }
-
-        public string Username
-        {
-            get { return _Username; }
-            set { _Username = value; }
-        }
-
-        public string Pass
-        {
-            get { return _Pass; }
-            set { _Pass = value; }
-        }
-
-        public int Intentos
-        {
-            get { return _Intentos; }
-            set { _Intentos = value; }
-        }
 
         #endregion
     }
