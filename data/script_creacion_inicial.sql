@@ -157,14 +157,14 @@ GO
 CREATE TABLE CRAZYDRIVER.Rol(
 	id_rol INT IDENTITY PRIMARY KEY,
 	nombre NVARCHAR(100) NOT NULL,
-	habilitado TINYINT NOT NULL
+	habilitado TINYINT NOT NULL default 1
 );
 GO
 
 CREATE TABLE CRAZYDRIVER.FuncionalidadPorRol(
 	id_funcionalidad INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Funcionalidad(id_funcionalidad),
 	id_rol INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Rol(id_rol),
-	habilitado TINYINT NOT NULL,
+	habilitado TINYINT NOT NULL default 1,
 	PRIMARY KEY (id_funcionalidad, id_rol)
 );
 GO
@@ -225,7 +225,7 @@ CREATE TABLE CRAZYDRIVER.Turno(
 	descripcion NVARCHAR(225) NOT NULL,
 	valor_km NUMERIC(18,2),
 	precio_base NUMERIC(18,2) NOT NULL,
-	habilitado TINYINT
+	habilitado TINYINT default 1
 );
 GO
 
@@ -248,7 +248,7 @@ CREATE TABLE CRAZYDRIVER.Auto(
 	id_modelo INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.modelo(id_modelo),
 	licencia NVARCHAR(26) NOT NULL,
 	rodado NVARCHAR(10) NOT NULL,
-	habilitado TINYINT
+	habilitado TINYINT default 1
 );
 GO
 
@@ -596,7 +596,7 @@ CREATE PROC CRAZYDRIVER.spAgregarRol
 	@nombreRol NVARCHAR(100)
 	AS
 		INSERT INTO CRAZYDRIVER.Rol 
-			(nombre) VALUES (@nombreRol)
+			(nombre, habilitado) VALUES (@nombreRol, 1)
 GO
 
 CREATE PROC CRAZYDRIVER.spAgregarRolFuncionalidad
