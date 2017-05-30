@@ -6,17 +6,18 @@ using System.Windows.Forms;
 
 namespace UberFrba
 {
-    static class Program
+    internal sealed class Program
     {
-        /// <summary>
-        /// Punto de entrada principal para la aplicación.
-        /// </summary>
+        static public ApplicationContext contexto;
+
         [STAThread]
-        static void Main()
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+
+            contexto = new ApplicationContext(new Login());
+            Application.Run(contexto);
         }
     }
 }

@@ -16,8 +16,7 @@ namespace UberFrba
     {
         #region Atributos
 
-            private static IUsuario Usuario = null;
-            private static Login _Instancia;
+            private static IUsuario _Usuario;
 
         #endregion
 
@@ -26,16 +25,13 @@ namespace UberFrba
             public Login()
             {
                 InitializeComponent();
+                CapaInterfaz.Decoracion.Reorganizar(this);
                 Usuario = new IUsuario();
-                formatearAtributos();
-                StartPosition = FormStartPosition.CenterScreen;
-                AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                MaximizeBox = false;
             }
 
         #endregion
 
-        #region Acciones
+        #region Acciones/Eventos
 
             private void btnIngresar_Click(object sender, EventArgs e)
             {
@@ -46,24 +42,24 @@ namespace UberFrba
                     if (CapaInterfaz.IUsuario.esPassCorrecta(txtPass.Text, Usuario))
                     {
                         CapaInterfaz.IUsuario.formatearIntentos(Usuario);
-                        SeleccionarRol siguienteVentana = SeleccionarRol.ObtenerInstancia(Usuario.IdUsuario);
-                        siguienteVentana.Show(); // muestro la seleccion de rol
-                        this.Hide(); // escondo el login
-                        formatearAtributos();
+                        SeleccionarRol siguienteVentana = new SeleccionarRol(Usuario.IdUsuario, Usuario.Username); // creo una instancia pasando por parametro el idUsuario
+                        Program.contexto.MainForm = siguienteVentana; // le cambio el contexto al programa principal para que ahora el formulario principal sea la nueva ventana
+                        siguienteVentana.Show();
+                        Close();
                     }
                     else
                     {
                         if (CapaInterfaz.IUsuario.tieneIntentosDisponibles(Usuario))
                         {
                             CapaInterfaz.IUsuario.aumentarIntentos(Usuario);
-                            mostrarError("La contraseña ingresada es incorrecta");
+                            CapaInterfaz.Decoracion.mostrarInfo("La contraseña ingresada es incorrecta");
                         }
                         else
-                            mostrarError("El usuario esta bloqueado por exceso de intentos fallidos");
+                            CapaInterfaz.Decoracion.mostrarInfo("El usuario esta bloqueado por exceso de intentos fallidos");
                     }
                 }
                 else
-                    mostrarError("El usuario no existe");
+                    CapaInterfaz.Decoracion.mostrarInfo("El usuario no existe");
             }
 
             private void btnCerrar_Click(object sender, EventArgs e)
@@ -71,42 +67,14 @@ namespace UberFrba
                 Application.Exit();
             }
 
-            private void btnRegistrarUsuario_Click(object sender, EventArgs e)
-            {
-                RegistroUsuarios siguienteVentana = new RegistroUsuarios();
-                siguienteVentana.Show();
-                this.Hide();
-                formatearAtributos();
-            }
-
         #endregion
+        
+        #region Getters/Setters 
 
-        #region Metodos y funciones auxiliares
-
-            public static Login ObtenerInstancia()
+            public static IUsuario Usuario
             {
-                if (_Instancia == null)
-                {
-                    _Instancia = new Login();
-                }
-                return _Instancia;
-            }
-
-            private void formatearAtributos()
-            {
-                Usuario.IdUsuario = (-1);
-                Usuario.Username = string.Empty;
-                Usuario.Pass = string.Empty;
-                Usuario.Intentos = (-1);
-                txtUsername.Text = string.Empty;
-                txtPass.Text = string.Empty;
-            }
-
-            private void mostrarError(string error)
-            {
-                MessageBox.Show(error, "UBER FRBA", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtUsername.Text = string.Empty;
-                txtPass.Text = string.Empty;
+                get { return Login._Usuario; }
+                set { Login._Usuario = value; }
             }
 
         #endregion

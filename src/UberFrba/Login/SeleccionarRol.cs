@@ -15,25 +15,17 @@ namespace UberFrba
         #region Atributos
 
             private int _IdUsuario;
-            private int _IdPersona;
-            private static SeleccionarRol _Instancia;
         
         #endregion
+        
+        #region Constructor
 
-            #region Constructor
-
-            public SeleccionarRol()
+            public SeleccionarRol(int idUsuario, string username)
             {
                 InitializeComponent();
-                formatearAtributos();
-            }
-
-            public SeleccionarRol(int idUsuario)
-            {
-                InitializeComponent();
-                formatearAtributos();
                 this.IdUsuario = idUsuario;
-                CapaInterfaz.IRol.CargarRoles(cbxRoles, idUsuario);
+                titulo.Text = "Usuario actual: " + username;
+                CapaInterfaz.Decoracion.Reorganizar(this);
             }
 
         #endregion
@@ -42,52 +34,24 @@ namespace UberFrba
 
             private void btnAcceder_Click(object sender, EventArgs e)
             {
-                Funcionalidades siguienteVentana = Funcionalidades.ObtenerInstancia(cbxRoles.Text);
+                string rolNombre = cbxRoles.Text;
+                Funcionalidades siguienteVentana = new Funcionalidades(rolNombre);
+                Program.contexto.MainForm = siguienteVentana;
                 siguienteVentana.Show();
-                this.Hide();
-                formatearAtributos();
+                Close();
             }
 
             private void btnCerrarSesion_Click(object sender, EventArgs e)
             {
-                Login siguienteVentana = Login.ObtenerInstancia();
+                Login siguienteVentana = new Login();
+                Program.contexto.MainForm = siguienteVentana;
                 siguienteVentana.Show();
-                this.Hide();
-                formatearAtributos();
+                Close();
             }
 
-        #endregion
-
-        #region Metodos y funciones auxiliares
-
-            private void formatearAtributos()
+            private void SeleccionarRol_Load(object sender, EventArgs e)
             {
-                IdUsuario = (-1);
-                cbxRoles.Items.Clear();
-            }
-
-            public static SeleccionarRol ObtenerInstancia()
-            {
-                if (Instancia == null)
-                {
-                    Instancia = new SeleccionarRol();
-                }
-                return Instancia;
-            }
-
-            public static SeleccionarRol ObtenerInstancia(int idUsuario)
-            {
-                if (Instancia == null)
-                {
-                    Instancia = new SeleccionarRol(idUsuario);
-                }
-                else
-                {
-                    Instancia.formatearAtributos();
-                    Instancia.IdUsuario = idUsuario;
-                    CapaInterfaz.IRol.CargarRoles(Instancia.cbxRoles, idUsuario);
-                }
-                return Instancia;
+                CapaInterfaz.IRol.CargarRoles(this.cbxRoles, this.IdUsuario);
             }
 
         #endregion
@@ -98,18 +62,6 @@ namespace UberFrba
             {
                 get { return _IdUsuario; }
                 set { _IdUsuario = value; }
-            }
-
-            public int IdPersona
-            {
-                get { return _IdPersona; }
-                set { _IdPersona = value; }
-            }
-
-            public static SeleccionarRol Instancia
-            {
-                get { return SeleccionarRol._Instancia; }
-                set { SeleccionarRol._Instancia = value; }
             }
 
         #endregion

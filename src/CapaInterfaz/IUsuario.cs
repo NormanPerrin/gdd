@@ -23,17 +23,13 @@ namespace CapaInterfaz
         
         #region Metodos/Atributos abstractos
 
-        public static void Insertar(string username, string pass)
-        {
-            CapaNegocio.NUsuario.Insertar(username, pass);
-        }
-
         public static void Login(string usernameIngresado, IUsuario usuario)
         {
             DataTable Datos = CapaNegocio.NUsuario.Login(usernameIngresado);
 
             if (Datos.Rows.Count != 0) // cuento la cantidad de resultados y comparo...
             {
+                usuario.Username = usernameIngresado;
                 usuario.IdUsuario = System.Convert.ToInt32(Datos.Rows[0][0]); // dato 1
                 byte[] binaryString = (byte[])Datos.Rows[0][1]; // dato 2
                 usuario.Pass = BitConverter.ToString(binaryString).Replace("-", ""); // convierto dato 2 en string

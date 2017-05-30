@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnRegistrarUsuario = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -40,19 +39,9 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnRegistrarUsuario
-            // 
-            this.btnRegistrarUsuario.Location = new System.Drawing.Point(19, 183);
-            this.btnRegistrarUsuario.Name = "btnRegistrarUsuario";
-            this.btnRegistrarUsuario.Size = new System.Drawing.Size(99, 23);
-            this.btnRegistrarUsuario.TabIndex = 9;
-            this.btnRegistrarUsuario.Text = "Registrar Usuario";
-            this.btnRegistrarUsuario.UseVisualStyleBackColor = true;
-            this.btnRegistrarUsuario.Click += new System.EventHandler(this.btnRegistrarUsuario_Click);
-            // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(201, 183);
+            this.btnCerrar.Location = new System.Drawing.Point(19, 183);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 8;
@@ -91,6 +80,7 @@
             this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(251, 20);
             this.txtPass.TabIndex = 3;
+            this.txtPass.Text = "w23e";
             // 
             // txtUsername
             // 
@@ -98,6 +88,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(251, 20);
             this.txtUsername.TabIndex = 2;
+            this.txtUsername.Text = "admin";
             // 
             // label3
             // 
@@ -133,7 +124,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(378, 219);
-            this.Controls.Add(this.btnRegistrarUsuario);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.btnIngresar);
             this.Controls.Add(this.groupBox1);
@@ -149,7 +139,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnRegistrarUsuario;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.GroupBox groupBox1;

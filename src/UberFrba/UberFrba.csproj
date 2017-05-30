@@ -139,6 +139,9 @@
     <Compile Include="Login\SeleccionarRol.Designer.cs">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AbmRol\AbmRol.resx">
+      <DependentUpon>AbmRol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>

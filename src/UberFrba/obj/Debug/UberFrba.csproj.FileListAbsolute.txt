@@ -20,3 +20,4 @@ C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.csproj.GenerateResource.C
 C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.exe
 C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.pdb
 C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.AbmRol.Alta.resources
+C:\Users\ruben\git\gdd\src\UberFrba\obj\Debug\UberFrba.AbmRol.AbmRol.resources

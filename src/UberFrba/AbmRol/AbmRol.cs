@@ -12,56 +12,35 @@ namespace UberFrba.AbmRol
 {
     public partial class AbmRol : Form
     {
-        #region Atributos
-
-        private static AbmRol _Instancia;
-
-        #endregion
-
         #region Constructor
 
             public AbmRol()
             {
                 InitializeComponent();
+                CapaInterfaz.Decoracion.Reorganizar(this);
             }
 
         #endregion
 
-        #region Acciones
+            #region Acciones
 
-        #endregion
-
-        #region Metodos y funciones auxiliares
-
-            private void formatearAtributos()
-            {
-            }
-
-            public static AbmRol ObtenerInstancia()
-            {
-                if (Instancia == null)
-                {
-                    Instancia = new AbmRol();
-                }
-                return Instancia;
-            }
-
-        #endregion
-
-        #region Getters/Setters
-
-            public static AbmRol Instancia
-            {
-                get { return AbmRol._Instancia; }
-                set { AbmRol._Instancia = value; }
-            }
-
-        #endregion
-
-            private void button1_Click(object sender, EventArgs e)
+            private void btnNuevoRol_Click(object sender, EventArgs e)
             {
                 Alta ventana = new Alta();
                 ventana.ShowDialog(this);
             }
+
+            private void btnLista_Click(object sender, EventArgs e)
+            {
+                Listado ventana = new Listado();
+                ventana.ShowDialog(this);
+            }
+
+            private void btnVolver_Click(object sender, EventArgs e)
+            {
+                this.Close();
+            }
+
+        #endregion
     }
 }

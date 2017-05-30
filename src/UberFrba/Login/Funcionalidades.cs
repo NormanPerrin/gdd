@@ -15,24 +15,17 @@ namespace UberFrba
         #region Atributos
 
             private string _NombreRol;
-            private static Funcionalidades _Instancia;
 
         #endregion
 
         #region Constructor
 
-            public Funcionalidades()
-            {
-                InitializeComponent();
-                formatearAtributos();
-            }
-
             public Funcionalidades(string nombreRol)
             {
                 InitializeComponent();
-                formatearAtributos();
+                CapaInterfaz.Decoracion.Reorganizar(this);
                 this.NombreRol = nombreRol;
-                CapaInterfaz.IRol.CargarFuncionalidades(cbxFuncionalidades, nombreRol);
+                titulo.Text = "Rol actual: " + nombreRol;
             }
 
         #endregion
@@ -43,109 +36,63 @@ namespace UberFrba
             {
                 if (cbxFuncionalidades.Text == "ABM Rol") // despues veo como mejoro este codigo porque no me gusta que sea tan asi
                 {
-                    AbmRol.AbmRol siguienteVentana = AbmRol.AbmRol.ObtenerInstancia();
-                    siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
+                    AbmRol.AbmRol siguienteVentana = new AbmRol.AbmRol();
+                    siguienteVentana.ShowDialog(this);
                 }
                 else if (cbxFuncionalidades.Text == "ABM cliente")
                 {
                     AbmCliente siguienteVentana = AbmCliente.ObtenerInstancia();
                     siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
                 }
                 else if (cbxFuncionalidades.Text == "ABM automovil")
                 {
                     AbmAuto siguienteVentana = AbmAuto.ObtenerInstancia();
                     siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
                 }
                 else if (cbxFuncionalidades.Text == "ABM turno")
                 {
                     AbmTurno siguienteVentana = AbmTurno.ObtenerInstancia();
                     siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
                 }
                 else if (cbxFuncionalidades.Text == "ABM chofer")
                 {
                     AbmChofer siguienteVentana = AbmChofer.ObtenerInstancia();
                     siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
                 }
                 else if (cbxFuncionalidades.Text == "Registrar viaje")
                 {
                     RegistroViajes siguienteVentana = RegistroViajes.ObtenerInstancia();
                     siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
                 }
                 else if (cbxFuncionalidades.Text == "Rendir viaje")
                 {
                     RendicionViajes siguienteVentana = RendicionViajes.ObtenerInstancia();
                     siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
                 }
                 else if (cbxFuncionalidades.Text == "Facturar cliente")
                 {
                     Facturacion siguienteVentana = Facturacion.ObtenerInstancia();
                     siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
                 }
                 else if (cbxFuncionalidades.Text == "Listado Estadistico")
                 {
                     ListadoEstadistico siguienteVentana = ListadoEstadistico.ObtenerInstancia();
                     siguienteVentana.Show();
-                    this.Hide();
-                    formatearAtributos();
                 }
             }
 
-            private void btnCambiarRol_Click(object sender, EventArgs e)
+            private void cerrarSesion_Click(object sender, EventArgs e)
             {
-                Login siguienteVentana = Login.ObtenerInstancia();
+                Login siguienteVentana = new Login();
+                Program.contexto.MainForm = siguienteVentana;
                 siguienteVentana.Show();
-                this.Hide();
-                formatearAtributos();
+                Close();
             }
 
-        #endregion
-
-        #region Metodos y funciones auxiliares
-
-            private void formatearAtributos()
+            private void Funcionalidades_Load(object sender, EventArgs e)
             {
-                NombreRol = string.Empty;
-                cbxFuncionalidades.Items.Clear();
-            }
-
-            public static Funcionalidades ObtenerInstancia()
-            {
-                if (Instancia == null)
-                {
-                    Instancia = new Funcionalidades();
-                }
-                return Instancia;
-            }
-
-            public static Funcionalidades ObtenerInstancia(string nombreRol)
-            {
-                if (Instancia == null)
-                {
-                    Instancia = new Funcionalidades(nombreRol);
-                }
-                else
-                {
-                    Instancia.formatearAtributos();
-                    Instancia.NombreRol = nombreRol;
-                    CapaInterfaz.IRol.CargarFuncionalidades(Instancia.cbxFuncionalidades, nombreRol);
-                }
-                return _Instancia;
+                CapaInterfaz.Decoracion.Reorganizar(this);
+                CapaInterfaz.IRol.CargarFuncionalidades(this.cbxFuncionalidades, this.NombreRol);
             }
 
         #endregion
@@ -156,12 +103,6 @@ namespace UberFrba
             {
                 get { return _NombreRol; }
                 set { _NombreRol = value; }
-            }
-
-            public static Funcionalidades Instancia
-            {
-                get { return Funcionalidades._Instancia; }
-                set { Funcionalidades._Instancia = value; }
             }
 
         #endregion

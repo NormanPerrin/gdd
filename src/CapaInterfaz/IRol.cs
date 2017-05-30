@@ -17,56 +17,42 @@ namespace CapaInterfaz
             public static void CargarRoles(ComboBox cbxRoles, int idUsuario)
             {
                 DataTable Datos = CapaNegocio.NRol.ObtenerRoles(idUsuario);
-                if (Datos.Rows.Count != 0)
-                {
-                    int cantidadDeItems = Datos.Rows.Count;
-                    for (int i = 0; i < cantidadDeItems; i++)
-                    {
-                        cbxRoles.Items.Add(Datos.Rows[i][0]);
-                    }
-                    cbxRoles.SelectedIndex = 0; // defino el primer elemento obtenido de la DB como objeto a mostrar en el cbx
-                }
+                Cargador.CargarComboboxConDatos(cbxRoles, Datos);
             }
 
             public static void CargarRoles(ComboBox cbxRoles)
             {
                 DataTable Datos = CapaNegocio.NRol.ObtenerRoles();
-                if (Datos.Rows.Count != 0)
-                {
-                    int cantidadDeItems = Datos.Rows.Count;
-                    for (int i = 0; i < cantidadDeItems; i++)
-                    {
-                        cbxRoles.Items.Add(Datos.Rows[i][0]);
-                    }
-                    cbxRoles.SelectedIndex = 0;
-                }
+                Cargador.CargarComboboxConDatos(cbxRoles, Datos);
             }
 
             public static void CargarFuncionalidades(ComboBox cbxFuncionalidades, string nombreRol)
             {
                 DataTable Datos = CapaNegocio.NRol.ObtenerFuncionalidades(nombreRol);
-                if (Datos.Rows.Count != 0)
-                {
-                    int cantidadDeItems = Datos.Rows.Count;
-                    for (int i = 0; i < cantidadDeItems; i++)
-                    {
-                        cbxFuncionalidades.Items.Add(Datos.Rows[i][0]);
-                    }
-                    cbxFuncionalidades.SelectedIndex = 0;
-                }
-                else
-                    cbxFuncionalidades.Items.Add(nombreRol);
+                Cargador.CargarComboboxConDatos(cbxFuncionalidades, Datos);
             }
 
-            public static DataTable CargarFuncionalidades()
+            public static void CargarFuncionalidades(DataGridView tablaFuncionalidades)
             {
-                DataTable Datos = CapaNegocio.NRol.ObtenerFuncionalidades();
-                return Datos;
+                tablaFuncionalidades.DataSource = CapaNegocio.NRol.ObtenerFuncionalidades();
             }
 
             public static void OcultarColumnas(DataGridView tablaFuncionalidades)
             {
                 tablaFuncionalidades.Columns[1].Visible = false; // oculto la columna del id
+            }
+
+            public static bool ChequearItemSeleccionado(DataGridView tablaFuncionalidades)
+            {
+                bool resultado;
+                resultado = false;
+                foreach (DataGridViewRow row in tablaFuncionalidades.Rows)
+                {
+                    DataGridViewCheckBoxCell cellSelecion = row.Cells["Elegir"] as DataGridViewCheckBoxCell;
+                    if (Convert.ToBoolean(cellSelecion.Value)) 
+                        resultado = true;
+                }
+                return resultado;
             }
 
             public static string AgregarRol(string nombreRol, DataGridView tablaFuncionalidades)
@@ -79,7 +65,7 @@ namespace CapaInterfaz
                     int idFuncionalidad;
                     foreach (DataGridViewRow row in tablaFuncionalidades.Rows)
                     {
-                        if (Convert.ToBoolean(row.Cells[0].Value)) // aca agregi las funcionalidades para el rol
+                        if (Convert.ToBoolean(row.Cells[0].Value)) // aca agrego las funcionalidades para el rol
                         {
                             idFuncionalidad = System.Convert.ToInt32(row.Cells[1].Value);
                             CapaNegocio.NRol.AgregarRolFuncionalidad(idRol, idFuncionalidad); // tomo el id_funcionalidad que es la columna 1 de la tabla

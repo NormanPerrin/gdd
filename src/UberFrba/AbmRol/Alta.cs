@@ -15,27 +15,44 @@ namespace UberFrba.AbmRol
         public Alta()
         {
             InitializeComponent();
+            CapaInterfaz.Decoracion.Reorganizar(this);
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            string respuesta = CapaInterfaz.IRol.AgregarRol(this.txtNombre.Text, this.tablaFuncionalidades);
-            mostrarError(respuesta);
+            if (this.txtNombre.Text != string.Empty)
+            {
+                if(CapaInterfaz.IRol.ChequearItemSeleccionado(this.tablaFuncionalidades))
+                {
+                    string respuesta = CapaInterfaz.IRol.AgregarRol(this.txtNombre.Text, this.tablaFuncionalidades);
+                    CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+                    this.Close();
+                }
+                else
+                    CapaInterfaz.Decoracion.mostrarInfo("Debe seleccionar al menos una funcionalidad");
+            }
+            else
+                CapaInterfaz.Decoracion.mostrarInfo("Debe ingresar un nombre/detalle para el rol");
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-
+            this.txtNombre.Text = String.Empty;
+            foreach (DataGridViewRow row in tablaFuncionalidades.Rows)
+            {
+                DataGridViewCheckBoxCell cellSelecion = row.Cells["Elegir"] as DataGridViewCheckBoxCell;
+                cellSelecion.Value = false;
+            }
         }
 
         private void Alta_Load(object sender, EventArgs e)
         {
-            this.tablaFuncionalidades.DataSource = CapaInterfaz.IRol.CargarFuncionalidades();
+            CapaInterfaz.IRol.CargarFuncionalidades(this.tablaFuncionalidades);
             CapaInterfaz.IRol.OcultarColumnas(this.tablaFuncionalidades);
         }
 
@@ -46,11 +63,6 @@ namespace UberFrba.AbmRol
                 DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell) tablaFuncionalidades.Rows[e.RowIndex].Cells["Elegir"];
                 chkElegir.Value = !Convert.ToBoolean(chkElegir.Value);
             }
-        }
-
-        private void mostrarError(string error)
-        {
-            MessageBox.Show(error, "UBER FRBA", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

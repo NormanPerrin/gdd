@@ -21,15 +21,6 @@ namespace CapaNegocio
 
         #region Metodos/Atributos
 
-            public static string Insertar(string username, string pass)
-            {
-                DUsuario Objeto = new DUsuario();
-                Objeto.Username = username;
-                Objeto.Pass = pass;
-                Objeto.Intentos = 0; // Arranca con 0 intentos de login
-                return Objeto.Insertar(Objeto);
-            }
-
             public static string EditarIntentos(int idUsuario, int intentos)
             {
                 DUsuario Objeto = new DUsuario();
