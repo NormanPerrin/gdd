@@ -1,0 +1,7 @@
+#Ignorar obj
+src\UberFrba\obj
+
+#Creo que hay que ignorar estas carpetas en su totalidad
+src\CapaDatos\obj\Debug
+src\CapaInterfaz\obj\Debug
+src\CapaNegocio\obj\Debug
