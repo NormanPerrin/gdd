@@ -33,7 +33,8 @@ namespace UberFrba.AbmAuto
         private void BtnAlta_Click(object sender, EventArgs e)
         {
             string respuesta = CapaInterfaz.IAuto.alta(TxtMarca.Text, TxtModelo.Text, TxtPatente.Text, idTurno, idChofer);
-            //mostrar respuesta
+            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            this.Close();
         }
 
         private void Alta_Load(object sender, EventArgs e)

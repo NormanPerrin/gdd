@@ -41,6 +41,7 @@ namespace CapaInterfaz
         public static void CargarChoferes(System.Windows.Forms.DataGridView tablaChofer)
         {
             tablaChofer.DataSource = CapaNegocio.NAuto.ObtenerChoferes();
+        }
 
         #endregion
 
@@ -87,4 +88,3 @@ namespace CapaInterfaz
         }
     }
 
-}
