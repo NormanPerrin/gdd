@@ -14,11 +14,11 @@ namespace CapaDatos
         #region Atributos
 
         private int _idAuto;
-        private string _patente;
         private string _marca;
         private string _modelo;
-        private string _licencia;
-        private string _rodado;
+        private string _patente;
+        private int _turno;
+        private int _chofer;
         private int _habilitado;
 
         #endregion
@@ -33,7 +33,7 @@ namespace CapaDatos
 
         #region Metodos/Atributos
 
-        public string AgregarAuto(string patente, string marca, string modelo, string licencia, string rodado)
+        public string AgregarAuto(string marca, string modelo, string patente, int turno, int chofer)
         {
             Conexion Conexion = new Conexion();
 
@@ -63,16 +63,14 @@ namespace CapaDatos
             parametros[3].Value = modelo;
 
             parametros[4] = new SqlParameter();
-            parametros[4].ParameterName = "@licencia";
-            parametros[4].SqlDbType = SqlDbType.NVarChar;
-            parametros[4].Size = 26;
-            parametros[4].Value = licencia;
+            parametros[4].ParameterName = "@turno";
+            parametros[4].SqlDbType = SqlDbType.Int;
+            parametros[4].Value = turno;
 
             parametros[5] = new SqlParameter();
-            parametros[5].ParameterName = "@rodado";
-            parametros[5].SqlDbType = SqlDbType.NVarChar;
-            parametros[5].Size = 10;
-            parametros[5].Value = rodado;
+            parametros[5].ParameterName = "@chofer";
+            parametros[5].SqlDbType = SqlDbType.Int;
+            parametros[5].Value = chofer;
 
             int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarAuto");
             string respuesta = string.Empty;
@@ -89,6 +87,27 @@ namespace CapaDatos
                     break;
             }
             return respuesta;
+        }
+
+        public object ObtenerTurnos()
+        {
+            Conexion Conexion = new Conexion();
+
+            DataTable DtResultado = new DataTable("Turnos");
+            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerTurnos");
+
+            return DtResultado;
+        }
+
+
+        public object ObtenerChoferes()
+        {
+            Conexion Conexion = new Conexion();
+
+            DataTable DtResultado = new DataTable("Choferes");
+            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerChoferes");
+
+            return DtResultado;
         }
 
         #endregion
@@ -119,17 +138,19 @@ namespace CapaDatos
             set { _modelo = value; }
         }
 
-        public string Licencia
+        public int Turno
         {
-            get { return _licencia; }
-            set { _licencia = value; }
+            get { return _turno; }
+            set { _turno = value; }
         }
 
-        public string Rodado
+        public int Chofer
         {
-            get { return _rodado; }
-            set { _rodado = value; }
+            get { return _chofer; }
+            set { _chofer = value; }
         }
         #endregion
+
+
     }
 }

@@ -15,23 +15,32 @@ namespace CapaInterfaz
         #region Atributos
 
         private int _idAuto;
-        private string _patente;
         private string _marca;
         private string _modelo;
-        private string _licencia;
-        private string _rodado;
+        private string _patente;
+        private int _turno;
+        private int _chofer;
         private int _habilitado;
 
         #endregion
 
         #region Metodos/Atributos
 
-        public static string alta(string patente, string marca, string modelo, string licencia, string rodado)
+        public static string alta(string marca, string modelo, string patente, int turno, int chofer)
         {
-            string respuesta = CapaNegocio.NAuto.alta(patente, marca, modelo, licencia, rodado);
+            string respuesta = CapaNegocio.NAuto.alta(marca, modelo, patente, turno, chofer);
 
             return respuesta;
         }
+        
+        public static void CargarTurnos(System.Windows.Forms.DataGridView tablaTurno)
+        {
+            tablaTurno.DataSource = CapaNegocio.NAuto.ObtenerTurnos();
+        }
+
+        public static void CargarChoferes(System.Windows.Forms.DataGridView tablaChofer)
+        {
+            tablaChofer.DataSource = CapaNegocio.NAuto.ObtenerChoferes();
 
         #endregion
 
@@ -61,19 +70,21 @@ namespace CapaInterfaz
             set { _modelo = value; }
         }
 
-        public string Licencia
+        public int Turno
         {
-            get { return _licencia; }
-            set { _licencia = value; }
+            get { return _turno; }
+            set { _turno = value; }
         }
 
-        public string Rodado
+        public int Chofer
         {
-            get { return _rodado; }
-            set { _rodado = value; }
+            get { return _chofer; }
+            set { _chofer = value; }
         }
         #endregion
 
+
+        }
     }
 
 }
