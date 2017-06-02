@@ -48,7 +48,15 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAgregarRolFuncionalidad;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerTurnos') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerTurnos;
+END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferes') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferes;
+END;
 
 ---- BORRO TABLAS
 
@@ -607,3 +615,14 @@ CREATE PROC CRAZYDRIVER.spAgregarRolFuncionalidad
 			(id_rol, id_funcionalidad, habilitado) VALUES (@idRol, @idFuncionalidad, 1)
 GO
 
+CREATE PROC CRAZYDRIVER.spObtenerTurnos
+	AS
+		SELECT DISTINCT id_turno, descripcion
+		FROM CRAZYDRIVER.Turno
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerChoferes
+	AS
+		SELECT DISTINCT id_chofer
+		FROM CRAZYDRIVER.Chofer
+GO
