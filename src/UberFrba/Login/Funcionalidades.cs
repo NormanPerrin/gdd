@@ -46,8 +46,8 @@ namespace UberFrba
                 }
                 else if (cbxFuncionalidades.Text == "ABM automovil")
                 {
-                    AbmAuto siguienteVentana = AbmAuto.ObtenerInstancia();
-                    siguienteVentana.Show();
+                    UberFrba.AbmAuto.AbmAuto siguienteVentana = new AbmAuto.AbmAuto();
+                    siguienteVentana.ShowDialog(this);
                 }
                 else if (cbxFuncionalidades.Text == "ABM turno")
                 {
@@ -95,6 +95,11 @@ namespace UberFrba
                 CapaInterfaz.IRol.CargarFuncionalidades(this.cbxFuncionalidades, this.NombreRol);
             }
 
+            private void cbxFuncionalidades_SelectedIndexChanged(object sender, EventArgs e)
+            {
+
+            }
+
         #endregion
 
         #region Getters/Setters
@@ -106,5 +111,7 @@ namespace UberFrba
             }
 
         #endregion
+
+
     }
 }

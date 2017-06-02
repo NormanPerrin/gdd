@@ -34,17 +34,19 @@
             this.LbelPatente = new System.Windows.Forms.Label();
             this.LbelMarca = new System.Windows.Forms.Label();
             this.LbelModelo = new System.Windows.Forms.Label();
-            this.LbelLicencia = new System.Windows.Forms.Label();
-            this.LbelRodado = new System.Windows.Forms.Label();
+            this.LbelTurno = new System.Windows.Forms.Label();
+            this.LbelChofer = new System.Windows.Forms.Label();
             this.TxtMarca = new System.Windows.Forms.TextBox();
             this.TxtModelo = new System.Windows.Forms.TextBox();
-            this.TxtLicencia = new System.Windows.Forms.TextBox();
-            this.TxtRodado = new System.Windows.Forms.TextBox();
+            this.tablaTurno = new System.Windows.Forms.DataGridView();
+            this.tablaChofer = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnAlta
             // 
-            this.BtnAlta.Location = new System.Drawing.Point(175, 213);
+            this.BtnAlta.Location = new System.Drawing.Point(175, 424);
             this.BtnAlta.Name = "BtnAlta";
             this.BtnAlta.Size = new System.Drawing.Size(100, 32);
             this.BtnAlta.TabIndex = 0;
@@ -54,7 +56,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(44, 213);
+            this.btnVolver.Location = new System.Drawing.Point(36, 424);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(100, 32);
             this.btnVolver.TabIndex = 1;
@@ -63,7 +65,7 @@
             // 
             // TxtPatente
             // 
-            this.TxtPatente.Location = new System.Drawing.Point(105, 31);
+            this.TxtPatente.Location = new System.Drawing.Point(105, 101);
             this.TxtPatente.Name = "TxtPatente";
             this.TxtPatente.Size = new System.Drawing.Size(170, 20);
             this.TxtPatente.TabIndex = 2;
@@ -71,7 +73,7 @@
             // LbelPatente
             // 
             this.LbelPatente.AutoSize = true;
-            this.LbelPatente.Location = new System.Drawing.Point(52, 34);
+            this.LbelPatente.Location = new System.Drawing.Point(52, 108);
             this.LbelPatente.Name = "LbelPatente";
             this.LbelPatente.Size = new System.Drawing.Size(47, 13);
             this.LbelPatente.TabIndex = 3;
@@ -81,80 +83,86 @@
             // LbelMarca
             // 
             this.LbelMarca.AutoSize = true;
-            this.LbelMarca.Location = new System.Drawing.Point(52, 68);
+            this.LbelMarca.Location = new System.Drawing.Point(52, 34);
             this.LbelMarca.Name = "LbelMarca";
             this.LbelMarca.Size = new System.Drawing.Size(40, 13);
             this.LbelMarca.TabIndex = 4;
             this.LbelMarca.Text = "Marca:";
+            this.LbelMarca.Click += new System.EventHandler(this.LbelMarca_Click);
             // 
             // LbelModelo
             // 
             this.LbelModelo.AutoSize = true;
-            this.LbelModelo.Location = new System.Drawing.Point(52, 105);
+            this.LbelModelo.Location = new System.Drawing.Point(52, 71);
             this.LbelModelo.Name = "LbelModelo";
             this.LbelModelo.Size = new System.Drawing.Size(45, 13);
             this.LbelModelo.TabIndex = 5;
             this.LbelModelo.Text = "Modelo:";
             this.LbelModelo.Click += new System.EventHandler(this.LbelModelo_Click);
             // 
-            // LbelLicencia
+            // LbelTurno
             // 
-            this.LbelLicencia.AutoSize = true;
-            this.LbelLicencia.Location = new System.Drawing.Point(52, 139);
-            this.LbelLicencia.Name = "LbelLicencia";
-            this.LbelLicencia.Size = new System.Drawing.Size(50, 13);
-            this.LbelLicencia.TabIndex = 6;
-            this.LbelLicencia.Text = "Licencia:";
+            this.LbelTurno.AutoSize = true;
+            this.LbelTurno.Location = new System.Drawing.Point(52, 159);
+            this.LbelTurno.Name = "LbelTurno";
+            this.LbelTurno.Size = new System.Drawing.Size(38, 13);
+            this.LbelTurno.TabIndex = 6;
+            this.LbelTurno.Text = "Turno:";
+            this.LbelTurno.Click += new System.EventHandler(this.LbelTurno_Click);
             // 
-            // LbelRodado
+            // LbelChofer
             // 
-            this.LbelRodado.AutoSize = true;
-            this.LbelRodado.Location = new System.Drawing.Point(52, 177);
-            this.LbelRodado.Name = "LbelRodado";
-            this.LbelRodado.Size = new System.Drawing.Size(48, 13);
-            this.LbelRodado.TabIndex = 7;
-            this.LbelRodado.Text = "Rodado:";
-            this.LbelRodado.Click += new System.EventHandler(this.LbelRodado_Click);
+            this.LbelChofer.AutoSize = true;
+            this.LbelChofer.Location = new System.Drawing.Point(33, 273);
+            this.LbelChofer.Name = "LbelChofer";
+            this.LbelChofer.Size = new System.Drawing.Size(41, 13);
+            this.LbelChofer.TabIndex = 7;
+            this.LbelChofer.Text = "Chofer:";
+            this.LbelChofer.Click += new System.EventHandler(this.LbelRodado_Click);
             // 
             // TxtMarca
             // 
-            this.TxtMarca.Location = new System.Drawing.Point(105, 65);
+            this.TxtMarca.Location = new System.Drawing.Point(105, 31);
             this.TxtMarca.Name = "TxtMarca";
             this.TxtMarca.Size = new System.Drawing.Size(170, 20);
             this.TxtMarca.TabIndex = 8;
             // 
             // TxtModelo
             // 
-            this.TxtModelo.Location = new System.Drawing.Point(105, 102);
+            this.TxtModelo.Location = new System.Drawing.Point(105, 68);
             this.TxtModelo.Name = "TxtModelo";
             this.TxtModelo.Size = new System.Drawing.Size(170, 20);
             this.TxtModelo.TabIndex = 9;
             // 
-            // TxtLicencia
+            // tablaTurno
             // 
-            this.TxtLicencia.Location = new System.Drawing.Point(105, 136);
-            this.TxtLicencia.Name = "TxtLicencia";
-            this.TxtLicencia.Size = new System.Drawing.Size(170, 20);
-            this.TxtLicencia.TabIndex = 10;
+            this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaTurno.Location = new System.Drawing.Point(92, 143);
+            this.tablaTurno.Name = "tablaTurno";
+            this.tablaTurno.Size = new System.Drawing.Size(240, 105);
+            this.tablaTurno.TabIndex = 10;
+            this.tablaTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaTurno_CellContentClick);
             // 
-            // TxtRodado
+            // tablaChofer
             // 
-            this.TxtRodado.Location = new System.Drawing.Point(105, 174);
-            this.TxtRodado.Name = "TxtRodado";
-            this.TxtRodado.Size = new System.Drawing.Size(170, 20);
-            this.TxtRodado.TabIndex = 11;
+            this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaChofer.Location = new System.Drawing.Point(92, 273);
+            this.tablaChofer.Name = "tablaChofer";
+            this.tablaChofer.Size = new System.Drawing.Size(240, 111);
+            this.tablaChofer.TabIndex = 11;
+            this.tablaChofer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaChofer_CellContentClick);
             // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 279);
-            this.Controls.Add(this.TxtRodado);
-            this.Controls.Add(this.TxtLicencia);
+            this.ClientSize = new System.Drawing.Size(339, 477);
+            this.Controls.Add(this.tablaChofer);
+            this.Controls.Add(this.tablaTurno);
             this.Controls.Add(this.TxtModelo);
             this.Controls.Add(this.TxtMarca);
-            this.Controls.Add(this.LbelRodado);
-            this.Controls.Add(this.LbelLicencia);
+            this.Controls.Add(this.LbelChofer);
+            this.Controls.Add(this.LbelTurno);
             this.Controls.Add(this.LbelModelo);
             this.Controls.Add(this.LbelMarca);
             this.Controls.Add(this.LbelPatente);
@@ -164,9 +172,18 @@
             this.Name = "Alta";
             this.Text = "Alta";
             this.Load += new System.EventHandler(this.Alta_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+
+
+        private void LbelTurno_Click(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion
@@ -177,11 +194,11 @@
         private System.Windows.Forms.Label LbelPatente;
         private System.Windows.Forms.Label LbelMarca;
         private System.Windows.Forms.Label LbelModelo;
-        private System.Windows.Forms.Label LbelLicencia;
-        private System.Windows.Forms.Label LbelRodado;
+        private System.Windows.Forms.Label LbelTurno;
+        private System.Windows.Forms.Label LbelChofer;
         private System.Windows.Forms.TextBox TxtMarca;
         private System.Windows.Forms.TextBox TxtModelo;
-        private System.Windows.Forms.TextBox TxtLicencia;
-        private System.Windows.Forms.TextBox TxtRodado;
+        private System.Windows.Forms.DataGridView tablaTurno;
+        private System.Windows.Forms.DataGridView tablaChofer;
     }
 }

@@ -76,6 +76,7 @@
             this.cbxFuncionalidades.Name = "cbxFuncionalidades";
             this.cbxFuncionalidades.Size = new System.Drawing.Size(233, 21);
             this.cbxFuncionalidades.TabIndex = 0;
+            this.cbxFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.cbxFuncionalidades_SelectedIndexChanged);
             // 
             // titulo
             // 

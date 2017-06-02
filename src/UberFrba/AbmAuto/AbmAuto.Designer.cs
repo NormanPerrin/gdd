@@ -1,4 +1,4 @@
-﻿namespace UberFrba.o
+﻿namespace UberFrba.AbmAuto
 {
     partial class AbmAuto
     {

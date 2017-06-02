@@ -47,11 +47,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmAuto.cs">
+    <Compile Include="AbmAuto\AbmAuto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmAuto.Designer.cs">
+    <Compile Include="AbmAuto\AbmAuto.Designer.cs">
       <DependentUpon>AbmAuto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmAuto\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmAuto\Alta.Designer.cs">
+      <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmChofer.cs">
       <SubType>Form</SubType>
@@ -139,6 +145,12 @@
     <Compile Include="Login\SeleccionarRol.Designer.cs">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AbmAuto\AbmAuto.resx">
+      <DependentUpon>AbmAuto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmAuto\Alta.resx">
+      <DependentUpon>Alta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
     </EmbeddedResource>

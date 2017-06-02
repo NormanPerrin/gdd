@@ -8,21 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UberFrba.o
+
+namespace UberFrba.AbmAuto
 {
     public partial class AbmAuto : Form
     {
-        #region Atributos
-
-            private static AbmAuto _Instancia;
-
-        #endregion
 
         #region Constructor
 
             public AbmAuto()
             {
                 InitializeComponent();
+                CapaInterfaz.Decoracion.Reorganizar(this);
             }
 
         #endregion
@@ -48,35 +45,6 @@ namespace UberFrba.o
 
         #endregion
 
-        #region Metodos y funciones auxiliares
 
-            private void formatearAtributos()
-            {
-            }
-
-            public static AbmAuto ObtenerInstancia()
-            {
-                if (Instancia == null)
-                {
-                    Instancia = new AbmAuto();
-                }
-                return Instancia;
-            }
-
-        #endregion
-
-        #region Getters/Setters
-
-            public static AbmAuto Instancia
-            {
-                get { return AbmAuto._Instancia; }
-                set { AbmAuto._Instancia = value; }
-            }
-
-        #endregion
-
-            
-
-  
     }
 }

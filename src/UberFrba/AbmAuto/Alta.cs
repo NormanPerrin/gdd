@@ -8,19 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UberFrba.o
+
+
+namespace UberFrba.AbmAuto
 {
     public partial class Alta : Form
     {
         public Alta()
         {
             InitializeComponent();
+            CapaInterfaz.Decoracion.Reorganizar(this);
         }
 
         #region Atributos
 
         private static CapaInterfaz.IAuto _Auto;
-
+        public int idTurno;
+        public int idChofer;
         #endregion
 
 
@@ -28,13 +32,14 @@ namespace UberFrba.o
 
         private void BtnAlta_Click(object sender, EventArgs e)
         {
-            string respuesta = CapaInterfaz.IAuto.alta(TxtPatente.Text, TxtMarca.Text, TxtModelo.Text, TxtLicencia.Text, TxtRodado.Text);
+            string respuesta = CapaInterfaz.IAuto.alta(TxtMarca.Text, TxtModelo.Text, TxtPatente.Text, idTurno, idChofer);
             //mostrar respuesta
         }
 
         private void Alta_Load(object sender, EventArgs e)
         {
-
+            CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
+            CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
         }
 
         private void LbelModelo_Click(object sender, EventArgs e)
@@ -67,5 +72,32 @@ namespace UberFrba.o
         }
 
         #endregion
+
+        private void LbelMarca_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void tablaTurno_CellContentClick(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno.CurrentCell;
+                object selectedItem = this.tablaTurno[0, e.RowIndex];
+                idTurno = Convert.ToInt32(selectedItem);
+            }
+        }
+
+        private void tablaChofer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer.CurrentCell;
+                object selectedItem = this.tablaChofer[0, e.RowIndex];
+                idChofer = Convert.ToInt32(selectedItem);
+            }
+        }
     }
 }
