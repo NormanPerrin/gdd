@@ -1,9 +1,0 @@
-C:\Users\ruben\git\gdd\src\CapaInterfaz\bin\Debug\CapaInterfaz.dll
-C:\Users\ruben\git\gdd\src\CapaInterfaz\bin\Debug\CapaInterfaz.pdb
-C:\Users\ruben\git\gdd\src\CapaInterfaz\bin\Debug\CapaNegocio.dll
-C:\Users\ruben\git\gdd\src\CapaInterfaz\bin\Debug\CapaDatos.dll
-C:\Users\ruben\git\gdd\src\CapaInterfaz\bin\Debug\CapaNegocio.pdb
-C:\Users\ruben\git\gdd\src\CapaInterfaz\bin\Debug\CapaDatos.pdb
-C:\Users\ruben\git\gdd\src\CapaInterfaz\obj\Debug\CapaInterfaz.csprojResolveAssemblyReference.cache
-C:\Users\ruben\git\gdd\src\CapaInterfaz\obj\Debug\CapaInterfaz.dll
-C:\Users\ruben\git\gdd\src\CapaInterfaz\obj\Debug\CapaInterfaz.pdb

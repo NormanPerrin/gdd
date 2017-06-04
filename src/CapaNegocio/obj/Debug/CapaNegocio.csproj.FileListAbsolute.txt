@@ -1,7 +1,0 @@
-C:\Users\ruben\git\gdd\src\CapaNegocio\bin\Debug\CapaNegocio.dll
-C:\Users\ruben\git\gdd\src\CapaNegocio\bin\Debug\CapaNegocio.pdb
-C:\Users\ruben\git\gdd\src\CapaNegocio\bin\Debug\CapaDatos.dll
-C:\Users\ruben\git\gdd\src\CapaNegocio\bin\Debug\CapaDatos.pdb
-C:\Users\ruben\git\gdd\src\CapaNegocio\obj\Debug\CapaNegocio.csprojResolveAssemblyReference.cache
-C:\Users\ruben\git\gdd\src\CapaNegocio\obj\Debug\CapaNegocio.dll
-C:\Users\ruben\git\gdd\src\CapaNegocio\obj\Debug\CapaNegocio.pdb
