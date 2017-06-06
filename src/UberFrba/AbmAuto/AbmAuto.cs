@@ -23,10 +23,10 @@ namespace UberFrba.AbmAuto
             }
 
         #endregion
-
+        
         #region Acciones
 
-            private void btnNuevoRol_Click(object sender, EventArgs e)
+            private void btnNuevoAuto_Click(object sender, EventArgs e)
             {
                 Alta ventana = new Alta();
                 ventana.ShowDialog(this);
@@ -44,7 +44,5 @@ namespace UberFrba.AbmAuto
             }
 
         #endregion
-
-
     }
 }

@@ -62,6 +62,7 @@
             this.btnVolver.TabIndex = 1;
             this.btnVolver.Text = "Atras";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // TxtPatente
             // 
@@ -78,7 +79,6 @@
             this.LbelPatente.Size = new System.Drawing.Size(47, 13);
             this.LbelPatente.TabIndex = 3;
             this.LbelPatente.Text = "Patente:";
-            this.LbelPatente.Click += new System.EventHandler(this.LbelPatente_Click);
             // 
             // LbelMarca
             // 
@@ -88,7 +88,6 @@
             this.LbelMarca.Size = new System.Drawing.Size(40, 13);
             this.LbelMarca.TabIndex = 4;
             this.LbelMarca.Text = "Marca:";
-            this.LbelMarca.Click += new System.EventHandler(this.LbelMarca_Click);
             // 
             // LbelModelo
             // 
@@ -98,7 +97,6 @@
             this.LbelModelo.Size = new System.Drawing.Size(45, 13);
             this.LbelModelo.TabIndex = 5;
             this.LbelModelo.Text = "Modelo:";
-            this.LbelModelo.Click += new System.EventHandler(this.LbelModelo_Click);
             // 
             // LbelTurno
             // 
@@ -118,7 +116,6 @@
             this.LbelChofer.Size = new System.Drawing.Size(41, 13);
             this.LbelChofer.TabIndex = 7;
             this.LbelChofer.Text = "Chofer:";
-            this.LbelChofer.Click += new System.EventHandler(this.LbelRodado_Click);
             // 
             // TxtMarca
             // 

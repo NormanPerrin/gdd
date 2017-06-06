@@ -58,6 +58,16 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferes;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerRolesPorNombre') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerRolesPorNombre;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spActualizarRol') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spActualizarRol;
+END;
+
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -571,18 +581,24 @@ CREATE PROC CRAZYDRIVER.spObtenerRolesPorUsuario
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerFuncionalidadesPorRol
-	@nombreRol NVARCHAR(100)
+	@rolNombre NVARCHAR(100)
 	AS
 		SELECT DISTINCT f.descripcion
 		FROM CRAZYDRIVER.FuncionalidadPorRol fpr, CRAZYDRIVER.Rol r, CRAZYDRIVER.Funcionalidad f
-		WHERE r.nombre = @nombreRol and r.id_rol = fpr.id_rol and fpr.habilitado = 1
+		WHERE r.nombre = @rolNombre and r.id_rol = fpr.id_rol and fpr.habilitado = 1
 		and fpr.id_funcionalidad = f.id_funcionalidad
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerRoles
 	AS
-		SELECT DISTINCT nombre 
-		FROM CRAZYDRIVER.Rol
+		SELECT DISTINCT id_rol, nombre, CAST(
+				 CASE 
+					  WHEN habilitado = 1
+						 THEN 'habilitado'
+					  ELSE 'deshabilitado' 
+				 END AS NVARCHAR(20)
+			) as Estado
+			FROM CRAZYDRIVER.Rol
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerFuncionalidades
@@ -592,19 +608,20 @@ CREATE PROC CRAZYDRIVER.spObtenerFuncionalidades
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerRol
-	@nombreRol NVARCHAR(100)
+	@rolNombre NVARCHAR(100)
 	AS
 		SELECT DISTINCT *
-		FROM CRAZYDRIVER.Rol
-		WHERE nombre = @nombreRol
+			FROM CRAZYDRIVER.Rol
+			WHERE nombre = @rolNombre
 GO
 
 CREATE PROC CRAZYDRIVER.spAgregarRol
 	@idRol INT OUTPUT,
-	@nombreRol NVARCHAR(100)
+	@rolNombre NVARCHAR(100)
 	AS
 		INSERT INTO CRAZYDRIVER.Rol 
-			(nombre, habilitado) VALUES (@nombreRol, 1)
+			(nombre, habilitado) 
+			VALUES (@rolNombre, 1)
 GO
 
 CREATE PROC CRAZYDRIVER.spAgregarRolFuncionalidad
@@ -612,7 +629,8 @@ CREATE PROC CRAZYDRIVER.spAgregarRolFuncionalidad
 	@idFuncionalidad INT
 	AS
 		INSERT INTO CRAZYDRIVER.FuncionalidadPorRol 
-			(id_rol, id_funcionalidad, habilitado) VALUES (@idRol, @idFuncionalidad, 1)
+			(id_rol, id_funcionalidad, habilitado) 
+			VALUES (@idRol, @idFuncionalidad, 1)
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerTurnos
@@ -626,3 +644,26 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferes
 		SELECT DISTINCT id_chofer
 		FROM CRAZYDRIVER.Chofer
 GO
+
+CREATE PROC CRAZYDRIVER.spObtenerRolesPorNombre
+	@rolNombre NVARCHAR(100)
+	AS
+		SELECT DISTINCT id_rol, nombre, CAST(
+				 CASE 
+					  WHEN habilitado = 1
+						 THEN 'habilitado'
+					  ELSE 'deshabilitado' 
+				 END AS NVARCHAR(20)
+			) as Estado
+			FROM CRAZYDRIVER.Rol
+			WHERE nombre like @rolNombre + '%'
+GO
+
+CREATE PROC CRAZYDRIVER.spActualizarRol
+	@idRol INT,
+	@rolNombre NVARCHAR(100),
+	@habilitado INT
+	AS
+		UPDATE CRAZYDRIVER.ROL
+			SET nombre = @rolNombre, habilitado = @habilitado
+			WHERE id_rol = @idRol

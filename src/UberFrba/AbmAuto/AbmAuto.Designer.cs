@@ -73,7 +73,7 @@
             this.btnNuevoAuto.TabIndex = 0;
             this.btnNuevoAuto.Text = "Alta de un nuevo Auto";
             this.btnNuevoAuto.UseVisualStyleBackColor = true;
-            this.btnNuevoAuto.Click += new System.EventHandler(this.btnNuevoRol_Click);
+            this.btnNuevoAuto.Click += new System.EventHandler(this.btnNuevoAuto_Click);
             // 
             // AbmAuto
             // 

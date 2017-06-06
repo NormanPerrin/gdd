@@ -84,17 +84,17 @@ namespace CapaDatos
                 return DtResultado;
             }
 
-            public DataTable ObtenerFuncionalidades(string nombreRol)
+            public DataTable ObtenerFuncionalidades(string rolNombre)
             {
                 Conexion Conexion = new Conexion();
 
                 SqlParameter[] parametros = new SqlParameter[1];
 
                 parametros[0] = new SqlParameter();
-                parametros[0].ParameterName = "@nombreRol";
+                parametros[0].ParameterName = "@rolNombre";
                 parametros[0].SqlDbType = SqlDbType.NVarChar;
                 parametros[0].Size = 100;
-                parametros[0].Value = nombreRol;
+                parametros[0].Value = rolNombre;
 
                 DataTable DtResultado = new DataTable("Funcionalidades");
                 DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerFuncionalidadesPorRol");
@@ -102,7 +102,7 @@ namespace CapaDatos
                 return DtResultado;
             }
 
-            public string AgregarRol(string nombreRol)
+            public string AgregarRol(string rolNombre)
             {
                 Conexion Conexion = new Conexion();
 
@@ -114,10 +114,10 @@ namespace CapaDatos
                 parametros[0].Direction = ParameterDirection.Output;
 
                 parametros[1] = new SqlParameter();
-                parametros[1].ParameterName = "@nombreRol";
+                parametros[1].ParameterName = "@rolNombre";
                 parametros[1].SqlDbType = SqlDbType.NVarChar;
                 parametros[1].Size = 100;
-                parametros[1].Value = nombreRol;
+                parametros[1].Value = rolNombre;
 
                 int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRol");
                 string respuesta = string.Empty;
