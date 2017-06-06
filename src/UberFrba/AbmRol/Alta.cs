@@ -53,7 +53,7 @@ namespace UberFrba.AbmRol
         private void Alta_Load(object sender, EventArgs e)
         {
             CapaInterfaz.IRol.CargarFuncionalidades(this.tablaFuncionalidades);
-            CapaInterfaz.IRol.OcultarColumnas(this.tablaFuncionalidades);
+            CapaInterfaz.IRol.OcultarColumnasFuncionalidades(this.tablaFuncionalidades);
         }
 
         private void tablaFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)

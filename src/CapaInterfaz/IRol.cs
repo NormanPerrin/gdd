@@ -20,12 +20,6 @@ namespace CapaInterfaz
                 Cargador.CargarComboboxConDatos(cbxRoles, Datos);
             }
 
-            public static void CargarRoles(ComboBox cbxRoles)
-            {
-                DataTable Datos = CapaNegocio.NRol.ObtenerRoles();
-                Cargador.CargarComboboxConDatos(cbxRoles, Datos);
-            }
-
             public static void CargarFuncionalidades(ComboBox cbxFuncionalidades, string nombreRol)
             {
                 DataTable Datos = CapaNegocio.NRol.ObtenerFuncionalidades(nombreRol);
@@ -37,9 +31,24 @@ namespace CapaInterfaz
                 tablaFuncionalidades.DataSource = CapaNegocio.NRol.ObtenerFuncionalidades();
             }
 
-            public static void OcultarColumnas(DataGridView tablaFuncionalidades)
+            public static void OcultarColumnasFuncionalidades(DataGridView tablaFuncionalidades)
             {
                 tablaFuncionalidades.Columns[1].Visible = false; // oculto la columna del id
+            }
+
+            public static void BuscarRolPorNombre(DataGridView tablaRoles, string RolNombre)
+            {
+                tablaRoles.DataSource = CapaNegocio.NRol.ObtenerRoles(RolNombre);
+            }
+
+            public static void CargarRoles(DataGridView tablaRoles)
+            {
+                tablaRoles.DataSource = CapaNegocio.NRol.ObtenerRoles();
+            }
+
+            public static void OcultarColumnasRoles(DataGridView tablaRoles)
+            {
+                tablaRoles.Columns[0].Visible = false; // oculto la columna del id
             }
 
             public static bool ChequearItemSeleccionado(DataGridView tablaFuncionalidades)
@@ -73,6 +82,16 @@ namespace CapaInterfaz
                     }
                 }
                 return respuesta;
+            }
+
+            public static void ActualizarRol(int idRol, string nombre, string estado)
+            {
+                int aux;
+                if(estado.Equals("habilitado"))
+                    aux = 1;
+                else
+                    aux = 0;
+                CapaNegocio.NRol.ActualizarRol(idRol, nombre, aux);
             }
 
         #endregion

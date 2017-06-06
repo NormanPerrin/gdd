@@ -55,6 +55,25 @@ namespace CapaDatos
 
                 return DtResultado;
             }
+
+            public DataTable ObtenerRoles(string rolNombre)
+            {
+                Conexion Conexion = new Conexion();
+
+                SqlParameter[] parametros = new SqlParameter[1];
+
+                parametros[0] = new SqlParameter();
+                parametros[0].ParameterName = "@rolNombre";
+                parametros[0].SqlDbType = SqlDbType.NVarChar;
+                parametros[0].Size = 100;
+                parametros[0].Value = rolNombre;
+
+                DataTable DtResultado = new DataTable("Roles");
+                DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerRolesPorNombre");
+
+                return DtResultado;
+            }
+
             public DataTable ObtenerFuncionalidades()
             {
                 Conexion Conexion = new Conexion();
@@ -117,17 +136,17 @@ namespace CapaDatos
                 return respuesta;
             }
 
-            public DataTable ObtenerRol(string nombreRol)
+            public DataTable ObtenerRol(string rolNombre)
             {
                 Conexion Conexion = new Conexion();
 
                 SqlParameter[] parametros = new SqlParameter[1];
 
                 parametros[0] = new SqlParameter();
-                parametros[0].ParameterName = "@nombreRol";
+                parametros[0].ParameterName = "@rolNombre";
                 parametros[0].SqlDbType = SqlDbType.NVarChar;
                 parametros[0].Size = 100;
-                parametros[0].Value = nombreRol;
+                parametros[0].Value = rolNombre;
 
                 DataTable DtResultado = new DataTable("Rol");
                 DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerRol");
@@ -152,6 +171,45 @@ namespace CapaDatos
                 parametros[1].Value = idFuncionalidad;
 
                 int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRolFuncionalidad");
+                string respuesta = string.Empty;
+                switch (resultado)
+                {
+                    case -1:
+                        respuesta = "Se capturo un error al intentar agregar una funcionalidad al rol";
+                        break;
+                    case 0:
+                        respuesta = "No se logro agregar una funcionalidad al rol";
+                        break;
+                    case 1:
+                        respuesta = "Se agrego un usuario";
+                        break;
+                }
+                return respuesta;
+            }
+
+            public string ActualizarRol(int idRol, string nombre, int estado)
+            {
+                Conexion Conexion = new Conexion();
+
+                SqlParameter[] parametros = new SqlParameter[3];
+
+                parametros[0] = new SqlParameter();
+                parametros[0].ParameterName = "@idRol";
+                parametros[0].SqlDbType = SqlDbType.Int;
+                parametros[0].Value = idRol;
+
+                parametros[1] = new SqlParameter();
+                parametros[1].ParameterName = "@rolNombre";
+                parametros[1].SqlDbType = SqlDbType.NVarChar;
+                parametros[1].Size = 100;
+                parametros[1].Value = nombre;
+
+                parametros[2] = new SqlParameter();
+                parametros[2].ParameterName = "@habilitado";
+                parametros[2].SqlDbType = SqlDbType.Int;
+                parametros[2].Value = estado;
+
+                int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarRol");
                 string respuesta = string.Empty;
                 switch (resultado)
                 {

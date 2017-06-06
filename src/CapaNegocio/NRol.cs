@@ -31,13 +31,19 @@ namespace CapaNegocio
 
             public static DataTable ObtenerRoles()
             {
-                DRol Objeto = new DRol();
-                return Objeto.ObtenerRoles();
+                return new DRol().ObtenerRoles();
             }
+
             public static DataTable ObtenerRoles(int idUsuario)
             {
                 DRol Objeto = new DRol();
                 return Objeto.ObtenerRoles(idUsuario);
+            }
+
+            public static DataTable ObtenerRoles(string rolNombre)
+            {
+                DRol Objeto = new DRol();
+                return Objeto.ObtenerRoles(rolNombre);
             }
 
             public static DataTable ObtenerFuncionalidades()
@@ -67,6 +73,12 @@ namespace CapaNegocio
             {
                 DRol Objeto = new DRol();
                 return Objeto.AgregarRol(idRol, idFuncionalidad);
+            }
+
+            public static string ActualizarRol(int idRol, string nombre, int estado)
+            {
+                DRol Objeto = new DRol();
+                return Objeto.ActualizarRol(idRol, nombre, estado);
             }
 
         #endregion

@@ -83,6 +83,12 @@
     <Compile Include="AbmRol\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRol\Edicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\Edicion.Designer.cs">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRol\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,12 +127,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistroUsuarios.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RegistroUsuarios.Designer.cs">
-      <DependentUpon>RegistroUsuarios.cs</DependentUpon>
-    </Compile>
     <Compile Include="RegistroViajes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +157,12 @@
     <EmbeddedResource Include="AbmRol\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Edicion.resx">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\Funcionalidades.resx">
       <DependentUpon>Funcionalidades.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,9 +178,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RegistroUsuarios.resx">
-      <DependentUpon>RegistroUsuarios.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Login\SeleccionarRol.resx">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </EmbeddedResource>
