@@ -133,18 +133,26 @@
             // 
             // tablaTurno
             // 
+            this.tablaTurno.AllowUserToAddRows = false;
+            this.tablaTurno.AllowUserToDeleteRows = false;
+            this.tablaTurno.AllowUserToOrderColumns = true;
             this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tablaTurno.Location = new System.Drawing.Point(92, 143);
             this.tablaTurno.Name = "tablaTurno";
+            this.tablaTurno.ReadOnly = true;
             this.tablaTurno.Size = new System.Drawing.Size(240, 105);
             this.tablaTurno.TabIndex = 10;
             this.tablaTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaTurno_CellContentClick);
             // 
             // tablaChofer
             // 
+            this.tablaChofer.AllowUserToAddRows = false;
+            this.tablaChofer.AllowUserToDeleteRows = false;
+            this.tablaChofer.AllowUserToOrderColumns = true;
             this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tablaChofer.Location = new System.Drawing.Point(92, 273);
             this.tablaChofer.Name = "tablaChofer";
+            this.tablaChofer.ReadOnly = true;
             this.tablaChofer.Size = new System.Drawing.Size(240, 111);
             this.tablaChofer.TabIndex = 11;
             this.tablaChofer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaChofer_CellContentClick);
