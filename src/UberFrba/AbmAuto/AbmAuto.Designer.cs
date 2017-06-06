@@ -55,6 +55,7 @@
             this.btnVolver.TabIndex = 3;
             this.btnVolver.Text = "Volver a funcionalidades";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click_1);
             // 
             // btnLista
             // 
@@ -64,6 +65,7 @@
             this.btnLista.TabIndex = 1;
             this.btnLista.Text = "Busqueda y listado de autos";
             this.btnLista.UseVisualStyleBackColor = true;
+            this.btnLista.Click += new System.EventHandler(this.btnLista_Click_1);
             // 
             // btnNuevoAuto
             // 
