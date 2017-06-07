@@ -41,7 +41,7 @@ namespace UberFrba
                 }
                 else if (cbxFuncionalidades.Text == "ABM cliente")
                 {
-                    AbmCliente siguienteVentana = AbmCliente.ObtenerInstancia();
+                    AbmCliente.AbmCliente siguienteVentana = new AbmCliente.AbmCliente();
                     siguienteVentana.Show();
                 }
                 else if (cbxFuncionalidades.Text == "ABM automovil")

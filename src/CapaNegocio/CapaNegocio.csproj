@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NCliente.cs" />
     <Compile Include="NAuto.cs" />
     <Compile Include="NRol.cs" />
     <Compile Include="NUsuario.cs" />

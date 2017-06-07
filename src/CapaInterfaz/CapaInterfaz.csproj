@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cargador.cs" />
+    <Compile Include="ICliente.cs" />
     <Compile Include="Decoracion.cs" />
     <Compile Include="IAuto.cs" />
     <Compile Include="IRol.cs" />

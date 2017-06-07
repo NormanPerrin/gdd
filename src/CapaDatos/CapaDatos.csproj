@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Conexion.cs" />
     <Compile Include="DAuto.cs" />
+    <Compile Include="DCliente.cs" />
     <Compile Include="DRol.cs" />
     <Compile Include="DUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
