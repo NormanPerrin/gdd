@@ -68,6 +68,11 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spActualizarRol;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spAgregarCliente') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarCliente;
+END;
+
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -155,6 +160,11 @@ BEGIN
    DROP TABLE CRAZYDRIVER.Funcionalidad;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.Persona','U') IS NOT NULL
+BEGIN
+   DROP TABLE CRAZYDRIVER.Persona;
+END;
+
 ---- ESQUEMA POR SI NO EXISTE
 
 IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'CRAZYDRIVER')
@@ -223,7 +233,7 @@ CREATE TABLE CRAZYDRIVER.Chofer(
 	fecha_nac DATETIME NOT NULL,
 	direccion NVARCHAR(255) NOT NULL,
 	nro_piso INT, -- requisito nuevo
-	depto INT, -- requisito nuevo
+	depto CHAR(1), -- requisito nuevo
 	localidad NVARCHAR(255), -- requisito nuevo
 	id_usuario INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario)
 );
@@ -667,3 +677,55 @@ CREATE PROC CRAZYDRIVER.spActualizarRol
 		UPDATE CRAZYDRIVER.ROL
 			SET nombre = @rolNombre, habilitado = @habilitado
 			WHERE id_rol = @idRol
+
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarCliente
+	  @dni int,
+	  @nombre NVARCHAR(255),
+	  @apellido NVARCHAR(255),
+	  @direccion NVARCHAR(255),
+	  @mail NVARCHAR(255),
+	  @telefono int,
+	  @fecha_nac DATETIME,
+	  @nro_piso int,
+	  @depto CHAR(1),
+	  @localidad NVARCHAR(255),
+	  @cod_postal int
+	  AS
+
+	  DECLARE @usuario int;
+	  DECLARE @dnib int;
+	  DECLARE @telefonob int;
+	 
+
+	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = c.telefono
+	  from CRAZYDRIVER.Cliente c 
+	  where @dni = c.dni or @telefono = c.telefono;
+	  	
+		
+	
+	  IF (@telefonob is not null)
+      BEGIN 
+		 return -1;
+	  END;
+
+	  ELSE IF (@dnib is not null)
+      BEGIN 
+		 return 0;
+	  END;
+
+	  ELSE
+	  BEGIN
+
+		INSERT INTO CRAZYDRIVER.Usuario(username, pass, habilitado, intentos)
+		values (CAST(@dni AS VARCHAR(255)), HASHBYTES('SHA2_256', N'w23e'), 1, 0);
+  
+		INSERT INTO CRAZYDRIVER.RolPorUsuario (id_rol,id_usuario) values (2,CAST(@dni AS VARCHAR(255)));
+		
+		INSERT INTO CRAZYDRIVER.Cliente (dni,nombre,apellido,direccion,mail,telefono,fecha_nac,nro_piso,depto,localidad,cod_postal,id_usuario)
+		values (@dni,@nombre,@apellido,@direccion,@mail,@telefono,@fecha_nac,@nro_piso,@depto,@localidad,@cod_postal,@usuario);
+		commit;
+	  END;
+	return 1;
+  GO
