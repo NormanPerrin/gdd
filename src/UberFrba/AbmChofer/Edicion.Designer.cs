@@ -1,6 +1,6 @@
-﻿namespace UberFrba
+﻿namespace UberFrba.AbmChofer
 {
-    partial class AbmChofer
+    partial class Edicion
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "AbmChofer";
+            this.Text = "Edicion";
         }
 
         #endregion

@@ -59,11 +59,23 @@
     <Compile Include="AbmAuto\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmChofer.cs">
+    <Compile Include="AbmChofer\AbmChofer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmChofer.Designer.cs">
+    <Compile Include="AbmChofer\AbmChofer.Designer.cs">
       <DependentUpon>AbmChofer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmChofer\Edicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer\Edicion.Designer.cs">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmChofer\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmCliente.cs">
       <SubType>Form</SubType>
@@ -150,6 +162,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmAuto\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\AbmChofer.resx">
+      <DependentUpon>AbmChofer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>

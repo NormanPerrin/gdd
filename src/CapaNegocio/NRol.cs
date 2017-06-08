@@ -11,98 +11,60 @@ namespace CapaNegocio
 {
     public class NRol
     {
-        #region Atributos
-
-        private int _idRol;
-        private string _nombre;
-        private int _habilitado;
-
-        #endregion
-        
-        #region Constructores
-
         public NRol()
         {
         }
 
-        #endregion
-
-        #region Metodos/Atributos
-
-            public static DataTable ObtenerRoles()
-            {
-                return new DRol().ObtenerRoles();
-            }
-
-            public static DataTable ObtenerRoles(int idUsuario)
-            {
-                DRol Objeto = new DRol();
-                return Objeto.ObtenerRoles(idUsuario);
-            }
-
-            public static DataTable ObtenerRoles(string rolNombre)
-            {
-                DRol Objeto = new DRol();
-                return Objeto.ObtenerRoles(rolNombre);
-            }
-
-            public static DataTable ObtenerFuncionalidades()
-            {
-                return new DRol().ObtenerFuncionalidades();
-            }
-
-            public static DataTable ObtenerFuncionalidades(string nombreRol)
-            {
-                DRol Objeto = new DRol();
-                return Objeto.ObtenerFuncionalidades(nombreRol);
-            }
-
-            public static string AgregarRol(string nombreRol)
-            {
-                DRol Objeto = new DRol();
-                return Objeto.AgregarRol(nombreRol);
-            }
-
-            public static DataTable ObtenerRol(string nombreRol)
-            {
-                DRol Objeto = new DRol();
-                return Objeto.ObtenerRol(nombreRol);
-            }
-
-            public static string AgregarRolFuncionalidad(int idRol, int idFuncionalidad)
-            {
-                DRol Objeto = new DRol();
-                return Objeto.AgregarRol(idRol, idFuncionalidad);
-            }
-
-            public static string ActualizarRol(int idRol, string nombre, int estado)
-            {
-                DRol Objeto = new DRol();
-                return Objeto.ActualizarRol(idRol, nombre, estado);
-            }
-
-        #endregion
-
-        #region Getters/Setters
-
-        public int IdRol
+        public static DataTable ObtenerRoles()
         {
-            get { return _idRol; }
-            set { _idRol = value; }
+            return new DRol().ObtenerRoles();
         }
 
-        public string Nombre
+        public static DataTable ObtenerRoles(int idUsuario)
         {
-            get { return _nombre; }
-            set { _nombre = value; }
+            DRol Objeto = new DRol();
+            return Objeto.ObtenerRoles(idUsuario);
         }
 
-        public int Habilitado
+        public static DataTable ObtenerRoles(string rolNombre)
         {
-            get { return _habilitado; }
-            set { _habilitado = value; }
+            DRol Objeto = new DRol();
+            return Objeto.ObtenerRoles(rolNombre);
         }
 
-        #endregion
+        public static DataTable ObtenerFuncionalidades()
+        {
+            return new DRol().ObtenerFuncionalidades();
+        }
+
+        public static DataTable ObtenerFuncionalidades(string nombreRol)
+        {
+            DRol Objeto = new DRol();
+            return Objeto.ObtenerFuncionalidades(nombreRol);
+        }
+
+        public static string AgregarRol(string nombreRol)
+        {
+            DRol Objeto = new DRol();
+            return Objeto.AgregarRol(nombreRol);
+        }
+
+        public static DataTable ObtenerRol(string nombreRol)
+        {
+            DRol Objeto = new DRol();
+            return Objeto.ObtenerRol(nombreRol);
+        }
+
+        public static string AgregarRolFuncionalidad(int idRol, int idFuncionalidad)
+        {
+            DRol Objeto = new DRol();
+            return Objeto.AgregarRol(idRol, idFuncionalidad);
+        }
+
+        public static string ActualizarRol(int idRol, string nombre, int estado)
+        {
+            DRol Objeto = new DRol();
+            return Objeto.ActualizarRol(idRol, nombre, estado);
+        }
     }
 }

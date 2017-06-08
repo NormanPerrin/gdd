@@ -68,6 +68,21 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spActualizarRol;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerTodoChoferes') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerTodoChoferes;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferEspecifico') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferEspecifico;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferEspecificoConDni') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferEspecificoConDni;
+END;
+
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -209,6 +224,7 @@ CREATE TABLE CRAZYDRIVER.Cliente(
 	depto CHAR(1), -- requisito nuevo
 	localidad NVARCHAR(255), -- requisito nuevo
 	cod_postal INT, -- requisito nuevo
+	habilitado TINYINT NOT NULL default 1,
 	id_usuario INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario)
 );
 GO
@@ -225,6 +241,7 @@ CREATE TABLE CRAZYDRIVER.Chofer(
 	nro_piso INT, -- requisito nuevo
 	depto INT, -- requisito nuevo
 	localidad NVARCHAR(255), -- requisito nuevo
+	habilitado TINYINT NOT NULL default 1,
 	id_usuario INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario)
 );
 GO
@@ -247,23 +264,23 @@ CREATE TABLE CRAZYDRIVER.Turno(
 );
 GO
 
-CREATE TABLE CRAZYDRIVER.marca(
+CREATE TABLE CRAZYDRIVER.Marca(
 	id_marca INT IDENTITY PRIMARY KEY,
 	nombre NVARCHAR(255) Not NULL
 );
 GO
 
-CREATE TABLE CRAZYDRIVER.modelo(
+CREATE TABLE CRAZYDRIVER.Modelo(
 	id_modelo INT IDENTITY PRIMARY KEY,
 	nombre NVARCHAR(255) NOT NULL,
-	id_marca INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.marca(id_marca),
+	id_marca INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Marca(id_marca),
 );
 GO
 
 CREATE TABLE CRAZYDRIVER.Auto(
 	id_auto INT IDENTITY PRIMARY KEY,
 	patente NVARCHAR(10) UNIQUE NOT NULL,
-	id_modelo INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.modelo(id_modelo),
+	id_modelo INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Modelo(id_modelo),
 	licencia NVARCHAR(26) NOT NULL,
 	rodado NVARCHAR(10) NOT NULL,
 	habilitado TINYINT default 1
@@ -390,18 +407,18 @@ INSERT INTO CRAZYDRIVER.Usuario(username, pass, habilitado, intentos)
 		gd_esquema.Maestra
 GO
 
-INSERT INTO CRAZYDRIVER.Chofer(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, id_usuario)
+INSERT INTO CRAZYDRIVER.Chofer(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, habilitado, id_usuario)
 	SELECT DISTINCT
-		m.Chofer_Dni, m.Chofer_Apellido, m.Chofer_Nombre, m.Chofer_Telefono, m.Chofer_Mail, m.Chofer_Fecha_Nac, m.Chofer_Direccion, null, null, null, u.id_usuario
+		m.Chofer_Dni, m.Chofer_Apellido, m.Chofer_Nombre, m.Chofer_Telefono, m.Chofer_Mail, m.Chofer_Fecha_Nac, m.Chofer_Direccion, null, null, null, 1, u.id_usuario
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u
 	WHERE
 		cast(m.Chofer_Dni as varchar(255)) = u.username
 GO
 
-INSERT INTO CRAZYDRIVER.Cliente(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, cod_postal, id_usuario)
+INSERT INTO CRAZYDRIVER.Cliente(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, cod_postal, habilitado, id_usuario)
 	SELECT DISTINCT
-		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, u.id_usuario
+		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, 1, u.id_usuario
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u
 	WHERE
@@ -667,3 +684,41 @@ CREATE PROC CRAZYDRIVER.spActualizarRol
 		UPDATE CRAZYDRIVER.ROL
 			SET nombre = @rolNombre, habilitado = @habilitado
 			WHERE id_rol = @idRol
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerTodoChoferes
+	AS
+		SELECT *, CAST(
+				 CASE 
+					  WHEN habilitado = 1
+						 THEN 'habilitado'
+					  ELSE 'deshabilitado' 
+				 END AS NVARCHAR(20)
+			) as Estado
+			FROM CRAZYDRIVER.Chofer
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerChoferEspecifico
+	@choferNombre NVARCHAR(255),
+	@choferApellido NVARCHAR(255),
+	@choferDni NVARCHAR(18)
+	AS
+		SELECT DISTINCT *, CAST(
+				 CASE 
+					  WHEN habilitado = 1
+						 THEN 'habilitado'
+					  ELSE 'deshabilitado' 
+				 END AS NVARCHAR(20)
+			) as Estado
+			FROM 
+				CRAZYDRIVER.Chofer
+			WHERE 
+				nombre like @choferNombre + '%' AND
+				apellido like @choferApellido  + '%' AND
+				CAST(dni AS VARCHAR(255)) like @choferDni + '%'
+
+GO
+
+--32x72 y el modulo es 6312
+
+--que se deshabilite un chofer es darle la baja logica en la tabla chofer, en la tabla usuarios y/o tambien en el rol de chofer?

@@ -43,6 +43,7 @@
     <Compile Include="Cargador.cs" />
     <Compile Include="Decoracion.cs" />
     <Compile Include="IAuto.cs" />
+    <Compile Include="IChofer.cs" />
     <Compile Include="IRol.cs" />
     <Compile Include="IUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
