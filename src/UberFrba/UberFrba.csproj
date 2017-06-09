@@ -166,6 +166,9 @@
     <EmbeddedResource Include="AbmChofer\AbmChofer.resx">
       <DependentUpon>AbmChofer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\Edicion.resx">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmChofer\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>

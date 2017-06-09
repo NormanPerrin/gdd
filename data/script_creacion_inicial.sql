@@ -718,7 +718,3 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferEspecifico
 				CAST(dni AS VARCHAR(255)) like @choferDni + '%'
 
 GO
-
---32x72 y el modulo es 6312
-
---que se deshabilite un chofer es darle la baja logica en la tabla chofer, en la tabla usuarios y/o tambien en el rol de chofer?
