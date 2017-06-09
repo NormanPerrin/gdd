@@ -58,17 +58,17 @@ namespace CapaDatos
                 parametros[4].SqlDbType = SqlDbType.Int;
                 parametros[4].Value = Usuario.Intentos;
 
-                int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spInsertarUsuario");
+                string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spInsertarUsuario");
                 string respuesta = string.Empty;
                 switch(resultado)
                 {
-                    case -1:
+                    case "-1":
                         respuesta = "Se capturo un error al intentar insertar un usuario";
                         break;
-                    case 0:
+                    case "0":
                         respuesta = "No se logro agregar un usuario";
                         break;
-                    case 1:
+                    case "1":
                         respuesta = "Se agrego un usuario";
                         break;
                 }
@@ -91,17 +91,17 @@ namespace CapaDatos
                 parametros[1].SqlDbType = SqlDbType.Int;
                 parametros[1].Value = Usuario.Intentos;
 
-                int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spEditarIntentosUsuario");
+                string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spEditarIntentosUsuario");
                 string respuesta = string.Empty;
                 switch(resultado)
                 {
-                    case -1:
+                    case "-1":
                         respuesta = "Se capturo un error al intentar editar un usuario";
                         break;
-                    case 0:
+                    case "0":
                         respuesta = "No se logro editar un usuario";
                         break;
-                    case 1:
+                    case "1":
                         respuesta = "Se edito un usuario";
                         break;
                 }

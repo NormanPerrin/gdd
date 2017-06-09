@@ -44,6 +44,7 @@
     <Compile Include="Decoracion.cs" />
     <Compile Include="IAuto.cs" />
     <Compile Include="IChofer.cs" />
+    <Compile Include="ICliente.cs" />
     <Compile Include="IRol.cs" />
     <Compile Include="IUsuario.cs" />
     <Compile Include="Objetos\Chofer.cs" />

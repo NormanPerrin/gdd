@@ -72,17 +72,17 @@ namespace CapaDatos
             parametros[5].SqlDbType = SqlDbType.Int;
             parametros[5].Value = chofer;
 
-            int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarAuto");
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarAuto");
             string respuesta = string.Empty;
             switch (resultado)
             {
-                case -1:
+                case "-1":
                     respuesta = "Se capturo un error al intentar agregar un auto";
                     break;
-                case 0:
+                case "0":
                     respuesta = "No se logro agregar un auto";
                     break;
-                case 1:
+                case "1":
                     respuesta = "Se agrego un auto";
                     break;
             }

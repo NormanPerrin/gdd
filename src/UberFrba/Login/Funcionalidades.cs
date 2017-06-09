@@ -41,7 +41,7 @@ namespace UberFrba
                 }
                 else if (cbxFuncionalidades.Text == "ABM cliente")
                 {
-                    AbmCliente siguienteVentana = AbmCliente.ObtenerInstancia();
+                    AbmCliente.AbmCliente siguienteVentana = new AbmCliente.AbmCliente();
                     siguienteVentana.Show();
                 }
                 else if (cbxFuncionalidades.Text == "ABM automovil")
@@ -56,8 +56,8 @@ namespace UberFrba
                 }
                 else if (cbxFuncionalidades.Text == "ABM chofer")
                 {
-                    AbmChofer.AbmChofer siguienteVentana = new AbmChofer.AbmChofer();
-                    siguienteVentana.ShowDialog(this);
+                    /*AbmChofer.AbmChofer siguienteVentana = new AbmChofer.AbmChofer();
+                    siguienteVentana.ShowDialog(this);*/
                 }
                 else if (cbxFuncionalidades.Text == "Registrar viaje")
                 {

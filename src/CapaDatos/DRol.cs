@@ -105,17 +105,17 @@ namespace CapaDatos
             parametros[1].Size = 100;
             parametros[1].Value = rolNombre;
 
-            int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRol");
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRol");
             string respuesta = string.Empty;
             switch (resultado)
             {
-                case -1:
+                case "-1":
                     respuesta = "Se capturo un error al intentar agregar un rol";
                     break;
-                case 0:
+                case "0":
                     respuesta = "No se logro agregar un rol";
                     break;
-                case 1:
+                case "1":
                     respuesta = "Se agrego un usuario";
                     break;
             }
@@ -156,17 +156,17 @@ namespace CapaDatos
             parametros[1].SqlDbType = SqlDbType.Int;
             parametros[1].Value = idFuncionalidad;
 
-            int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRolFuncionalidad");
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRolFuncionalidad");
             string respuesta = string.Empty;
             switch (resultado)
             {
-                case -1:
+                case "-1":
                     respuesta = "Se capturo un error al intentar agregar una funcionalidad al rol";
                     break;
-                case 0:
+                case "0":
                     respuesta = "No se logro agregar una funcionalidad al rol";
                     break;
-                case 1:
+                case "1":
                     respuesta = "Se agrego un usuario";
                     break;
             }
@@ -195,17 +195,17 @@ namespace CapaDatos
             parametros[2].SqlDbType = SqlDbType.Int;
             parametros[2].Value = estado;
 
-            int resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarRol");
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarRol");
             string respuesta = string.Empty;
             switch (resultado)
             {
-                case -1:
+                case "-1":
                     respuesta = "Se capturo un error al intentar agregar una funcionalidad al rol";
                     break;
-                case 0:
+                case "0":
                     respuesta = "No se logro agregar una funcionalidad al rol";
                     break;
-                case 1:
+                case "1":
                     respuesta = "Se agrego un usuario";
                     break;
             }
