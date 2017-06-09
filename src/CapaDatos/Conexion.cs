@@ -30,9 +30,9 @@ namespace CapaDatos
 
         #region Mensajes/Atributos
 
-            public int Ejecutar(SqlParameter[] parametros, string nombreProcedimiento) // valido para: insert, update y delete
+            public string Ejecutar(SqlParameter[] parametros, string nombreProcedimiento) // valido para: insert, update y delete
             {
-                int respuesta = 0;
+                string respuesta = String.Empty;
                 try
                 {
                     sqlConexion = new SqlConnection(Cn); // instanciamos el objeto conexion con la cadena de conexion
@@ -44,15 +44,12 @@ namespace CapaDatos
                     Comando.Parameters.AddRange(parametros); // agregmos los parametros a ejecutar                
                     // ejecutamos el TSQL(Transaction SQL) en el servidor
                     respuesta = Comando.ExecuteNonQuery() == 1 ?
-                        1: // si no se logro ejecutar
-                        0; // si se logro ejecutar
+                        "No se ha podido ejecutar la transaccion": // si no se logro ejecutar
+                        "La transaccion se ha realizado con exito"; // si se logro ejecutar
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("{0} Exception caught.", ex);
-                    //throw new Exception(ex.Message); --> tira un error, investigar luego porque
-                    //rpta = ex.Message; --> quedo obsoleto ya no muestro el error
-                    respuesta = -1; // termino por excepcion
+                   return ex.Message;
                 }
 
                 finally
