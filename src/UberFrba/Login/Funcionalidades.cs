@@ -56,8 +56,8 @@ namespace UberFrba
                 }
                 else if (cbxFuncionalidades.Text == "ABM chofer")
                 {
-                    /*AbmChofer.AbmChofer siguienteVentana = new AbmChofer.AbmChofer();
-                    siguienteVentana.ShowDialog(this);*/
+                    AbmChofer.AbmChofer siguienteVentana = new AbmChofer.AbmChofer();
+                    siguienteVentana.ShowDialog(this);
                 }
                 else if (cbxFuncionalidades.Text == "Registrar viaje")
                 {

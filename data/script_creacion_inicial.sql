@@ -73,6 +73,11 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerTodoChoferes;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spAgregarCliente') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarCliente;
+END;
+
 IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferEspecifico') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferEspecifico;
@@ -424,7 +429,7 @@ GO
 
 INSERT INTO CRAZYDRIVER.Cliente(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, cod_postal, id_usuario, habilitado)
 	SELECT DISTINCT
-		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, 1, u.id_usuario,1
+		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, u.id_usuario
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u
 	WHERE

@@ -59,19 +59,35 @@
     <Compile Include="AbmAuto\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmChofer\AbmChofer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer\AbmChofer.Designer.cs">
+      <DependentUpon>AbmChofer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmChofer\Edicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer\Edicion.Designer.cs">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmChofer\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmCliente\AbmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AbmCliente\AbmCliente.Designer.cs">
       <DependentUpon>AbmCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Alta.cs">
+    <Compile Include="AbmCliente\Alta.cs">
       <SubType>Form</SubType>
-      <Link>AbmCliente\Alta.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Alta.Designer.cs">
+    <Compile Include="AbmCliente\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
-      <Link>AbmCliente\Alta.Designer.cs</Link>
     </Compile>
     <Compile Include="AbmRol\AbmRol.cs">
       <SubType>Form</SubType>
@@ -153,12 +169,20 @@
     <EmbeddedResource Include="AbmAuto\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\AbmChofer.resx">
+      <DependentUpon>AbmChofer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\Edicion.resx">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmCliente\AbmCliente.resx">
       <DependentUpon>AbmCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\..\..\Desktop\Alta.resx">
+    <EmbeddedResource Include="AbmCliente\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
-      <Link>AbmCliente\Alta.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
