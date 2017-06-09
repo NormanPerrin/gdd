@@ -83,6 +83,11 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferEspecificoConDni;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spAgregarRol') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarRol;
+END;
+
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -220,6 +225,7 @@ CREATE TABLE CRAZYDRIVER.Cliente(
 	telefono NUMERIC(18,0) NOT NULL,
 	fecha_nac DATETIME NOT NULL,
 	direccion NVARCHAR(255) NOT NULL,
+	habilitado Bit NOT NULL, --requisito nuevo,
 	nro_piso INT, -- requisito nuevo
 	depto CHAR(1), -- requisito nuevo
 	localidad NVARCHAR(255), -- requisito nuevo
@@ -416,9 +422,9 @@ INSERT INTO CRAZYDRIVER.Chofer(dni, apellido, nombre, telefono, mail, fecha_nac,
 		cast(m.Chofer_Dni as varchar(255)) = u.username
 GO
 
-INSERT INTO CRAZYDRIVER.Cliente(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, cod_postal, habilitado, id_usuario)
+INSERT INTO CRAZYDRIVER.Cliente(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, cod_postal, id_usuario, habilitado)
 	SELECT DISTINCT
-		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, 1, u.id_usuario
+		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, 1, u.id_usuario,1
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u
 	WHERE
@@ -718,3 +724,57 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferEspecifico
 				CAST(dni AS VARCHAR(255)) like @choferDni + '%'
 
 GO
+
+CREATE PROC CRAZYDRIVER.spAgregarCliente
+	  @dni int,
+	  @nombre NVARCHAR(255),
+	  @apellido NVARCHAR(255),
+	  @direccion NVARCHAR(255),
+	  @mail NVARCHAR(255),
+	  @telefono int,
+	  @fecha_nac DATETIME,
+	  @nro_piso int,
+	  @depto CHAR(1),
+	  @localidad NVARCHAR(255),
+	  @cod_postal int
+	  AS
+
+	  DECLARE @usuario int;
+	  DECLARE @dnib int;
+	  DECLARE @telefonob int;
+	 
+
+	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = c.telefono
+	  from CRAZYDRIVER.Cliente c
+	  where @dni = c.dni or @telefono = c.telefono;
+
+	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = CASE WHEN @telefonob is null then c.telefono else @telefonob END
+	  from CRAZYDRIVER.Chofer c
+	  where @dni = c.dni or @telefono = c.telefono;
+	  	
+		
+	
+	  IF (@telefonob is not null and @telefono = @telefonob)
+		 BEGIN
+		 RAISERROR('Telefono existente',17,1);
+		 END
+
+	  ELSE IF (@dnib is not null and @dni = @dnib)
+		 BEGIN
+		 RAISERROR('DNI existente',17,1);
+		 END
+
+	  ELSE
+		BEGIN
+		INSERT INTO CRAZYDRIVER.Usuario(username, pass, habilitado, intentos)
+		values (CAST(@dni AS VARCHAR(255)), HASHBYTES('SHA2_256', N'w23e'), 1, 0);
+
+		if (@usuario is null) SELECT @usuario = SCOPE_IDENTITY();
+
+		INSERT INTO CRAZYDRIVER.RolPorUsuario (id_rol,id_usuario) values (2,@usuario);
+		
+		INSERT INTO CRAZYDRIVER.Cliente (dni,nombre,apellido,direccion,mail,telefono,fecha_nac,nro_piso,depto,localidad,cod_postal,id_usuario,habilitado)
+		values (@dni,@nombre,@apellido,@direccion,@mail,@telefono,@fecha_nac,@nro_piso,@depto,@localidad,@cod_postal,@usuario,1);
+		END
+
+ GO
