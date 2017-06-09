@@ -80,6 +80,7 @@
             this.tablaChoferes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaChoferes.Size = new System.Drawing.Size(493, 219);
             this.tablaChoferes.TabIndex = 3;
+            this.tablaChoferes.DoubleClick += new System.EventHandler(this.tablaChoferes_DoubleClick);
             // 
             // groupBox2
             // 

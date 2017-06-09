@@ -75,7 +75,7 @@
             this.txtNombreNuevo = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtFecNacVieja = new System.Windows.Forms.TextBox();
+            this.txtFechaNacVieja = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtDniViejo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -537,7 +537,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.txtFecNacVieja);
+            this.groupBox3.Controls.Add(this.txtFechaNacVieja);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.txtDniViejo);
             this.groupBox3.Controls.Add(this.label2);
@@ -560,13 +560,13 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Fecha de nacimiento:";
             // 
-            // txtFecNacVieja
+            // txtFechaNacVieja
             // 
-            this.txtFecNacVieja.Location = new System.Drawing.Point(121, 94);
-            this.txtFecNacVieja.Name = "txtFecNacVieja";
-            this.txtFecNacVieja.ReadOnly = true;
-            this.txtFecNacVieja.Size = new System.Drawing.Size(162, 20);
-            this.txtFecNacVieja.TabIndex = 18;
+            this.txtFechaNacVieja.Location = new System.Drawing.Point(121, 94);
+            this.txtFechaNacVieja.Name = "txtFechaNacVieja";
+            this.txtFechaNacVieja.ReadOnly = true;
+            this.txtFechaNacVieja.Size = new System.Drawing.Size(162, 20);
+            this.txtFechaNacVieja.TabIndex = 18;
             // 
             // label3
             // 
@@ -686,7 +686,7 @@
         private System.Windows.Forms.TextBox txtNombreNuevo;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtFecNacVieja;
+        private System.Windows.Forms.TextBox txtFechaNacVieja;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtDniViejo;
         private System.Windows.Forms.Label label2;
