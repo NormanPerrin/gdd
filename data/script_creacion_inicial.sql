@@ -230,7 +230,6 @@ CREATE TABLE CRAZYDRIVER.Cliente(
 	telefono NUMERIC(18,0) NOT NULL,
 	fecha_nac DATETIME NOT NULL,
 	direccion NVARCHAR(255) NOT NULL,
-	habilitado Bit NOT NULL, --requisito nuevo,
 	nro_piso INT, -- requisito nuevo
 	depto CHAR(1), -- requisito nuevo
 	localidad NVARCHAR(255), -- requisito nuevo
@@ -418,9 +417,9 @@ INSERT INTO CRAZYDRIVER.Usuario(username, pass, habilitado, intentos)
 		gd_esquema.Maestra
 GO
 
-INSERT INTO CRAZYDRIVER.Chofer(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, habilitado, id_usuario)
+INSERT INTO CRAZYDRIVER.Chofer(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, id_usuario, habilitado)
 	SELECT DISTINCT
-		m.Chofer_Dni, m.Chofer_Apellido, m.Chofer_Nombre, m.Chofer_Telefono, m.Chofer_Mail, m.Chofer_Fecha_Nac, m.Chofer_Direccion, null, null, null, 1, u.id_usuario
+		m.Chofer_Dni, m.Chofer_Apellido, m.Chofer_Nombre, m.Chofer_Telefono, m.Chofer_Mail, m.Chofer_Fecha_Nac, m.Chofer_Direccion, null, null, null, u.id_usuario, 1
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u
 	WHERE
@@ -429,7 +428,7 @@ GO
 
 INSERT INTO CRAZYDRIVER.Cliente(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, cod_postal, id_usuario, habilitado)
 	SELECT DISTINCT
-		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, u.id_usuario
+		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, u.id_usuario, 1
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u
 	WHERE
