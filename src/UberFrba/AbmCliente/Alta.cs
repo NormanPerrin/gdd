@@ -34,11 +34,6 @@ namespace UberFrba.AbmCliente
 
         #endregion
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             this.calendario.Show();
@@ -93,6 +88,16 @@ namespace UberFrba.AbmCliente
             string respuesta = CapaInterfaz.ICliente.alta(int.Parse(this.textDNI.Text), this.textNombre.Text, this.textApellido.Text, this.textCalle.Text, this.textMail.Text, int.Parse(this.textTel.Text), Convert.ToDateTime(this.textFN.Text), int.Parse(this.textPiso.Text), this.textDpto.Text, this.textLoc.Text, int.Parse(this.textCP.Text));
             CapaInterfaz.Decoracion.mostrarInfo(respuesta);
             this.Close();
+        }
+
+        private void buttonAtras_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonBorrar_Click(object sender, EventArgs e)
+        {
+
         }
 
      
