@@ -47,6 +47,7 @@ namespace UberFrba.AbmChofer
         private void tablaChoferes_DoubleClick(object sender, EventArgs e)
         {
             Chofer chofer = new Chofer();
+            chofer.limpiarAtributos(chofer);
             chofer.Nombre = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["nombre"].Value);
             chofer.Apellido = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["apellido"].Value);
             chofer.Dni = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["dni"].Value);
@@ -54,22 +55,13 @@ namespace UberFrba.AbmChofer
             chofer.Telefono = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["telefono"].Value);
             chofer.Mail = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["mail"].Value);
             chofer.Direccion = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["direccion"].Value);
-            
-            if (this.tablaChoferes.CurrentRow.Cells["localidad"].Value == null)
-                chofer.Localidad = string.Empty;
-            else
+            if (this.tablaChoferes.CurrentRow.Cells["localidad"].Value != DBNull.Value)
                 chofer.Localidad = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["localidad"].Value);
-
-            if (this.tablaChoferes.CurrentRow.Cells["nro_piso"].Value == null)
-                chofer.NroPiso = -1;
-            else
+            if (this.tablaChoferes.CurrentRow.Cells["nro_piso"].Value != DBNull.Value)
                 chofer.NroPiso = Convert.ToInt32(this.tablaChoferes.CurrentRow.Cells["nro_piso"].Value);
-
-            if (this.tablaChoferes.CurrentRow.Cells["depto"].Value == null)
-                chofer.Depto = "";
-            else
+            if (this.tablaChoferes.CurrentRow.Cells["depto"].Value != DBNull.Value)
                 chofer.Depto = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["depto"].Value);
-
+            chofer.Habilitado = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["estado"].Value);
             Edicion ventana = new Edicion(chofer);
             ventana.ShowDialog(this);
         }

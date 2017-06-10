@@ -29,6 +29,8 @@ namespace UberFrba.AbmChofer
             txtLocalidadVieja.Text = chofer.Localidad;
             txtNroPisoViejo.Text = Convert.ToString(chofer.NroPiso);
             txtDeptoViejo.Text = chofer.Depto;
+            txtEstado.Text = chofer.Habilitado;
+            cbxEstado.Text = chofer.Habilitado;
         }
 
         private void Edicion_Load(object sender, EventArgs e)
@@ -38,8 +40,17 @@ namespace UberFrba.AbmChofer
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            //this.txtRolNombreNuevo.Text = string.Empty;
-            //cbxRolEstadoNuevo.SelectedIndex = 0;
+            txtNombreNuevo.Text = string.Empty;
+            txtApellidoNuevo.Text = string.Empty;
+            txtDniNuevo.Text = string.Empty;
+            txtFechaNacNueva.Text = string.Empty;
+            txtTelefonoNuevo.Text = string.Empty;
+            txtMailNuevo.Text = string.Empty;
+            txtDireccionNueva.Text = string.Empty;
+            txtLocalidadNueva.Text = string.Empty;
+            TxtNroPisoNuevo.Text = string.Empty;
+            txtDeptoNuevo.Text = string.Empty;
+            cbxEstado.Text = txtEstado.Text;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

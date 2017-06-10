@@ -100,5 +100,25 @@ namespace CapaInterfaz.Objetos
         }
 
         #endregion Constructores
+
+        public Chofer()
+        {
+        }
+
+        public void limpiarAtributos(Chofer chofer)
+        {
+            chofer.Nombre = string.Empty;
+            chofer.Apellido = string.Empty;
+            chofer.Dni = string.Empty;
+            chofer.FechaNac = new DateTime();
+            chofer.Telefono = string.Empty;
+            chofer.Mail = string.Empty;
+            chofer.Direccion = string.Empty;
+            chofer.Localidad = string.Empty;
+            chofer.NroPiso = new Int32();
+            chofer.Depto = string.Empty;
+            chofer.Habilitado = string.Empty;
+            chofer.IdUsuario = new Int32();
+        }
     }
 }
