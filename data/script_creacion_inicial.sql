@@ -93,6 +93,26 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAgregarRol;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spAgregarModelo') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarModelo;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarAutoPorChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarAutoPorChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarAuto') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarAuto;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAltaAutomovil') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAltaAutomovil;
+END;
+
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -282,7 +302,7 @@ GO
 
 CREATE TABLE CRAZYDRIVER.Modelo(
 	id_modelo INT IDENTITY PRIMARY KEY,
-	nombre NVARCHAR(255) NOT NULL,
+	nombre NVARCHAR(255) NULL default '',
 	id_marca INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Marca(id_marca),
 );
 GO
@@ -291,8 +311,8 @@ CREATE TABLE CRAZYDRIVER.Auto(
 	id_auto INT IDENTITY PRIMARY KEY,
 	patente NVARCHAR(10) UNIQUE NOT NULL,
 	id_modelo INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Modelo(id_modelo),
-	licencia NVARCHAR(26) NOT NULL,
-	rodado NVARCHAR(10) NOT NULL,
+	licencia NVARCHAR(26) NULL default '',
+    rodado NVARCHAR(10) NULL default '',
 	habilitado TINYINT default 1
 );
 GO
@@ -668,8 +688,9 @@ GO
 
 CREATE PROC CRAZYDRIVER.spObtenerChoferes
 	AS
-		SELECT DISTINCT id_chofer
+		SELECT DISTINCT id_chofer, dni, nombre, apellido
 		FROM CRAZYDRIVER.Chofer
+		WHERE habilitado = 1
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerRolesPorNombre
@@ -782,3 +803,58 @@ CREATE PROC CRAZYDRIVER.spAgregarCliente
 		END
 
  GO
+
+ CREATE PROC CRAZYDRIVER.spAgregarModelo
+	@modelo INT,
+	@marca INT
+	AS
+		IF NOT EXISTS (SELECT 1 FROM CRAZYDRIVER.modelo 
+			WHERE id_modelo = @modelo)
+			INSERT INTO CRAZYDRIVER.modelo
+				(id_marca) 
+				VALUES (@marca)
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarAutoPorChofer
+	@idAuto INT,
+	@idTurno INT,
+	@idChofer INT
+	AS
+		INSERT INTO CRAZYDRIVER.AutoPorChofer
+			(id_auto, id_chofer, id_turno) 
+			VALUES (@idAuto, @idChofer, @idTurno)
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarAuto
+	@patente NVARCHAR(10),
+	@modelo INT
+	AS
+			INSERT INTO CRAZYDRIVER.Auto 
+				(patente, id_modelo) 
+				VALUES (@patente, @modelo)
+GO
+
+CREATE PROC CRAZYDRIVER.spAltaAutomovil
+	@patente NVARCHAR(10),
+	@marca INT,
+	@modelo INT,
+	@idTurno INT,
+	@idChofer INT
+	AS
+		DECLARE @idAuto int;
+		EXEC CRAZYDRIVER.spAgregarModelo @modelo, @marca;
+
+		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.Auto 
+			WHERE patente = @patente)
+			BEGIN
+			RAISERROR('Patente existente',17,1);
+			RETURN
+			END
+		ELSE
+			EXEC CRAZYDRIVER.spAgregarAuto @patente, @modelo;
+			
+		SELECT @idAuto = a.id_auto from CRAZYDRIVER.Auto a
+		WHERE a.patente = @patente;
+		EXEC CRAZYDRIVER.spAgregarAutoPorChofer @idAuto, @idTurno, @idChofer;
+						
+GO
