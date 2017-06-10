@@ -15,48 +15,41 @@ namespace CapaDatos
         {
         }
 
-        public string AgregarAuto(string marca, string modelo, string patente, int turno, int chofer)
+        public string AgregarAuto(int marca, int modelo, string patente, int turno, int chofer)
         {
             Conexion Conexion = new Conexion();
 
-            SqlParameter[] parametros = new SqlParameter[6];
+            SqlParameter[] parametros = new SqlParameter[5];
 
             parametros[0] = new SqlParameter();
-            parametros[0].ParameterName = "@idAuto";
-            parametros[0].SqlDbType = SqlDbType.Int;
-            parametros[0].Direction = ParameterDirection.Output;
+            parametros[0].ParameterName = "@patente";
+            parametros[0].SqlDbType = SqlDbType.NVarChar;
+            parametros[0].Size = 10;
+            parametros[0].Value = patente;
 
             parametros[1] = new SqlParameter();
-            parametros[1].ParameterName = "@patente";
-            parametros[1].SqlDbType = SqlDbType.NVarChar;
-            parametros[1].Size = 10;
-            parametros[1].Value = patente;
+            parametros[1].ParameterName = "@marca";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = marca;
 
             parametros[2] = new SqlParameter();
-            parametros[2].ParameterName = "@marca";
-            parametros[2].SqlDbType = SqlDbType.NVarChar;
-            parametros[2].Size = 255;
-            parametros[2].Value = marca;
+            parametros[2].ParameterName = "@modelo";
+            parametros[2].SqlDbType = SqlDbType.Int;
+            parametros[2].Value = modelo;
 
             parametros[3] = new SqlParameter();
-            parametros[3].ParameterName = "@modelo";
-            parametros[3].SqlDbType = SqlDbType.NVarChar;
-            parametros[3].Size = 255;
-            parametros[3].Value = modelo;
+            parametros[3].ParameterName = "@idTurno";
+            parametros[3].SqlDbType = SqlDbType.Int;
+            parametros[3].Value = turno;
 
             parametros[4] = new SqlParameter();
-            parametros[4].ParameterName = "@turno";
+            parametros[4].ParameterName = "@idChofer";
             parametros[4].SqlDbType = SqlDbType.Int;
-            parametros[4].Value = turno;
+            parametros[4].Value = chofer;
 
-            parametros[5] = new SqlParameter();
-            parametros[5].ParameterName = "@chofer";
-            parametros[5].SqlDbType = SqlDbType.Int;
-            parametros[5].Value = chofer;
-
-            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarAuto");
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAltaAutomovil");
             string respuesta = string.Empty;
-            switch (resultado)
+            /*switch (resultado)
             {
                 case "-1":
                     respuesta = "Se capturo un error al intentar agregar un auto";
@@ -67,8 +60,8 @@ namespace CapaDatos
                 case "1":
                     respuesta = "Se agrego un auto";
                     break;
-            }
-            return respuesta;
+            }*/
+            return resultado;
         }
 
         public object ObtenerTurnos()

@@ -10,7 +10,7 @@ namespace CapaNegocio
     {
 
 
-        public static string alta(string marca, string modelo, string patente, int turno, int chofer)
+        public static string alta(int marca, int modelo, string patente, int turno, int chofer)
         {
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
             return objeto.AgregarAuto(marca, modelo, patente, turno, chofer);
