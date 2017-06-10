@@ -8,24 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace UberFrba.AbmAuto
 {
     public partial class Alta : Form
     {
+        #region Atributos
+
+        public int idTurno;
+        public int idChofer;
+
+        #endregion
+
         public Alta()
         {
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
         }
-
-        #region Atributos
-
-        private static CapaInterfaz.IAuto _Auto;
-        public int idTurno;
-        public int idChofer;
-
-        #endregion
 
         #region Acciones/Eventos
 
@@ -66,16 +64,6 @@ namespace UberFrba.AbmAuto
             {
                 this.Close();
             }
-
-        #endregion
-
-        #region Getters y Setters
-
-        public static CapaInterfaz.IAuto Auto
-        {
-            get { return Alta._Auto; }
-            set { Alta._Auto = value; }
-        }
 
         #endregion
     }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CapaInterfaz.Objetos;
+using Entidades;
 
 namespace UberFrba.AbmChofer
 {
@@ -48,11 +48,13 @@ namespace UberFrba.AbmChofer
         {
             Chofer chofer = new Chofer();
             chofer.limpiarAtributos(chofer);
+
+            // datos de interes para la interfaz
             chofer.Nombre = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["nombre"].Value);
             chofer.Apellido = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["apellido"].Value);
-            chofer.Dni = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["dni"].Value);
+            chofer.DniString = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["dni"].Value);
             chofer.FechaNac = Convert.ToDateTime(this.tablaChoferes.CurrentRow.Cells["fecha_nac"].Value);
-            chofer.Telefono = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["telefono"].Value);
+            chofer.TelefonoString = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["telefono"].Value);
             chofer.Mail = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["mail"].Value);
             chofer.Direccion = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["direccion"].Value);
             if (this.tablaChoferes.CurrentRow.Cells["localidad"].Value != DBNull.Value)
@@ -61,7 +63,12 @@ namespace UberFrba.AbmChofer
                 chofer.NroPiso = Convert.ToInt32(this.tablaChoferes.CurrentRow.Cells["nro_piso"].Value);
             if (this.tablaChoferes.CurrentRow.Cells["depto"].Value != DBNull.Value)
                 chofer.Depto = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["depto"].Value);
-            chofer.Habilitado = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["estado"].Value);
+            chofer.Estado = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["estado"].Value);
+            // otros datos de interes
+            chofer.Id = Convert.ToInt32(this.tablaChoferes.CurrentRow.Cells["id_chofer"].Value);
+            chofer.Habilitado = Convert.ToInt32(this.tablaChoferes.CurrentRow.Cells["habilitado"].Value);
+            chofer.IdUsuario = Convert.ToInt32(this.tablaChoferes.CurrentRow.Cells["id_usuario"].Value);
+
             Edicion ventana = new Edicion(chofer);
             ventana.ShowDialog(this);
         }

@@ -90,7 +90,7 @@
             this.groupBox1.Size = new System.Drawing.Size(675, 312);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ingrese sus datos personales::";
+            this.groupBox1.Text = "Ingrese sus datos personales:";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // buttonFecha

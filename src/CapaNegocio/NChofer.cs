@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using System.Data;
 using CapaDatos;
+using Entidades;
 
 namespace CapaNegocio
 {
@@ -18,6 +19,12 @@ namespace CapaNegocio
         public static DataTable ObtenerChoferEspecifico(string nombre, string apellido, string dni)
         {
             return new DChofer().ObtenerChoferEspecifico(nombre, apellido, dni);
+        }
+
+        public static string actualizarChofer(Chofer chofer)
+        {
+            DChofer objeto = new DChofer();
+            return objeto.actualizarChofer(chofer);
         }
 
     }

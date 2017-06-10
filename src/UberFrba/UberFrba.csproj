@@ -232,6 +232,10 @@
       <Project>{c59420ed-4736-402c-a0b3-79174d360ece}</Project>
       <Name>CapaInterfaz</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{ef2671b1-152e-4deb-94b7-867afee6de03}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
