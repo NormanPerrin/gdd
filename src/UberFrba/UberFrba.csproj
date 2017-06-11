@@ -59,6 +59,18 @@
     <Compile Include="AbmAuto\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmAuto\Edicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmAuto\Edicion.Designer.cs">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmAuto\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmAuto\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmChofer\AbmChofer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +180,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmAuto\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmAuto\Edicion.resx">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmAuto\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmChofer\AbmChofer.resx">
       <DependentUpon>AbmChofer.cs</DependentUpon>
