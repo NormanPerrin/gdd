@@ -45,6 +45,7 @@
     <Compile Include="IAuto.cs" />
     <Compile Include="IChofer.cs" />
     <Compile Include="ICliente.cs" />
+    <Compile Include="IRendicion.cs" />
     <Compile Include="IRol.cs" />
     <Compile Include="IUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
