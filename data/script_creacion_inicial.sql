@@ -331,7 +331,8 @@ CREATE TABLE CRAZYDRIVER.Viaje(
 	id_chofer INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Chofer(id_chofer),
 	id_turno INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Turno(id_turno),
 	id_auto INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Auto(id_auto),
-	fecha DATETIME NOT NULL,
+	fecha_inicio DATETIME NOT NULL,
+	fecha_fin DATETIME NOT NULL,
 	cant_km NUMERIC(18,0) NOT NULL
 );
 GO
@@ -515,9 +516,9 @@ INSERT INTO CRAZYDRIVER.AutoPorChofer(id_auto, id_chofer, id_turno)
 		AND (m.Turno_Hora_Inicio = t.hora_inicio AND m.Turno_Hora_Fin = t.hora_fin)
 GO
 
-INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km)
+INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha_inicio, fecha_fin, cant_km)
 	SELECT
-		cl.id_cliente, ch.id_chofer, t.id_turno, a.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros
+		cl.id_cliente, ch.id_chofer, t.id_turno, a.id_auto, m.Viaje_Fecha, m.Viaje_Fecha, m.Viaje_Cant_Kilometros
 	FROM
 		gd_esquema.Maestra m
 			JOIN CRAZYDRIVER.Cliente cl
