@@ -575,7 +575,7 @@ INSERT INTO CRAZYDRIVER.RendicionPorViaje(nro_rendicion, id_viaje, importe)
 		gd_esquema.Maestra m
 			JOIN CRAZYDRIVER.Viaje v
 				ON v.cant_km = m.Viaje_Cant_Kilometros
-				AND v.fecha = m.Viaje_Fecha
+				AND v.fecha_inicio = m.Viaje_Fecha
 			JOIN CRAZYDRIVER.Turno t
 				ON m.Turno_Hora_Fin = t.hora_fin
 				AND m.Turno_Hora_Inicio = t.hora_inicio
@@ -609,7 +609,7 @@ INSERT INTO CRAZYDRIVER.FacturacionPorViaje(nro_facturacion, id_viaje, importe)
 		gd_esquema.Maestra m
 			JOIN CRAZYDRIVER.Viaje v
 				ON v.cant_km = m.Viaje_Cant_Kilometros
-				AND v.fecha = m.Viaje_Fecha
+				AND v.fecha_inicio = m.Viaje_Fecha
 			JOIN CRAZYDRIVER.Turno t
 				ON m.Turno_Hora_Fin = t.hora_fin
 				AND m.Turno_Hora_Inicio = t.hora_inicio
