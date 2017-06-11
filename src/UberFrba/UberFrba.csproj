@@ -59,17 +59,47 @@
     <Compile Include="AbmAuto\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmChofer.cs">
+    <Compile Include="AbmAuto\Edicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmChofer.Designer.cs">
+    <Compile Include="AbmAuto\Edicion.Designer.cs">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmAuto\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmAuto\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmChofer\AbmChofer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer\AbmChofer.Designer.cs">
       <DependentUpon>AbmChofer.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCliente.cs">
+    <Compile Include="AbmChofer\Edicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente.Designer.cs">
+    <Compile Include="AbmChofer\Edicion.Designer.cs">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmChofer\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCliente\AbmCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\AbmCliente.Designer.cs">
       <DependentUpon>AbmCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCliente\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\Alta.Designer.cs">
+      <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmRol\AbmRol.cs">
       <SubType>Form</SubType>
@@ -151,6 +181,27 @@
     <EmbeddedResource Include="AbmAuto\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmAuto\Edicion.resx">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmAuto\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\AbmChofer.resx">
+      <DependentUpon>AbmChofer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\Edicion.resx">
+      <DependentUpon>Edicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\AbmCliente.resx">
+      <DependentUpon>AbmCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\Alta.resx">
+      <DependentUpon>Alta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +234,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegistroViajes.resx">
       <DependentUpon>RegistroViajes.cs</DependentUpon>
+    <EmbeddedResource Include="RendicionViajes.resx">
+      <DependentUpon>RendicionViajes.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -202,10 +255,14 @@
       <Project>{c59420ed-4736-402c-a0b3-79174d360ece}</Project>
       <Name>CapaInterfaz</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{ef2671b1-152e-4deb-94b7-867afee6de03}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

@@ -42,6 +42,7 @@
     <Compile Include="NAuto.cs" />
     <Compile Include="NChofer.cs" />
     <Compile Include="NCliente.cs" />
+    <Compile Include="NRendicion.cs" />
     <Compile Include="NRol.cs" />
     <Compile Include="NTurno.cs" />
     <Compile Include="NUsuario.cs" />
@@ -53,9 +54,13 @@
       <Project>{def86383-6783-4a2c-aa69-08b8f0103b03}</Project>
       <Name>CapaDatos</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{ef2671b1-152e-4deb-94b7-867afee6de03}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

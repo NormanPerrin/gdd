@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Data;
 using CapaNegocio;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace CapaInterfaz
 {
     public class ICliente
     {
+        #region Metodos/Atributos
 
         private static Dictionary<String, String> clientes = new Dictionary<String, String> {};
 
@@ -35,6 +37,16 @@ namespace CapaInterfaz
         {
             return clientes.FirstOrDefault(x => x.Value == nombre).Key;
         }
+
+
+        public static string alta(int dni, string nombre, string apellido, string direccion, string mail, int telefono, DateTime fecha_nac, int nro_piso, string dpto ,string localidad, int cod_postal)
+        {
+            string respuesta = CapaNegocio.NCliente.alta(dni, nombre, apellido, direccion, mail, telefono, fecha_nac, nro_piso, dpto,  localidad, cod_postal);
+
+            return respuesta;
+        }
+
+        #endregion
 
     }
 }

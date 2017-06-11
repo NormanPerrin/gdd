@@ -34,8 +34,8 @@ namespace UberFrba.AbmAuto
 
             private void btnLista_Click_1(object sender, EventArgs e)
             {
-                //Listado ventana = new Listado();
-                //ventana.ShowDialog(this);
+                Listado ventana = new Listado();
+                ventana.ShowDialog(this);
             }
 
             private void btnVolver_Click_1(object sender, EventArgs e)

@@ -11,13 +11,11 @@ namespace CapaNegocio
     public class NAuto
     {
 
-
-        public static string alta(string marca, string modelo, string patente, int turno, int chofer)
+        public static string alta(int marca, int modelo, string patente, int turno, int chofer)
         {
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
             return objeto.AgregarAuto(marca, modelo, patente, turno, chofer);
         }
-
 
         public static object ObtenerTurnos()
         {
@@ -33,6 +31,24 @@ namespace CapaNegocio
         {
             CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
             return Objeto.ObtenerAutoHabilitado(chofer, turno);
+        }
+
+        public static object ObtenerAutos(int marca, int modelo, string patente, int chofer)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(marca, modelo, patente, chofer);
+        }
+
+        public static string baja(int idAuto)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.EliminarAuto(idAuto);
+        }
+
+        public static string modificacion(int idAuto, string licencia, string rodado, string nombre)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.ModificacionAuto(idAuto, licencia, rodado, nombre);
         }
     }
 }

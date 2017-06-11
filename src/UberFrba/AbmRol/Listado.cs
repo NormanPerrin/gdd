@@ -39,10 +39,6 @@ namespace UberFrba.AbmRol
             this.Close();
         }
 
-        private void tablaRoles_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
         private void txRolNombre_TextChanged(object sender, EventArgs e)
         {
             if (this.txRolNombre.Text == string.Empty)

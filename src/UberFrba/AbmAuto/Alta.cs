@@ -8,58 +8,44 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace UberFrba.AbmAuto
 {
     public partial class Alta : Form
     {
+        #region Atributos
+
+        public int idChofer;
+
+        #endregion
+
         public Alta()
         {
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
         }
 
-        #region Atributos
-
-        private static CapaInterfaz.IAuto _Auto;
-        public int idTurno;
-        public int idChofer;
-
-        #endregion
-
         #region Acciones/Eventos
 
             private void BtnAlta_Click(object sender, EventArgs e)
             {
-                string respuesta = CapaInterfaz.IAuto.alta(TxtMarca.Text, TxtModelo.Text, TxtPatente.Text, idTurno, idChofer);
-                CapaInterfaz.Decoracion.mostrarInfo(respuesta);
-                this.Close();
+                int marca = Decimal.ToInt32(numMarca.Value);
+                int modelo = Decimal.ToInt32(numModelo.Value);
+                if ( CapaInterfaz.IAuto.ChequearItemSeleccionado(this.tablaTurno))
+                {
+                    string respuesta = CapaInterfaz.IAuto.alta(marca, modelo, TxtPatente.Text, this.tablaTurno, idChofer);
+                    CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+                    this.Close();
+                }
+                else
+                    CapaInterfaz.Decoracion.mostrarInfo("Debe seleccionar al menos un turno");
             }
 
             private void Alta_Load(object sender, EventArgs e)
             {
                 CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
                 CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
-            }
-
-            private void tablaTurno_CellContentClick(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
-            {
-                if (e.RowIndex > -1)
-                {
-                    System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno.CurrentCell;
-                    object selectedItem = this.tablaTurno[0, e.RowIndex];
-                    idTurno = Convert.ToInt32(selectedItem);
-                }
-            }
-
-            private void tablaChofer_CellContentClick(object sender, DataGridViewCellEventArgs e)
-            {
-                if (e.RowIndex > -1)
-                {
-                    System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer.CurrentCell;
-                    object selectedItem = this.tablaChofer[0, e.RowIndex];
-                    idChofer = Convert.ToInt32(selectedItem);
-                }
+                CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 1);
+                CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
             }
 
             private void btnVolver_Click(object sender, EventArgs e)
@@ -69,14 +55,28 @@ namespace UberFrba.AbmAuto
 
         #endregion
 
-        #region Getters y Setters
+            private void numMarca_ValueChanged(object sender, EventArgs e)
+            {
 
-        public static CapaInterfaz.IAuto Auto
-        {
-            get { return Alta._Auto; }
-            set { Alta._Auto = value; }
-        }
+            }
 
-        #endregion
+            private void tablaTurno_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.ColumnIndex == tablaTurno.Columns["Elegir"].Index)
+                {
+                    DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell)tablaTurno.Rows[e.RowIndex].Cells["Elegir"];
+                    chkElegir.Value = !Convert.ToBoolean(chkElegir.Value);
+                }
+            }
+
+            private void tablaChofer_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex > -1)
+                {
+                    System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+                    idChofer = Convert.ToInt32(selectedCell.FormattedValue);
+                }
+            }
+
     }
 }

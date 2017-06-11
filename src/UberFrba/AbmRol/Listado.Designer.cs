@@ -65,7 +65,6 @@
             this.tablaRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaRoles.Size = new System.Drawing.Size(411, 219);
             this.tablaRoles.TabIndex = 3;
-            this.tablaRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaRoles_CellContentClick);
             this.tablaRoles.DoubleClick += new System.EventHandler(this.tablaRoles_DoubleClick);
             // 
             // groupBox2

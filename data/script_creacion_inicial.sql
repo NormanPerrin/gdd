@@ -68,6 +68,51 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spActualizarRol;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerTodoChoferes') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerTodoChoferes;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarCliente') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarCliente;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferEspecifico') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferEspecifico;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferEspecificoConDni') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferEspecificoConDni;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarRol') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarRol;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarModelo') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarModelo;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarAutoPorChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarAutoPorChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarAuto') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarAuto;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAltaAutomovil') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAltaAutomovil;
+END;
+
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -209,6 +254,7 @@ CREATE TABLE CRAZYDRIVER.Cliente(
 	depto CHAR(1), -- requisito nuevo
 	localidad NVARCHAR(255), -- requisito nuevo
 	cod_postal INT, -- requisito nuevo
+	habilitado TINYINT NOT NULL default 1,
 	id_usuario INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario)
 );
 GO
@@ -225,6 +271,7 @@ CREATE TABLE CRAZYDRIVER.Chofer(
 	nro_piso INT, -- requisito nuevo
 	depto INT, -- requisito nuevo
 	localidad NVARCHAR(255), -- requisito nuevo
+	habilitado TINYINT NOT NULL default 1,
 	id_usuario INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario)
 );
 GO
@@ -247,25 +294,25 @@ CREATE TABLE CRAZYDRIVER.Turno(
 );
 GO
 
-CREATE TABLE CRAZYDRIVER.marca(
+CREATE TABLE CRAZYDRIVER.Marca(
 	id_marca INT IDENTITY PRIMARY KEY,
 	nombre NVARCHAR(255) Not NULL
 );
 GO
 
-CREATE TABLE CRAZYDRIVER.modelo(
+CREATE TABLE CRAZYDRIVER.Modelo(
 	id_modelo INT IDENTITY PRIMARY KEY,
-	nombre NVARCHAR(255) NOT NULL,
-	id_marca INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.marca(id_marca),
+	nombre NVARCHAR(255) NULL default '',
+	id_marca INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Marca(id_marca),
 );
 GO
 
 CREATE TABLE CRAZYDRIVER.Auto(
 	id_auto INT IDENTITY PRIMARY KEY,
 	patente NVARCHAR(10) UNIQUE NOT NULL,
-	id_modelo INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.modelo(id_modelo),
-	licencia NVARCHAR(26) NOT NULL,
-	rodado NVARCHAR(10) NOT NULL,
+	id_modelo INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Modelo(id_modelo),
+	licencia NVARCHAR(26) NULL default '',
+    rodado NVARCHAR(10) NULL default '',
 	habilitado TINYINT default 1
 );
 GO
@@ -384,24 +431,24 @@ INSERT INTO CRAZYDRIVER.Usuario(username, pass, habilitado, intentos)
 		(SELECT CAST(Chofer_Dni AS NVARCHAR(225))), HASHBYTES('SHA2_256', N'w23e'), 1, 0
 	FROM
 		gd_esquema.Maestra
-	UNION SELECT 
+	UNION SELECT
 		(SELECT CAST(Cliente_Dni AS NVARCHAR(225))), HASHBYTES('SHA2_256', N'w23e'), 1, 0
 	FROM
 		gd_esquema.Maestra
 GO
 
-INSERT INTO CRAZYDRIVER.Chofer(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, id_usuario)
+INSERT INTO CRAZYDRIVER.Chofer(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, id_usuario, habilitado)
 	SELECT DISTINCT
-		m.Chofer_Dni, m.Chofer_Apellido, m.Chofer_Nombre, m.Chofer_Telefono, m.Chofer_Mail, m.Chofer_Fecha_Nac, m.Chofer_Direccion, null, null, null, u.id_usuario
+		m.Chofer_Dni, m.Chofer_Apellido, m.Chofer_Nombre, m.Chofer_Telefono, m.Chofer_Mail, m.Chofer_Fecha_Nac, m.Chofer_Direccion, null, null, null, u.id_usuario, 1
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u
 	WHERE
 		cast(m.Chofer_Dni as varchar(255)) = u.username
 GO
 
-INSERT INTO CRAZYDRIVER.Cliente(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, cod_postal, id_usuario)
+INSERT INTO CRAZYDRIVER.Cliente(dni, apellido, nombre, telefono, mail, fecha_nac, direccion, nro_piso, depto, localidad, cod_postal, id_usuario, habilitado)
 	SELECT DISTINCT
-		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, u.id_usuario
+		m.Cliente_Dni, m.Cliente_Apellido, m.Cliente_Nombre, m.Cliente_Telefono, m.Cliente_Mail, m.Cliente_Fecha_Nac, m.Cliente_Direccion, null, null, null, null, u.id_usuario, 1
 	FROM
 		gd_esquema.Maestra m, CRAZYDRIVER.Usuario u
 	WHERE
@@ -420,7 +467,7 @@ INSERT INTO CRAZYDRIVER.RolPorUsuario(id_rol, id_usuario) -- cargo usuarios con 
 	FROM
 		gd_esquema.Maestra m,  CRAZYDRIVER.Chofer ch
 	WHERE
-		m.Chofer_Dni = ch.dni	
+		m.Chofer_Dni = ch.dni
 GO
 
 INSERT INTO CRAZYDRIVER.Turno(hora_inicio, hora_fin, descripcion, valor_km, precio_base, habilitado)
@@ -469,13 +516,13 @@ INSERT INTO CRAZYDRIVER.AutoPorChofer(id_auto, id_chofer, id_turno)
 GO
 
 INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km)
-	SELECT 
+	SELECT
 		cl.id_cliente, ch.id_chofer, t.id_turno, a.id_auto, m.Viaje_Fecha, m.Viaje_Cant_Kilometros
-	FROM 
+	FROM
 		gd_esquema.Maestra m
 			JOIN CRAZYDRIVER.Cliente cl
 				ON m.Cliente_Dni = cl.dni
-			JOIN CRAZYDRIVER.Chofer ch 
+			JOIN CRAZYDRIVER.Chofer ch
 				ON m.Chofer_Dni = ch.dni
 			JOIN CRAZYDRIVER.Turno t
 				ON m.Turno_Hora_Fin = t.hora_fin
@@ -489,13 +536,13 @@ GO
 INSERT INTO CRAZYDRIVER.Rendicion(nro_rendicion, fecha)
 	SELECT DISTINCT
 		Rendicion_Nro, Rendicion_Fecha
-	FROM 
+	FROM
 		gd_esquema.Maestra
-	WHERE 
+	WHERE
 		Rendicion_Nro IS NOT NULL
 GO
 
-INSERT INTO CRAZYDRIVER.RendicionPorViaje(nro_rendicion, id_viaje, importe) 
+INSERT INTO CRAZYDRIVER.RendicionPorViaje(nro_rendicion, id_viaje, importe)
 	SELECT DISTINCT
 		m.Rendicion_Nro, v.id_viaje, m.Rendicion_Importe
 	FROM
@@ -510,22 +557,22 @@ INSERT INTO CRAZYDRIVER.RendicionPorViaje(nro_rendicion, id_viaje, importe)
 			JOIN CRAZYDRIVER.Cliente cl
 				ON m.Cliente_Dni = cl.dni
 				AND v.id_cliente = cl.id_cliente
-			JOIN CRAZYDRIVER.Chofer ch 
+			JOIN CRAZYDRIVER.Chofer ch
 				ON m.Chofer_Dni = ch.dni
 				AND v.id_chofer = ch.id_chofer
 			JOIN CRAZYDRIVER.Auto a
 				ON m.Auto_Patente = a.patente
 				AND v.id_auto = a.id_auto
 	WHERE
-		m.Rendicion_Nro IS NOT NULL 
+		m.Rendicion_Nro IS NOT NULL
 GO
 
 INSERT INTO CRAZYDRIVER.Facturacion(nro_facturacion, fecha, fecha_inicio, fecha_fin)
 	SELECT DISTINCT
 		Factura_Nro, Factura_Fecha, Factura_Fecha_Inicio, Factura_Fecha_Fin
-	FROM 
+	FROM
 		gd_esquema.Maestra
-	WHERE 
+	WHERE
 		Factura_Nro IS NOT NULL
 GO
 
@@ -544,14 +591,14 @@ INSERT INTO CRAZYDRIVER.FacturacionPorViaje(nro_facturacion, id_viaje, importe)
 			JOIN CRAZYDRIVER.Cliente cl
 				ON m.Cliente_Dni = cl.dni
 				AND v.id_cliente = cl.id_cliente
-			JOIN CRAZYDRIVER.Chofer ch 
+			JOIN CRAZYDRIVER.Chofer ch
 				ON m.Chofer_Dni = ch.dni
 				AND v.id_chofer = ch.id_chofer
 			JOIN CRAZYDRIVER.Auto a
 				ON m.Auto_Patente = a.patente
 				AND v.id_auto = a.id_auto
 	WHERE
-		m.Factura_Nro IS NOT NULL 
+		m.Factura_Nro IS NOT NULL
 GO
 
 ---- PROCEDIMIENTOS ALMACENADOS
@@ -575,7 +622,7 @@ GO
 CREATE PROC CRAZYDRIVER.spObtenerRolesPorUsuario
 	@idUsuario INT
 	AS
-		SELECT DISTINCT r.nombre 
+		SELECT DISTINCT r.nombre
 		FROM CRAZYDRIVER.RolPorUsuario rpu, CRAZYDRIVER.Rol r
 		WHERE rpu.id_usuario = @idUsuario and rpu.id_rol = r.id_rol and r.habilitado = 1
 GO
@@ -592,10 +639,10 @@ GO
 CREATE PROC CRAZYDRIVER.spObtenerRoles
 	AS
 		SELECT DISTINCT id_rol, nombre, CAST(
-				 CASE 
+				 CASE
 					  WHEN habilitado = 1
 						 THEN 'habilitado'
-					  ELSE 'deshabilitado' 
+					  ELSE 'deshabilitado'
 				 END AS NVARCHAR(20)
 			) as Estado
 			FROM CRAZYDRIVER.Rol
@@ -603,7 +650,7 @@ GO
 
 CREATE PROC CRAZYDRIVER.spObtenerFuncionalidades
 	AS
-		SELECT DISTINCT * 
+		SELECT DISTINCT *
 		FROM CRAZYDRIVER.Funcionalidad
 GO
 
@@ -619,8 +666,8 @@ CREATE PROC CRAZYDRIVER.spAgregarRol
 	@idRol INT OUTPUT,
 	@rolNombre NVARCHAR(100)
 	AS
-		INSERT INTO CRAZYDRIVER.Rol 
-			(nombre, habilitado) 
+		INSERT INTO CRAZYDRIVER.Rol
+			(nombre, habilitado)
 			VALUES (@rolNombre, 1)
 GO
 
@@ -628,8 +675,8 @@ CREATE PROC CRAZYDRIVER.spAgregarRolFuncionalidad
 	@idRol INT ,
 	@idFuncionalidad INT
 	AS
-		INSERT INTO CRAZYDRIVER.FuncionalidadPorRol 
-			(id_rol, id_funcionalidad, habilitado) 
+		INSERT INTO CRAZYDRIVER.FuncionalidadPorRol
+			(id_rol, id_funcionalidad, habilitado)
 			VALUES (@idRol, @idFuncionalidad, 1)
 GO
 
@@ -641,18 +688,19 @@ GO
 
 CREATE PROC CRAZYDRIVER.spObtenerChoferes
 	AS
-		SELECT DISTINCT id_chofer
+		SELECT DISTINCT id_chofer, dni, nombre, apellido
 		FROM CRAZYDRIVER.Chofer
+		WHERE habilitado = 1
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerRolesPorNombre
 	@rolNombre NVARCHAR(100)
 	AS
 		SELECT DISTINCT id_rol, nombre, CAST(
-				 CASE 
+				 CASE
 					  WHEN habilitado = 1
 						 THEN 'habilitado'
-					  ELSE 'deshabilitado' 
+					  ELSE 'deshabilitado'
 				 END AS NVARCHAR(20)
 			) as Estado
 			FROM CRAZYDRIVER.Rol
@@ -669,6 +717,7 @@ CREATE PROC CRAZYDRIVER.spActualizarRol
 			WHERE id_rol = @idRol
 GO
 
+<<<<<<< HEAD
 CREATE PROC CRAZYDRIVER.spObtenerChoferesPorTurno
 	@turno INT
 	AS
@@ -713,4 +762,144 @@ CREATE PROC crazydriver.spagregarviaje
 	AS
 		INSERT INTO crazydriver.viaje (id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km)
 			VALUES (@idcliente, @idchofer, @turno, @idauto, @fecha, @kms)
+
+CREATE PROC CRAZYDRIVER.spObtenerTodoChoferes
+	AS
+		SELECT *, CAST(
+				 CASE
+					  WHEN habilitado = 1
+						 THEN 'habilitado'
+					  ELSE 'deshabilitado'
+				 END AS NVARCHAR(20)
+			) as Estado
+			FROM CRAZYDRIVER.Chofer
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerChoferEspecifico
+	@choferNombre NVARCHAR(255),
+	@choferApellido NVARCHAR(255),
+	@choferDni NVARCHAR(18)
+	AS
+		SELECT DISTINCT *, CAST(
+				 CASE
+					  WHEN habilitado = 1
+						 THEN 'habilitado'
+					  ELSE 'deshabilitado'
+				 END AS NVARCHAR(20)
+			) as Estado
+			FROM
+				CRAZYDRIVER.Chofer
+			WHERE
+				nombre like @choferNombre + '%' AND
+				apellido like @choferApellido  + '%' AND
+				CAST(dni AS VARCHAR(255)) like @choferDni + '%'
+
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarCliente
+	  @dni int,
+	  @nombre NVARCHAR(255),
+	  @apellido NVARCHAR(255),
+	  @direccion NVARCHAR(255),
+	  @mail NVARCHAR(255),
+	  @telefono int,
+	  @fecha_nac DATETIME,
+	  @nro_piso int,
+	  @depto CHAR(1),
+	  @localidad NVARCHAR(255),
+	  @cod_postal int
+	  AS
+
+	  DECLARE @usuario int;
+	  DECLARE @dnib int;
+	  DECLARE @telefonob int;
+
+
+	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = c.telefono
+	  from CRAZYDRIVER.Cliente c
+	  where @dni = c.dni or @telefono = c.telefono;
+
+	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = CASE WHEN @telefonob is null then c.telefono else @telefonob END
+	  from CRAZYDRIVER.Chofer c
+	  where @dni = c.dni or @telefono = c.telefono;
+
+
+
+	  IF (@telefonob is not null and @telefono = @telefonob)
+		 BEGIN
+		 RAISERROR('Telefono existente',17,1);
+		 END
+
+	  ELSE IF (@dnib is not null and @dni = @dnib)
+		 BEGIN
+		 RAISERROR('DNI existente',17,1);
+		 END
+
+	  ELSE
+		BEGIN
+		INSERT INTO CRAZYDRIVER.Usuario(username, pass, habilitado, intentos)
+		values (CAST(@dni AS VARCHAR(255)), HASHBYTES('SHA2_256', N'w23e'), 1, 0);
+
+		if (@usuario is null) SELECT @usuario = SCOPE_IDENTITY();
+
+		INSERT INTO CRAZYDRIVER.RolPorUsuario (id_rol,id_usuario) values (2,@usuario);
+
+		INSERT INTO CRAZYDRIVER.Cliente (dni,nombre,apellido,direccion,mail,telefono,fecha_nac,nro_piso,depto,localidad,cod_postal,id_usuario,habilitado)
+		values (@dni,@nombre,@apellido,@direccion,@mail,@telefono,@fecha_nac,@nro_piso,@depto,@localidad,@cod_postal,@usuario,1);
+		END
+
+ GO
+
+ CREATE PROC CRAZYDRIVER.spAgregarModelo
+	@modelo INT,
+	@marca INT
+	AS
+		IF NOT EXISTS (SELECT 1 FROM CRAZYDRIVER.modelo
+			WHERE id_modelo = @modelo)
+			INSERT INTO CRAZYDRIVER.modelo
+				(id_marca)
+				VALUES (@marca)
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarAutoPorChofer
+	@idAuto INT,
+	@idTurno INT,
+	@idChofer INT
+	AS
+		INSERT INTO CRAZYDRIVER.AutoPorChofer
+			(id_auto, id_chofer, id_turno)
+			VALUES (@idAuto, @idChofer, @idTurno)
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarAuto
+	@patente NVARCHAR(10),
+	@modelo INT
+	AS
+			INSERT INTO CRAZYDRIVER.Auto
+				(patente, id_modelo)
+				VALUES (@patente, @modelo)
+GO
+
+CREATE PROC CRAZYDRIVER.spAltaAutomovil
+	@patente NVARCHAR(10),
+	@marca INT,
+	@modelo INT,
+	@idTurno INT,
+	@idChofer INT
+	AS
+		DECLARE @idAuto int;
+		EXEC CRAZYDRIVER.spAgregarModelo @modelo, @marca;
+
+		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.Auto
+			WHERE patente = @patente)
+			BEGIN
+			RAISERROR('Patente existente',17,1);
+			RETURN
+			END
+		ELSE
+			EXEC CRAZYDRIVER.spAgregarAuto @patente, @modelo;
+
+		SELECT @idAuto = a.id_auto from CRAZYDRIVER.Auto a
+		WHERE a.patente = @patente;
+		EXEC CRAZYDRIVER.spAgregarAutoPorChofer @idAuto, @idTurno, @idChofer;
 GO

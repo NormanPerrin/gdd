@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data;
 using CapaNegocio;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace CapaInterfaz
 {
@@ -25,15 +26,35 @@ namespace CapaInterfaz
 
         #endregion
 
-        #region Metodos/Atributos
-
-        public static string alta(string marca, string modelo, string patente, int turno, int chofer)
+        public static string alta(int marca, int modelo, string patente, DataGridView tablaTurno, int chofer)
         {
-            string respuesta = CapaNegocio.NAuto.alta(marca, modelo, patente, turno, chofer);
+            int turno = 0;
 
+            foreach (DataGridViewRow row in tablaTurno.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value))
+                {
+                    turno = System.Convert.ToInt32(row.Cells[1].Value);
+                }
+            }
+
+            string respuesta = CapaNegocio.NAuto.alta(marca, modelo, patente, turno, chofer);
             return respuesta;
         }
-        
+
+        public static bool ChequearItemSeleccionado(DataGridView tabla)
+        {
+            bool resultado;
+            resultado = false;
+            foreach (DataGridViewRow row in tabla.Rows)
+            {
+                DataGridViewCheckBoxCell cellSelecion = row.Cells["Elegir"] as DataGridViewCheckBoxCell;
+                if (Convert.ToBoolean(cellSelecion.Value))
+                    resultado = true;
+            }
+            return resultado;
+        }
+
         public static void CargarTurnos(System.Windows.Forms.DataGridView tablaTurno)
         {
             tablaTurno.DataSource = CapaNegocio.NAuto.ObtenerTurnos();
@@ -71,37 +92,28 @@ namespace CapaInterfaz
         }
 
         public string Patente
+
+        public static void OcultarColumnas(DataGridView dataGridView, int nroColumn)
         {
-            get { return _patente; }
-            set { _patente = value; }
+            dataGridView.Columns[nroColumn].Visible = false; // oculto la columna del id
         }
 
-        public string Marca
+
+        public static void BuscarAuto(DataGridView tablaAutos, int marca, int modelo, string patente, int chofer)
         {
-            get { return _marca; }
-            set { _marca = value; }
+            tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(marca,modelo,patente,chofer);
         }
 
-        public string Modelo
+        public static string baja(int idAuto)
         {
-            get { return _modelo; }
-            set { _modelo = value; }
+            string respuesta = CapaNegocio.NAuto.baja(idAuto);
+            return respuesta;
         }
 
-        public int Turno
+        public static string modificacion(int idAuto, string licencia, string rodado, string nombre)
         {
-            get { return _turno; }
-            set { _turno = value; }
-        }
-
-        public int Chofer
-        {
-            get { return _chofer; }
-            set { _chofer = value; }
-        }
-        #endregion
-
-
+            string respuesta = CapaNegocio.NAuto.modificacion(idAuto, licencia, rodado, nombre );
+            return respuesta;
         }
     }
-
+}
