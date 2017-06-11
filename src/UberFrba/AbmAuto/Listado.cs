@@ -21,8 +21,7 @@ namespace UberFrba.AbmAuto
 
         private void Listado_Load(object sender, EventArgs e)
         {
-            //CapaInterfaz.IRol.CargarRoles(this.tablaRoles);
-            //CapaInterfaz.IRol.OcultarColumnasRoles(this.tablaRoles);
+
         }
 
         private void label1_Click(object sender, EventArgs e)

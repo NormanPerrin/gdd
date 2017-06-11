@@ -14,7 +14,6 @@ namespace UberFrba.AbmAuto
     {
         #region Atributos
 
-        public int idTurno;
         public int idChofer;
 
         #endregion
