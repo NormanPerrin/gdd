@@ -12,11 +12,14 @@ namespace UberFrba.AbmAuto
 {
     public partial class Edicion : Form
     {
+        #region Atributos
 
         int idAuto;
         string licenciaVieja;
         string rodadoViejo;
         string nombreViejo;
+
+        #endregion
 
         public Edicion(int id, string lic, string rod, string nom)
         {
@@ -28,7 +31,7 @@ namespace UberFrba.AbmAuto
             this.idAuto = id;
         }
 
-
+        #region Acciones/Eventos
 
         private void Edicion_Load(object sender, EventArgs e)
         {
@@ -39,7 +42,9 @@ namespace UberFrba.AbmAuto
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            //Hacer un insert
+            string respuesta = CapaInterfaz.IAuto.modificacion(idAuto,this.txtNewLicencia.Text, this.txtNewRodado.Text, this.txtNewNombre.Text);
+            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            this.Close();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -54,7 +59,11 @@ namespace UberFrba.AbmAuto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Hacer un delete
+            string respuesta = CapaInterfaz.IAuto.baja(idAuto);
+            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            this.Close();
         }
+
+        #endregion
     }
 }

@@ -121,5 +121,79 @@ namespace CapaDatos
 
             return DtResultado;
         }
+
+        public string EliminarAuto(int idAuto)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[1];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idAuto";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = idAuto;
+
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spBajaAutomovil");
+            string respuesta = string.Empty;
+            /*switch (resultado)
+            {
+                case "-1":
+                    respuesta = "Se capturo un error al intentar agregar un auto";
+                    break;
+                case "0":
+                    respuesta = "No se logro agregar un auto";
+                    break;
+                case "1":
+                    respuesta = "Se agrego un auto";
+                    break;
+            }*/
+            return resultado;
+        }
+
+        public string ModificacionAuto(int idAuto, string licencia, string rodado, string nombre)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[4];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idAuto";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = idAuto;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@licencia";
+            parametros[2].SqlDbType = SqlDbType.NVarChar;
+            parametros[2].Size = 10;
+            parametros[2].Value = licencia;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@rodado";
+            parametros[2].SqlDbType = SqlDbType.NVarChar;
+            parametros[2].Size = 10;
+            parametros[2].Value = rodado;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@nombre";
+            parametros[2].SqlDbType = SqlDbType.NVarChar;
+            parametros[2].Size = 10;
+            parametros[2].Value = nombre;
+
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spModificacionAutomovil");
+            string respuesta = string.Empty;
+            /*switch (resultado)
+            {
+                case "-1":
+                    respuesta = "Se capturo un error al intentar agregar un auto";
+                    break;
+                case "0":
+                    respuesta = "No se logro agregar un auto";
+                    break;
+                case "1":
+                    respuesta = "Se agrego un auto";
+                    break;
+            }*/
+            return resultado;
+        }
     }
 }

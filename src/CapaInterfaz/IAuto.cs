@@ -16,7 +16,6 @@ namespace CapaInterfaz
         public static string alta(int marca, int modelo, string patente, DataGridView tablaTurno, int chofer)
         {
             int turno = 0;
-            //int chofer = 0;
 
             foreach (DataGridViewRow row in tablaTurno.Rows)
             {
@@ -27,8 +26,6 @@ namespace CapaInterfaz
             }
 
             string respuesta = CapaNegocio.NAuto.alta(marca, modelo, patente, turno, chofer);
-            //Hardcodeo
-            //string respuesta = CapaNegocio.NAuto.alta(marca, modelo, patente, turno, 10);
             return respuesta;
         }
 
@@ -64,6 +61,18 @@ namespace CapaInterfaz
         public static void BuscarAuto(DataGridView tablaAutos, int marca, int modelo, string patente, int chofer)
         {
             tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(marca,modelo,patente,chofer);
+        }
+
+        public static string baja(int idAuto)
+        {
+            string respuesta = CapaNegocio.NAuto.baja(idAuto);
+            return respuesta;
+        }
+
+        public static string modificacion(int idAuto, string licencia, string rodado, string nombre)
+        {
+            string respuesta = CapaNegocio.NAuto.modificacion(idAuto, licencia, rodado, nombre );
+            return respuesta;
         }
     }
 }

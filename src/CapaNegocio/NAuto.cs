@@ -32,5 +32,17 @@ namespace CapaNegocio
             CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
             return Objeto.ObtenerAutos(marca, modelo, patente, chofer);
         }
+
+        public static string baja(int idAuto)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.EliminarAuto(idAuto);
+        }
+
+        public static string modificacion(int idAuto, string licencia, string rodado, string nombre)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.ModificacionAuto(idAuto, licencia, rodado, nombre);
+        }
     }
 }
