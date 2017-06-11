@@ -115,6 +115,8 @@ namespace CapaDatos
             parametros[3].SqlDbType = SqlDbType.Int;
             parametros[3].Value = chofer;
 
+            //Hacer SP que busque por estos parametros, aunque algunos sean NULL y me devuelva una tabla con las siugientes columnas
+            //id_auto, marca, modelo, patente, chofer. licencia, rodado, nombre
             DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerAutos");
 
             return DtResultado;
