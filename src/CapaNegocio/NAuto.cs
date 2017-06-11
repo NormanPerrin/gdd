@@ -26,5 +26,11 @@ namespace CapaNegocio
         {
             return new CapaDatos.DAuto().ObtenerChoferes();
         }
+
+        public static object ObtenerAutos(int marca, int modelo, string patente, int chofer)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(marca, modelo, patente, chofer);
+        }
     }
 }

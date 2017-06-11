@@ -85,5 +85,39 @@ namespace CapaDatos
             return DtResultado;
         }
 
+
+        public object ObtenerAutos(int marca, int modelo, string patente, int chofer)
+        {
+            Conexion Conexion = new Conexion();
+
+            DataTable DtResultado = new DataTable("Autos");
+
+            SqlParameter[] parametros = new SqlParameter[4];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@marca";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = marca;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@modelo";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = modelo;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@patente";
+            parametros[2].SqlDbType = SqlDbType.NVarChar;
+            parametros[2].Size = 10;
+            parametros[2].Value = patente;
+
+            parametros[3] = new SqlParameter();
+            parametros[3].ParameterName = "@idChofer";
+            parametros[3].SqlDbType = SqlDbType.Int;
+            parametros[3].Value = chofer;
+
+            DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerAutos");
+
+            return DtResultado;
+        }
     }
 }

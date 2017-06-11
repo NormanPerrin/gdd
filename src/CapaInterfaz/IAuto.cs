@@ -61,5 +61,9 @@ namespace CapaInterfaz
         }
 
 
+        public static void BuscarAuto(DataGridView tablaAutos, int marca, int modelo, string patente, int chofer)
+        {
+            tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(marca,modelo,patente,chofer);
+        }
     }
 }
