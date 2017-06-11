@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Data;
+
 namespace CapaNegocio
 {
     public class NAuto
@@ -25,6 +27,12 @@ namespace CapaNegocio
         public static object ObtenerChoferes()
         {
             return new CapaDatos.DAuto().ObtenerChoferes();
+        }
+
+        public static DataTable ObtenerAutoHabilitado(String chofer, String turno)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutoHabilitado(chofer, turno);
         }
     }
 }

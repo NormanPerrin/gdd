@@ -667,3 +667,50 @@ CREATE PROC CRAZYDRIVER.spActualizarRol
 		UPDATE CRAZYDRIVER.ROL
 			SET nombre = @rolNombre, habilitado = @habilitado
 			WHERE id_rol = @idRol
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerChoferesPorTurno
+	@turno INT
+	AS
+		SELECT DISTINCT c.id_chofer, c.nombre FROM CRAZYDRIVER.Chofer c
+			JOIN CRAZYDRIVER.Usuario usr ON usr.habilitado = 1
+			JOIN CRAZYDRIVER.AutoPorChofer apc ON apc.id_chofer = c.id_chofer and apc.id_turno = @turno
+			JOIN CRAZYDRIVER.Auto a ON a.id_auto = apc.id_auto
+			ORDER BY c.nombre
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutoPorIDChoferTurno
+	@idchofer INT,
+	@turno INT
+	AS
+		SELECT a.id_auto, mc.nombre, md.nombre FROM CRAZYDRIVER.modelo md
+			JOIN CRAZYDRIVER.marca mc ON mc.id_marca = md.id_marca
+			JOIN CRAZYDRIVER.Auto a ON a.id_modelo = md.id_modelo
+			JOIN CRAZYDRIVER.AutoPorChofer apc ON apc.id_auto = a.id_auto AND apc.id_turno = @turno
+			JOIN CRAZYDRIVER.Chofer c ON c.id_chofer = apc.id_chofer
+			WHERE c.id_chofer = @idchofer
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerClientes
+	AS
+	SELECT c.id_cliente, c.apellido, c.nombre FROM CRAZYDRIVER.Cliente c
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerValorTurno
+	@turno INT
+	AS
+		SELECT t.precio_base, t.valor_km FROM CRAZYDRIVER.Turno t
+			WHERE t.id_turno = @turno
+GO
+
+CREATE PROC crazydriver.spagregarviaje
+	@idcliente INT,
+	@idchofer INT,
+	@turno INT,
+	@idauto INT,
+    @fecha DATE,
+ 	@kms NUMERIC(18, 0)
+	AS
+		INSERT INTO crazydriver.viaje (id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km)
+			VALUES (@idcliente, @idchofer, @turno, @idauto, @fecha, @kms)
+GO

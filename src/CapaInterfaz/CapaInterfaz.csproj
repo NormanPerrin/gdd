@@ -43,8 +43,12 @@
     <Compile Include="Cargador.cs" />
     <Compile Include="Decoracion.cs" />
     <Compile Include="IAuto.cs" />
+    <Compile Include="IChofer.cs" />
+    <Compile Include="ICliente.cs" />
     <Compile Include="IRol.cs" />
+    <Compile Include="ITurno.cs" />
     <Compile Include="IUsuario.cs" />
+    <Compile Include="IViaje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

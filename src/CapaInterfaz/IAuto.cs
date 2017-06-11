@@ -21,6 +21,7 @@ namespace CapaInterfaz
         private int _turno;
         private int _chofer;
         private int _habilitado;
+        private static Dictionary<String, String> auto = new Dictionary<String, String> {};
 
         #endregion
 
@@ -41,6 +42,22 @@ namespace CapaInterfaz
         public static void CargarChoferes(System.Windows.Forms.DataGridView tablaChofer)
         {
             tablaChofer.DataSource = CapaNegocio.NAuto.ObtenerChoferes();
+        }
+
+        public static void CargarAutoHabilitado(System.Windows.Forms.Label lbl, String chofer, String turno)
+        {
+            DataTable Datos = CapaNegocio.NAuto.ObtenerAutoHabilitado(chofer, turno);
+            auto.Clear();
+            if (Datos.Rows.Count != 0)
+            {
+                lbl.Text = Datos.Rows[0][1].ToString() + ' ' + Datos.Rows[0][2].ToString();
+                auto.Add(Datos.Rows[0][0].ToString(), lbl.Text);
+            }
+        }
+
+        public static String getIdAutoActual(String autoNombre)
+        {
+            return auto.FirstOrDefault(x => x.Value == autoNombre).Key;
         }
 
         #endregion

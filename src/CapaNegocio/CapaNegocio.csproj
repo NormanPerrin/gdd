@@ -40,8 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NAuto.cs" />
+    <Compile Include="NChofer.cs" />
+    <Compile Include="NCliente.cs" />
     <Compile Include="NRol.cs" />
+    <Compile Include="NTurno.cs" />
     <Compile Include="NUsuario.cs" />
+    <Compile Include="NViaje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

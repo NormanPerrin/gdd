@@ -110,6 +110,27 @@ namespace CapaDatos
             return DtResultado;
         }
 
+        public DataTable ObtenerAutoHabilitado(String chofer, String turno)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[2];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idchofer";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = Int32.Parse(chofer);
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@turno";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = Int32.Parse(turno);
+
+            DataTable DtResultado = new DataTable("Modelo");
+            DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerAutoPorIDChoferTurno");
+            return DtResultado;
+        }
+
         #endregion
 
         #region Getters y Setters

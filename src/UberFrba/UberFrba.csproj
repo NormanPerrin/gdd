@@ -181,6 +181,9 @@
     <EmbeddedResource Include="Login\SeleccionarRol.resx">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegistroViajes.resx">
+      <DependentUpon>RegistroViajes.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
