@@ -78,6 +78,31 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAgregarCliente;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spagregarviaje') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spagregarviaje;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferesPorTurno') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferesPorTurno;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerValorTurno') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerValorTurno;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutoPorIDChoferTurno') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutoPorIDChoferTurno;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerClientes') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerClientes;
+END;
+
 IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferEspecifico') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferEspecifico;
@@ -718,7 +743,6 @@ CREATE PROC CRAZYDRIVER.spActualizarRol
 			WHERE id_rol = @idRol
 GO
 
-<<<<<<< HEAD
 CREATE PROC CRAZYDRIVER.spObtenerChoferesPorTurno
 	@turno INT
 	AS
@@ -758,11 +782,13 @@ CREATE PROC crazydriver.spagregarviaje
 	@idchofer INT,
 	@turno INT,
 	@idauto INT,
-    @fecha DATE,
+    @fechaDesde DATE,
+	@fechaHasta DATE,
  	@kms NUMERIC(18, 0)
 	AS
-		INSERT INTO crazydriver.viaje (id_cliente, id_chofer, id_turno, id_auto, fecha, cant_km)
-			VALUES (@idcliente, @idchofer, @turno, @idauto, @fecha, @kms)
+		INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha_inicio, fecha_fin, cant_km)
+			VALUES (@idcliente, @idchofer, @turno, @idauto, @fechaDesde, @fechaHasta, @kms)
+GO
 
 CREATE PROC CRAZYDRIVER.spObtenerTodoChoferes
 	AS
