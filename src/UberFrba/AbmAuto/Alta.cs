@@ -74,11 +74,8 @@ namespace UberFrba.AbmAuto
             {
                 if (e.RowIndex > -1)
                 {
-                    //TENGO QUE TOMAR EL VALOR DEL ID CHOFER
-                    //System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer.CurrentCell.EditedFormattedValue;
-                    object selectedItem = this.tablaChofer.CurrentCell.EditedFormattedValue;
-                    //object selectedItem = this.tablaChofer[0, e.RowIndex];
-                    idChofer = Convert.ToInt32(selectedItem);
+                    System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+                    idChofer = Convert.ToInt32(selectedCell.FormattedValue);
                 }
             }
 
