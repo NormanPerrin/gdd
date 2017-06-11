@@ -106,8 +106,6 @@ namespace CapaDatos
             return DtResultado;
         }
 
-        #endregion
-
         #region Getters y Setters
 
         public object ObtenerAutos(int marca, int modelo, string patente, int chofer)
@@ -219,5 +217,7 @@ namespace CapaDatos
             }*/
             return resultado;
         }
+
+        #endregion
     }
 }

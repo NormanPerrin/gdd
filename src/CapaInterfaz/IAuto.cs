@@ -81,17 +81,11 @@ namespace CapaInterfaz
             return auto.FirstOrDefault(x => x.Value == autoNombre).Key;
         }
 
-        #endregion
-
-        #region Getters y Setters
-
         public int IdAuto
         {
             get { return _idAuto; }
             set { _idAuto = value; }
         }
-
-        public string Patente
 
         public static void OcultarColumnas(DataGridView dataGridView, int nroColumn)
         {
