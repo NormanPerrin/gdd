@@ -97,8 +97,7 @@ namespace CapaDatos
 
             parametros[3] = new SqlParameter();
             parametros[3].ParameterName = "@choferDni";
-            parametros[3].SqlDbType = SqlDbType.NVarChar;
-            parametros[3].Size = 18; // numeric 18,0 en realidad
+            parametros[3].SqlDbType = SqlDbType.Int;
             parametros[3].Value = chofer.Dni;
 
             parametros[4] = new SqlParameter();
@@ -108,8 +107,7 @@ namespace CapaDatos
 
             parametros[5] = new SqlParameter();
             parametros[5].ParameterName = "@choferTelefono";
-            parametros[5].SqlDbType = SqlDbType.NVarChar;
-            parametros[5].Size = 18; // numeric 18,0 en realidad
+            parametros[5].SqlDbType = SqlDbType.Int;
             parametros[5].Value = chofer.Telefono;
 
             parametros[6] = new SqlParameter();
@@ -130,16 +128,37 @@ namespace CapaDatos
             parametros[8].Size = 255;
             parametros[8].Value = chofer.Localidad;
 
-            parametros[9] = new SqlParameter();
-            parametros[9].ParameterName = "@choferNroPiso";
-            parametros[9].SqlDbType = SqlDbType.Int;
-            parametros[9].Value = chofer.NroPiso;
+            if (chofer.NroPiso == -1)
+            {
+                parametros[9] = new SqlParameter();
+                parametros[9].ParameterName = "@choferNroPiso";
+                parametros[9].SqlDbType = SqlDbType.Int;
+                parametros[9].Value = DBNull.Value;
+            }
+            else
+            {
+                parametros[9] = new SqlParameter();
+                parametros[9].ParameterName = "@choferNroPiso";
+                parametros[9].SqlDbType = SqlDbType.Int;
+                parametros[9].Value = chofer.NroPiso;
+            }
 
-            parametros[10] = new SqlParameter();
-            parametros[10].ParameterName = "@choferDepto";
-            parametros[10].SqlDbType = SqlDbType.Char;
-            parametros[10].Size = 1;
-            parametros[10].Value = chofer.Depto;
+            if (chofer.Depto.Equals(String.Empty))
+            {
+                parametros[10] = new SqlParameter();
+                parametros[10].ParameterName = "@choferDepto";
+                parametros[10].SqlDbType = SqlDbType.Char;
+                parametros[10].Size = 1;
+                parametros[10].Value = DBNull.Value;
+            }
+            else
+            {
+                parametros[10] = new SqlParameter();
+                parametros[10].ParameterName = "@choferDepto";
+                parametros[10].SqlDbType = SqlDbType.Char;
+                parametros[10].Size = 1;
+                parametros[10].Value = chofer.Depto;
+            }
 
             parametros[11] = new SqlParameter();
             parametros[11].ParameterName = "@habilitado";
@@ -147,6 +166,92 @@ namespace CapaDatos
             parametros[11].Value = chofer.Habilitado;
 
             return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarChofer");
+        }
+
+        public string crearChofer(Chofer chofer)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[10];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@choferNombre";
+            parametros[0].SqlDbType = SqlDbType.NVarChar;
+            parametros[0].Size = 255;
+            parametros[0].Value = chofer.Nombre;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@choferApellido";
+            parametros[1].SqlDbType = SqlDbType.NVarChar;
+            parametros[1].Size = 255;
+            parametros[1].Value = chofer.Apellido;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@choferDni";
+            parametros[2].SqlDbType = SqlDbType.Int;
+            parametros[2].Value = chofer.Dni;
+
+            parametros[3] = new SqlParameter();
+            parametros[3].ParameterName = "@choferFechaNac";
+            parametros[3].SqlDbType = SqlDbType.DateTime;
+            parametros[3].Value = chofer.FechaNac;
+
+            parametros[4] = new SqlParameter();
+            parametros[4].ParameterName = "@choferTelefono";
+            parametros[4].SqlDbType = SqlDbType.Int;
+            parametros[4].Value = chofer.Telefono;
+
+            parametros[5] = new SqlParameter();
+            parametros[5].ParameterName = "@choferMail";
+            parametros[5].SqlDbType = SqlDbType.NVarChar;
+            parametros[5].Size = 255;
+            parametros[5].Value = chofer.Mail;
+
+            parametros[6] = new SqlParameter();
+            parametros[6].ParameterName = "@choferDireccion";
+            parametros[6].SqlDbType = SqlDbType.NVarChar;
+            parametros[6].Size = 255;
+            parametros[6].Value = chofer.Direccion;
+
+            parametros[7] = new SqlParameter();
+            parametros[7].ParameterName = "@choferLocalidad";
+            parametros[7].SqlDbType = SqlDbType.NVarChar;
+            parametros[7].Size = 255;
+            parametros[7].Value = chofer.Localidad;
+
+            if (chofer.NroPiso == -1)
+            {
+                parametros[8] = new SqlParameter();
+                parametros[8].ParameterName = "@choferNroPiso";
+                parametros[8].SqlDbType = SqlDbType.Int;
+                parametros[8].Value = DBNull.Value;
+            }
+            else
+            {
+                parametros[8] = new SqlParameter();
+                parametros[8].ParameterName = "@choferNroPiso";
+                parametros[8].SqlDbType = SqlDbType.Int;
+                parametros[8].Value = chofer.NroPiso;
+            }
+
+            if (chofer.Depto.Equals(String.Empty))
+            {
+                parametros[9] = new SqlParameter();
+                parametros[9].ParameterName = "@choferDepto";
+                parametros[9].SqlDbType = SqlDbType.Char;
+                parametros[9].Size = 1;
+                parametros[9].Value = DBNull.Value;
+            }
+            else
+            {
+                parametros[9] = new SqlParameter();
+                parametros[9].ParameterName = "@choferDepto";
+                parametros[9].SqlDbType = SqlDbType.Char;
+                parametros[9].Size = 1;
+                parametros[9].Value = chofer.Depto;
+            }
+
+            return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spCrearChofer");
         }
 
     }

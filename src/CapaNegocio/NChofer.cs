@@ -36,5 +36,10 @@ namespace CapaNegocio
             return objeto.actualizarChofer(chofer);
         }
 
+        public static string crearChofer(Chofer chofer)
+        {
+            return new DChofer().crearChofer(chofer);
+        }
+
     }
 }

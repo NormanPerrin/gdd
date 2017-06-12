@@ -29,7 +29,6 @@ namespace UberFrba.AbmCliente
                 this.calendario.MaxSelectionCount = 1;
                 this.calendario.MaxDate = new System.DateTime(2010, 12, 31, 0, 0, 0, 0);
                 this.calendario.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
-
             }
 
         #endregion

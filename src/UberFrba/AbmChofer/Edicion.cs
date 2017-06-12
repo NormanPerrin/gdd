@@ -103,6 +103,8 @@ namespace UberFrba.AbmChofer
 
             string mensaje = CapaInterfaz.IChofer.actualizarChofer(this.ChoferNuevo, this.ChoferViejo);
             CapaInterfaz.Decoracion.mostrarInfo(mensaje);
+
+            this.Close();
         }
     }
 }

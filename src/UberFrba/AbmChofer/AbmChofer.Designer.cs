@@ -75,6 +75,7 @@
             this.btnNuevoChofer.TabIndex = 0;
             this.btnNuevoChofer.Text = "Alta de un nuevo Chofer";
             this.btnNuevoChofer.UseVisualStyleBackColor = true;
+            this.btnNuevoChofer.Click += new System.EventHandler(this.btnNuevoChofer_Click);
             // 
             // AbmChofer
             // 

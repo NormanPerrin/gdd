@@ -143,6 +143,11 @@ BEGIN
    DROP PROCEDURE CRAZYDRIVER.spActualizarChofer;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spCrearChofer') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spCrearChofer;
+END;
+
 
 ---- BORRO TABLAS
 
@@ -983,3 +988,46 @@ CREATE PROC CRAZYDRIVER.spActualizarChofer
 				RAISERROR('Se ha logrado actualizar un chofer' ,17,1);
 			END
 GO
+
+CREATE PROC CRAZYDRIVER.spCrearChofer
+	@choferNombre NVARCHAR(255),
+	@choferApellido NVARCHAR(255),
+	@choferDni INT,
+	@choferFechaNac DATETIME,
+	@choferTelefono INT,
+	@choferMail NVARCHAR(255),
+	@choferDireccion NVARCHAR(255),
+	@choferLocalidad NVARCHAR(255),
+	@choferNroPiso INT,
+	@choferDepto CHAR(1)
+	AS
+		DECLARE @usuario INT;
+		DECLARE @dnib INT;
+		DECLARE @telefonob INT;
+		SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = c.telefono
+			FROM CRAZYDRIVER.Chofer c
+			WHERE @choferDni = c.dni or @choferTelefono = c.telefono;
+		SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = CASE WHEN @telefonob is null THEN c.telefono ELSE @telefonob END
+			FROM CRAZYDRIVER.Cliente c
+			WHERE @choferDni = c.dni or @choferTelefono = c.telefono;
+		IF (@telefonob is not null and @choferDni = @telefonob)
+			BEGIN
+				RAISERROR('Telefono existente',17,1);
+			END
+		ELSE IF (@dnib is not null and @choferDni = @dnib)
+			BEGIN
+				RAISERROR('DNI existente',17,1);
+			END
+		ELSE
+			BEGIN
+				INSERT INTO CRAZYDRIVER.Usuario(username, pass, habilitado, intentos)
+					VALUES (CAST(@choferDni AS VARCHAR(255)), HASHBYTES('SHA2_256', N'w23e'), 1, 0);
+				IF (@usuario is null) 
+					SELECT @usuario = SCOPE_IDENTITY();
+				INSERT INTO CRAZYDRIVER.RolPorUsuario (id_rol,id_usuario) 
+					VALUES (3, @usuario);
+				INSERT INTO CRAZYDRIVER.Chofer (dni,nombre,apellido,direccion,mail,telefono,fecha_nac,nro_piso,depto,localidad,id_usuario,habilitado)
+					VALUES (@choferDni,@choferNombre,@choferApellido,@choferDireccion,@choferMail,@choferTelefono,@choferFechaNac,@choferNroPiso,@choferDepto,@choferLocalidad,@usuario,1);
+				RAISERROR('Se logro crear con exito el chofer. Por default se le agrego un usuario con username igual al dni password w23e',17,1);
+			END
+ GO

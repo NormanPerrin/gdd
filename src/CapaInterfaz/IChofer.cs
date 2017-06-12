@@ -74,22 +74,51 @@ namespace CapaInterfaz
                 return "El mail no es valido";
             if (!CapaInterfaz.Validador.EsDomicilio(choferNuevo.Direccion))
                 return "La direccion no es valido";
-            if (!CapaInterfaz.Validador.EsSoloNumeros(choferNuevo.NroPisoString))
+            if (!CapaInterfaz.Validador.EsSoloNumeros(choferNuevo.NroPisoString) && !CapaInterfaz.Validador.EsCadenaVaciaONula(choferNuevo.NroPisoString))
                 return "El numero de piso no es valido";
-            if (!CapaInterfaz.Validador.EsSoloLetras(choferNuevo.Depto) || choferNuevo.Depto.Length != 1)
+            if ((!CapaInterfaz.Validador.EsSoloLetras(choferNuevo.Depto) || choferNuevo.Depto.Length != 1)  && !CapaInterfaz.Validador.EsCadenaVaciaONula(choferNuevo.NroPisoString))
                 return "El depto no es valido";
 
             // realizo las converciones correspondientes si los datos son validos
             choferNuevo.Dni = Convert.ToInt32(choferNuevo.DniString);
             choferNuevo.FechaNac = Convert.ToDateTime(choferNuevo.FechaNacString);
             choferNuevo.Telefono = Convert.ToInt32(choferNuevo.TelefonoString);
-            choferNuevo.NroPiso = Convert.ToInt32(choferNuevo.NroPisoString);
+            if (CapaInterfaz.Validador.EsCadenaVaciaONula(choferNuevo.NroPisoString)) choferNuevo.NroPiso = -1;
+            else choferNuevo.NroPiso = Convert.ToInt32(choferNuevo.NroPisoString);
+            if (CapaInterfaz.Validador.EsCadenaVaciaONula(choferNuevo.Depto)) choferNuevo.Depto = string.Empty;
             if (choferNuevo.Estado.Equals("habilitado")) choferNuevo.Habilitado = 1;
             else choferNuevo.Habilitado = 0; // deshabilitar
 
             msj = CapaNegocio.NChofer.actualizarChofer(choferNuevo);
 
             return msj;
+        }
+
+        public static string crearChofer(Chofer choferNuevo)
+        {
+            if (String.IsNullOrEmpty(choferNuevo.Nombre) || String.IsNullOrEmpty(choferNuevo.Apellido) ||
+                String.IsNullOrEmpty(choferNuevo.TelefonoString) || String.IsNullOrEmpty(choferNuevo.DniString) ||
+                String.IsNullOrEmpty(choferNuevo.FechaNacString) || String.IsNullOrEmpty(choferNuevo.Direccion) ||
+                String.IsNullOrEmpty(choferNuevo.Localidad) || CapaInterfaz.Validador.EsCadenaVaciaONula(choferNuevo.Mail) )
+            {
+                return "Por favor complete los campos obligatorios";
+            }
+
+            if (!CapaInterfaz.Validador.EsMail(choferNuevo.Mail))
+                return "El mail no es valido";
+            if (!CapaInterfaz.Validador.EsDomicilio(choferNuevo.Direccion))
+                return "La direccion no es valida";
+            if (choferNuevo.Depto.Length != 1 && !CapaInterfaz.Validador.EsCadenaVaciaONula(choferNuevo.NroPisoString))
+                return "El depto no es valido";
+
+            choferNuevo.Dni = Convert.ToInt32(choferNuevo.DniString);
+            choferNuevo.FechaNac = Convert.ToDateTime(choferNuevo.FechaNacString);
+            choferNuevo.Telefono = Convert.ToInt32(choferNuevo.TelefonoString);
+            if (CapaInterfaz.Validador.EsCadenaVaciaONula(choferNuevo.NroPisoString)) choferNuevo.NroPiso = -1;
+            else choferNuevo.NroPiso = Convert.ToInt32(choferNuevo.NroPisoString);
+            if (CapaInterfaz.Validador.EsCadenaVaciaONula(choferNuevo.Depto)) choferNuevo.Depto = string.Empty;
+            
+            return CapaNegocio.NChofer.crearChofer(choferNuevo);
         }
     }
 }
