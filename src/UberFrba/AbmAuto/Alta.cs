@@ -15,6 +15,8 @@ namespace UberFrba.AbmAuto
         #region Atributos
 
         public int idChofer;
+        public int modelo;
+        public int marca;
 
         #endregion
 
@@ -28,8 +30,6 @@ namespace UberFrba.AbmAuto
 
             private void BtnAlta_Click(object sender, EventArgs e)
             {
-                int marca = Decimal.ToInt32(numMarca.Value);
-                int modelo = Decimal.ToInt32(numModelo.Value);
                 if ( CapaInterfaz.IAuto.ChequearItemSeleccionado(this.tablaTurno))
                 {
                     string respuesta = CapaInterfaz.IAuto.alta(marca, modelo, TxtPatente.Text, this.tablaTurno, idChofer);
@@ -44,8 +44,11 @@ namespace UberFrba.AbmAuto
             {
                 CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
                 CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
+                CapaInterfaz.IAuto.CargarMarca(this.tablaMarca);
                 CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 1);
                 CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
+                CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca, 0);
+                CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca, 2);
             }
 
             private void btnVolver_Click(object sender, EventArgs e)
@@ -75,6 +78,18 @@ namespace UberFrba.AbmAuto
                 {
                     System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
                     idChofer = Convert.ToInt32(selectedCell.FormattedValue);
+                }
+            }
+
+            private void tablaMarca_CellContentClick(object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex > -1)
+                {
+                    System.Windows.Forms.DataGridViewCell selectedCell = this.tablaMarca[0, e.RowIndex];
+                    modelo = Convert.ToInt32(selectedCell.FormattedValue);
+
+                    System.Windows.Forms.DataGridViewCell selectedCell2 = this.tablaMarca[2, e.RowIndex];
+                    marca = Convert.ToInt32(selectedCell2.FormattedValue);
                 }
             }
 

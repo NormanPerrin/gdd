@@ -118,11 +118,6 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAgregarRol;
 END;
 
-IF OBJECT_ID('CRAZYDRIVER.spAgregarModelo') IS NOT NULL
-BEGIN
-	DROP PROCEDURE CRAZYDRIVER.spAgregarModelo;
-END;
-
 IF OBJECT_ID('CRAZYDRIVER.spAgregarAutoPorChofer') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAgregarAutoPorChofer;
@@ -137,6 +132,12 @@ IF OBJECT_ID('CRAZYDRIVER.spAltaAutomovil') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAltaAutomovil;
 END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerMarcasYModelos') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spObtenerMarcasYModelos;
+END;
+
 
 ---- BORRO TABLAS
 
@@ -224,6 +225,7 @@ IF OBJECT_ID('CRAZYDRIVER.Funcionalidad','U') IS NOT NULL
 BEGIN
    DROP TABLE CRAZYDRIVER.Funcionalidad;
 END;
+
 
 ---- ESQUEMA POR SI NO EXISTE
 
@@ -575,7 +577,7 @@ INSERT INTO CRAZYDRIVER.RendicionPorViaje(nro_rendicion, id_viaje, importe)
 		gd_esquema.Maestra m
 			JOIN CRAZYDRIVER.Viaje v
 				ON v.cant_km = m.Viaje_Cant_Kilometros
-				AND v.fecha = m.Viaje_Fecha
+				AND v.fecha_inicio = m.Viaje_Fecha
 			JOIN CRAZYDRIVER.Turno t
 				ON m.Turno_Hora_Fin = t.hora_fin
 				AND m.Turno_Hora_Inicio = t.hora_inicio
@@ -609,7 +611,7 @@ INSERT INTO CRAZYDRIVER.FacturacionPorViaje(nro_facturacion, id_viaje, importe)
 		gd_esquema.Maestra m
 			JOIN CRAZYDRIVER.Viaje v
 				ON v.cant_km = m.Viaje_Cant_Kilometros
-				AND v.fecha = m.Viaje_Fecha
+				AND v.fecha_inicio = m.Viaje_Fecha
 			JOIN CRAZYDRIVER.Turno t
 				ON m.Turno_Hora_Fin = t.hora_fin
 				AND m.Turno_Hora_Inicio = t.hora_inicio
@@ -717,6 +719,13 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferes
 		SELECT DISTINCT id_chofer, dni, nombre, apellido
 		FROM CRAZYDRIVER.Chofer
 		WHERE habilitado = 1
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerMarcasYModelos
+	AS
+		SELECT DISTINCT m.id_modelo, m.nombre, m.id_marca, m2.nombre
+		FROM CRAZYDRIVER.Modelo m
+		JOIN CRAZYDRIVER.Marca m2 on m.id_marca = m2.id_marca
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerRolesPorNombre
@@ -877,16 +886,6 @@ CREATE PROC CRAZYDRIVER.spAgregarCliente
 
  GO
 
- CREATE PROC CRAZYDRIVER.spAgregarModelo
-	@modelo INT,
-	@marca INT
-	AS
-		IF NOT EXISTS (SELECT 1 FROM CRAZYDRIVER.modelo
-			WHERE id_modelo = @modelo)
-			INSERT INTO CRAZYDRIVER.modelo
-				(id_marca)
-				VALUES (@marca)
-GO
 
 CREATE PROC CRAZYDRIVER.spAgregarAutoPorChofer
 	@idAuto INT,
@@ -915,7 +914,6 @@ CREATE PROC CRAZYDRIVER.spAltaAutomovil
 	@idChofer INT
 	AS
 		DECLARE @idAuto int;
-		EXEC CRAZYDRIVER.spAgregarModelo @modelo, @marca;
 
 		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.Auto
 			WHERE patente = @patente)
