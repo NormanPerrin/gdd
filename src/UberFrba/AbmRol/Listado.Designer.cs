@@ -36,6 +36,7 @@
             this.txRolNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaRoles)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -43,6 +44,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.tablaRoles);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -127,6 +129,15 @@
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 106);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(223, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "* Haga doble click en una fila para modificarla";
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -138,6 +149,7 @@
             this.Text = "Listado";
             this.Load += new System.EventHandler(this.Listado_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaRoles)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -155,5 +167,6 @@
         private System.Windows.Forms.TextBox txRolNombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.Label label2;
     }
 }
