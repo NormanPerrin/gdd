@@ -11,7 +11,7 @@ namespace CapaInterfaz
 {
    public class IViaje
    {
-       public static void AgregarViaje(String idcliente, String idchofer, String turno, String idauto, String fechaDesde, String fechaHasta, int kms)
+       public static void AgregarViaje(String idcliente, String idchofer, String turno, String idauto, DateTime fechaDesde, DateTime fechaHasta, int kms)
        {
            CapaNegocio.NViaje.AgregarViaje(idcliente, idchofer, turno, idauto, fechaDesde, fechaHasta, kms);
        }

@@ -27,7 +27,7 @@ namespace CapaInterfaz
                 for (int i = 0; i < cantidadDeItems; i++)
                 {
                     cbxCliente.Items.Add(Datos.Rows[i][1].ToString() + ' ' + Datos.Rows[i][2].ToString());
-                    clientes.Add(Datos.Rows[i][0].ToString(), cbxCliente.Text);
+                    clientes.Add(Datos.Rows[i][0].ToString(), Datos.Rows[i][1].ToString() + ' ' + Datos.Rows[i][2].ToString());
                 }
                 cbxCliente.SelectedIndex = 0;
             }

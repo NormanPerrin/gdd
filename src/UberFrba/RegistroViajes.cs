@@ -90,11 +90,10 @@ namespace UberFrba
                 String idchofer = CapaInterfaz.IChofer.getIdChoferActual(cbxChofer.Text);
                 String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
                 String idauto = CapaInterfaz.IAuto.getIdAutoActual(lblAuto.Text);
-                String fechaDesde = dateFrom.Text;
-                String fechaHasta = dateTo.Text;
+                DateTime fechaDesde = dateFrom.Value;
+                DateTime fechaHasta = dateTo.Value;
                 int kms = Int32.Parse(inputKms.Text);
-                // esto rompe si no esta bien el modelo viajes (fecha desde y hasta)
-                // CapaInterfaz.IViaje.AgregarViaje(idcliente, idchofer, turno, idauto, fechaDesde, fechaHasta, kms);
+                CapaInterfaz.IViaje.AgregarViaje(idcliente, idchofer, turno, idauto, fechaDesde, fechaHasta, kms);
                 reset();
             }
 
