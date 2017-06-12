@@ -40,6 +40,7 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtChoferNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChoferes)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnCerrar);
             this.groupBox1.Controls.Add(this.tablaChoferes);
             this.groupBox1.Controls.Add(this.groupBox2);
@@ -76,7 +78,6 @@
             this.tablaChoferes.Location = new System.Drawing.Point(6, 193);
             this.tablaChoferes.MultiSelect = false;
             this.tablaChoferes.Name = "tablaChoferes";
-            this.tablaChoferes.ReadOnly = true;
             this.tablaChoferes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaChoferes.Size = new System.Drawing.Size(493, 219);
             this.tablaChoferes.TabIndex = 3;
@@ -167,6 +168,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre:";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 179);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(223, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "* Haga doble click en una fila para modificarla";
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,6 +187,7 @@
             this.Text = "Listado";
             this.Load += new System.EventHandler(this.Listado_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChoferes)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -198,5 +209,6 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txtChoferNombre;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
     }
 }

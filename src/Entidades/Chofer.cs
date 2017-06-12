@@ -15,13 +15,6 @@ namespace Entidades
         private int _habilitado;
         private int _idUsuario; // clave foranea
 
-        // dato auxiliar
-        private string _dniString;
-        private string _fechaNacString;
-        private string _telefonoString;
-        private string _nroPisoString;
-        private string _estado; // es lo mismo que habilitado pero lo tengo así para no andar haciendo tantas conversiones
-
         // datos personales
         private string _nombre;
         private string _apellido;
@@ -34,7 +27,14 @@ namespace Entidades
         private string _direccion;
         private string _localidad;
         private int _nroPiso;
-        private string _depto; // nuevo requisito del relevamiento
+        private string _depto;
+
+        // dato auxiliar
+        private string _dniString;
+        private string _fechaNacString;
+        private string _telefonoString;
+        private string _nroPisoString;
+        private string _estado; // es lo mismo que habilitado pero lo tengo así para no andar haciendo tantas conversiones
 
         #endregion
 
@@ -45,53 +45,36 @@ namespace Entidades
             get { return _id; }
             set { _id = value; }
         }
+        public int Habilitado
+        {
+            get { return _habilitado; }
+            set { _habilitado = value; }
+        }
+        public int IdUsuario
+        {
+            get { return _idUsuario; }
+            set { _idUsuario = value; }
+        }
 
         public string Nombre
         {
             get { return _nombre; }
             set { _nombre = value; }
         }
-
         public string Apellido
         {
             get { return _apellido; }
             set { _apellido = value; }
         }
-
         public int Dni
         {
             get { return _dni; }
             set { _dni = value; }
         }
-
-        public string Direccion
+        public DateTime FechaNac
         {
-            get { return _direccion; }
-            set { _direccion = value; }
-        }
-
-        public int NroPiso
-        {
-            get { return _nroPiso; }
-            set { _nroPiso = value; }
-        }
-
-        public string Localidad
-        {
-            get { return _localidad; }
-            set { _localidad = value; }
-        }
-
-        public string FechaNacString
-        {
-            get { return _fechaNacString; }
-            set { _fechaNacString = value; }
-        }
-
-        public string NroPisoString
-        {
-            get { return _nroPisoString; }
-            set { _nroPisoString = value; }
+            get { return _fechaNac; }
+            set { _fechaNac = value; }
         }
 
         public int Telefono
@@ -99,29 +82,25 @@ namespace Entidades
             get { return _telefono; }
             set { _telefono = value; }
         }
-
         public string Mail
         {
             get { return _mail; }
             set { _mail = value; }
         }
-
-        public DateTime FechaNac
+        public string Direccion
         {
-            get { return _fechaNac; }
-            set { _fechaNac = value; }
+            get { return _direccion; }
+            set { _direccion = value; }
         }
-
-        public int Habilitado
+        public string Localidad
         {
-            get { return _habilitado; }
-            set { _habilitado = value; }
+            get { return _localidad; }
+            set { _localidad = value; }
         }
-
-        public string Estado
+        public int NroPiso
         {
-            get { return _estado; }
-            set { _estado = value; }
+            get { return _nroPiso; }
+            set { _nroPiso = value; }
         }
 
         public string Depto
@@ -130,18 +109,26 @@ namespace Entidades
             set { _depto = value; }
         }
 
-        public int IdUsuario
+        public string FechaNacString
         {
-            get { return _idUsuario; }
-            set { _idUsuario = value; }
+            get { return _fechaNacString; }
+            set { _fechaNacString = value; }
         }
-
+        public string NroPisoString
+        {
+            get { return _nroPisoString; }
+            set { _nroPisoString = value; }
+        }
+        public string Estado
+        {
+            get { return _estado; }
+            set { _estado = value; }
+        }
         public string DniString
         {
             get { return _dniString; }
             set { _dniString = value; }
         }
-
         public string TelefonoString
         {
             get { return _telefonoString; }
@@ -156,20 +143,29 @@ namespace Entidades
 
         public void limpiarAtributos(Chofer chofer)
         {
-            chofer.Id = -1;
+            int invalido = -1;
+
+            chofer.Id = invalido;
+            chofer.Habilitado = invalido;
+            chofer.IdUsuario = invalido;
+
             chofer.Nombre = string.Empty;
             chofer.Apellido = string.Empty;
-            chofer.Dni = -1;
+            chofer.Dni = invalido;
             chofer.FechaNac = new DateTime();
-            chofer.Telefono = -1;
+
+            chofer.Telefono = invalido;
             chofer.Mail = string.Empty;
             chofer.Direccion = string.Empty;
             chofer.Localidad = string.Empty;
-            chofer.NroPiso = new Int32();
-            chofer.Depto = string.Empty;
-            chofer.Habilitado = -1;
+            chofer.NroPiso = invalido;
+            chofer.Depto = "";
+
+            chofer.DniString = string.Empty;
+            chofer.FechaNacString = string.Empty;
+            chofer.TelefonoString = string.Empty;
+            chofer.NroPisoString = string.Empty;
             chofer.Estado = string.Empty;
-            chofer.IdUsuario = new Int32();
         }
     }
 }

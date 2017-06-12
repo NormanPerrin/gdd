@@ -28,5 +28,11 @@ namespace UberFrba.AbmChofer
             Listado ventana = new Listado();
             ventana.ShowDialog(this);
         }
+
+        private void btnNuevoChofer_Click(object sender, EventArgs e)
+        {
+            Alta ventana = new Alta();
+            ventana.ShowDialog(this);
+        }
     }
 }

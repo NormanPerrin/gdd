@@ -77,6 +77,12 @@
     <Compile Include="AbmChofer\AbmChofer.Designer.cs">
       <DependentUpon>AbmChofer.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmChofer\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChofer\Alta.Designer.cs">
+      <DependentUpon>Alta.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmChofer\Edicion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmChofer\AbmChofer.resx">
       <DependentUpon>AbmChofer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChofer\Alta.resx">
+      <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmChofer\Edicion.resx">
       <DependentUpon>Edicion.cs</DependentUpon>
