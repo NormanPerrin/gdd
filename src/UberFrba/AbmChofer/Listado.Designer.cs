@@ -30,6 +30,7 @@
         {
             this.btnCerrar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.tablaChoferes = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtChoferDni = new System.Windows.Forms.TextBox();
@@ -40,7 +41,6 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtChoferNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChoferes)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -69,6 +69,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Listado de Choferes:";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 179);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(223, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "* Haga doble click en una fila para modificarla";
+            // 
             // tablaChoferes
             // 
             this.tablaChoferes.AllowUserToAddRows = false;
@@ -78,6 +87,7 @@
             this.tablaChoferes.Location = new System.Drawing.Point(6, 193);
             this.tablaChoferes.MultiSelect = false;
             this.tablaChoferes.Name = "tablaChoferes";
+            this.tablaChoferes.ReadOnly = true;
             this.tablaChoferes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaChoferes.Size = new System.Drawing.Size(493, 219);
             this.tablaChoferes.TabIndex = 3;
@@ -167,15 +177,6 @@
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 179);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(223, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "* Haga doble click en una fila para modificarla";
             // 
             // Listado
             // 

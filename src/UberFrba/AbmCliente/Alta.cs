@@ -85,7 +85,6 @@ namespace UberFrba.AbmCliente
                 CapaInterfaz.Decoracion.mostrarInfo("Formato de E-Mail no válido");
                 return;
             }
-            
 /*
             if (!CapaInterfaz.Validador.EsMail(textMail.Text) || CapaInterfaz.Validador.EsCadenaVaciaONula(textMail.Text))
             {
@@ -93,7 +92,6 @@ namespace UberFrba.AbmCliente
                 return;
             }
             */
-            int nro_piso;
 
             string respuesta = CapaInterfaz.ICliente.alta(int.Parse(this.textDNI.Text), this.textNombre.Text, this.textApellido.Text, this.textCalle.Text, this.textMail.Text, int.Parse(this.textTel.Text), Convert.ToDateTime(this.textFN.Text), Entidades.Cliente.Piso(this.textPiso.Text), Entidades.Cliente.Dpto(this.textDpto.Text), this.textLoc.Text, int.Parse(this.textCP.Text));
             CapaInterfaz.Decoracion.mostrarInfo(respuesta);

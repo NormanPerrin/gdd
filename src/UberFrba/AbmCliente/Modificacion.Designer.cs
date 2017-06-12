@@ -75,6 +75,7 @@
             // 
             this.clientesGrid.AllowUserToAddRows = false;
             this.clientesGrid.AllowUserToDeleteRows = false;
+            this.clientesGrid.AllowUserToOrderColumns = true;
             this.clientesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.clientesGrid.Location = new System.Drawing.Point(15, 315);
             this.clientesGrid.Name = "clientesGrid";
