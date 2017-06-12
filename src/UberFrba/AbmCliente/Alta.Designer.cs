@@ -204,6 +204,7 @@
             // textDNI
             // 
             this.textDNI.Location = new System.Drawing.Point(73, 70);
+            this.textDNI.MaxLength = 9;
             this.textDNI.Name = "textDNI";
             this.textDNI.Size = new System.Drawing.Size(130, 20);
             this.textDNI.TabIndex = 4;

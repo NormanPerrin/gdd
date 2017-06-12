@@ -118,6 +118,7 @@
             // textDNIB
             // 
             this.textDNIB.Location = new System.Drawing.Point(64, 25);
+            this.textDNIB.MaxLength = 9;
             this.textDNIB.Name = "textDNIB";
             this.textDNIB.Size = new System.Drawing.Size(177, 20);
             this.textDNIB.TabIndex = 4;
@@ -376,6 +377,7 @@
             // 
             this.textDNI.Enabled = false;
             this.textDNI.Location = new System.Drawing.Point(349, 38);
+            this.textDNI.MaxLength = 9;
             this.textDNI.Name = "textDNI";
             this.textDNI.Size = new System.Drawing.Size(130, 20);
             this.textDNI.TabIndex = 40;
