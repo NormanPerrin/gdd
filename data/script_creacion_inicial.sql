@@ -423,7 +423,7 @@ INSERT INTO CRAZYDRIVER.Rol (nombre, habilitado) -- tomarlo con pinzas, consider
 GO
 
 INSERT INTO CRAZYDRIVER.Funcionalidad(descripcion)
-	VALUES ('ABM Rol'), ('ABM cliente'), ('ABM automovil'), ('ABM turno'), ('ABM chofer'),
+	VALUES ('ABM rol'), ('ABM cliente'), ('ABM automovil'), ('ABM turno'), ('ABM chofer'),
 	('Registrar viaje'), ('Rendir viaje'), ('Facturar cliente'), ('Listado Estadistico') -- no se si agregar una mas que sea dar de alta a usuarios
 GO
 
