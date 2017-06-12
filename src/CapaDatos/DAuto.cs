@@ -219,5 +219,15 @@ namespace CapaDatos
         }
 
         #endregion
+
+        public object ObtenerMarcas()
+        {
+            Conexion Conexion = new Conexion();
+
+            DataTable DtResultado = new DataTable("Marcas");
+            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerMarcasYModelos");
+
+            return DtResultado;
+        }
     }
 }

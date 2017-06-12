@@ -50,5 +50,11 @@ namespace CapaNegocio
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
             return objeto.ModificacionAuto(idAuto, licencia, rodado, nombre);
         }
+
+        public static object ObtenerMarcas()
+        {
+            return new CapaDatos.DAuto().ObtenerMarcas();
+        }
+
     }
 }

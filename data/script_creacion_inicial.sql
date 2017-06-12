@@ -118,11 +118,6 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAgregarRol;
 END;
 
-IF OBJECT_ID('CRAZYDRIVER.spAgregarModelo') IS NOT NULL
-BEGIN
-	DROP PROCEDURE CRAZYDRIVER.spAgregarModelo;
-END;
-
 IF OBJECT_ID('CRAZYDRIVER.spAgregarAutoPorChofer') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAgregarAutoPorChofer;
@@ -137,6 +132,12 @@ IF OBJECT_ID('CRAZYDRIVER.spAltaAutomovil') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAltaAutomovil;
 END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerMarcasYModelos') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spObtenerMarcasYModelos;
+END;
+
 
 ---- BORRO TABLAS
 
@@ -224,6 +225,7 @@ IF OBJECT_ID('CRAZYDRIVER.Funcionalidad','U') IS NOT NULL
 BEGIN
    DROP TABLE CRAZYDRIVER.Funcionalidad;
 END;
+
 
 ---- ESQUEMA POR SI NO EXISTE
 
@@ -719,6 +721,13 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferes
 		WHERE habilitado = 1
 GO
 
+CREATE PROC CRAZYDRIVER.spObtenerMarcasYModelos
+	AS
+		SELECT DISTINCT m.id_modelo, m.nombre, m.id_marca, m2.nombre
+		FROM CRAZYDRIVER.Modelo m
+		JOIN CRAZYDRIVER.Marca m2 on m.id_marca = m2.id_marca
+GO
+
 CREATE PROC CRAZYDRIVER.spObtenerRolesPorNombre
 	@rolNombre NVARCHAR(100)
 	AS
@@ -877,16 +886,6 @@ CREATE PROC CRAZYDRIVER.spAgregarCliente
 
  GO
 
- CREATE PROC CRAZYDRIVER.spAgregarModelo
-	@modelo INT,
-	@marca INT
-	AS
-		IF NOT EXISTS (SELECT 1 FROM CRAZYDRIVER.modelo
-			WHERE id_modelo = @modelo)
-			INSERT INTO CRAZYDRIVER.modelo
-				(id_marca)
-				VALUES (@marca)
-GO
 
 CREATE PROC CRAZYDRIVER.spAgregarAutoPorChofer
 	@idAuto INT,
@@ -915,7 +914,6 @@ CREATE PROC CRAZYDRIVER.spAltaAutomovil
 	@idChofer INT
 	AS
 		DECLARE @idAuto int;
-		EXEC CRAZYDRIVER.spAgregarModelo @modelo, @marca;
 
 		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.Auto
 			WHERE patente = @patente)

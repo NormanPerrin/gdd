@@ -16,12 +16,6 @@ namespace CapaInterfaz
         #region Atributos
 
         private int _idAuto;
-        private string _marca;
-        private string _modelo;
-        private string _patente;
-        private int _turno;
-        private int _chofer;
-        private int _habilitado;
         private static Dictionary<String, String> auto = new Dictionary<String, String> {};
 
         #endregion
@@ -109,5 +103,12 @@ namespace CapaInterfaz
             string respuesta = CapaNegocio.NAuto.modificacion(idAuto, licencia, rodado, nombre );
             return respuesta;
         }
+
+        public static void CargarMarca(System.Windows.Forms.DataGridView tablaMarca)
+        {
+            tablaMarca.DataSource = CapaNegocio.NAuto.ObtenerMarcas();
+        }
+
+
     }
 }

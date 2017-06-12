@@ -33,23 +33,20 @@
             this.TxtPatente = new System.Windows.Forms.TextBox();
             this.LbelPatente = new System.Windows.Forms.Label();
             this.LbelMarca = new System.Windows.Forms.Label();
-            this.LbelModelo = new System.Windows.Forms.Label();
             this.LbelTurno = new System.Windows.Forms.Label();
             this.LbelChofer = new System.Windows.Forms.Label();
-            this.numMarca = new System.Windows.Forms.NumericUpDown();
-            this.numModelo = new System.Windows.Forms.NumericUpDown();
             this.tablaTurno = new System.Windows.Forms.DataGridView();
             this.Elegir = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tablaChofer = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.numMarca)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numModelo)).BeginInit();
+            this.tablaMarca = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaMarca)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnAlta
             // 
-            this.BtnAlta.Location = new System.Drawing.Point(253, 404);
+            this.BtnAlta.Location = new System.Drawing.Point(247, 503);
             this.BtnAlta.Name = "BtnAlta";
             this.BtnAlta.Size = new System.Drawing.Size(100, 32);
             this.BtnAlta.TabIndex = 0;
@@ -59,7 +56,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(22, 404);
+            this.btnVolver.Location = new System.Drawing.Point(21, 503);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(100, 32);
             this.btnVolver.TabIndex = 1;
@@ -69,15 +66,15 @@
             // 
             // TxtPatente
             // 
-            this.TxtPatente.Location = new System.Drawing.Point(87, 101);
+            this.TxtPatente.Location = new System.Drawing.Point(87, 176);
             this.TxtPatente.Name = "TxtPatente";
-            this.TxtPatente.Size = new System.Drawing.Size(170, 20);
+            this.TxtPatente.Size = new System.Drawing.Size(240, 20);
             this.TxtPatente.TabIndex = 2;
             // 
             // LbelPatente
             // 
             this.LbelPatente.AutoSize = true;
-            this.LbelPatente.Location = new System.Drawing.Point(38, 104);
+            this.LbelPatente.Location = new System.Drawing.Point(37, 183);
             this.LbelPatente.Name = "LbelPatente";
             this.LbelPatente.Size = new System.Drawing.Size(47, 13);
             this.LbelPatente.TabIndex = 3;
@@ -86,25 +83,16 @@
             // LbelMarca
             // 
             this.LbelMarca.AutoSize = true;
-            this.LbelMarca.Location = new System.Drawing.Point(45, 34);
+            this.LbelMarca.Location = new System.Drawing.Point(36, 34);
             this.LbelMarca.Name = "LbelMarca";
-            this.LbelMarca.Size = new System.Drawing.Size(40, 13);
+            this.LbelMarca.Size = new System.Drawing.Size(45, 13);
             this.LbelMarca.TabIndex = 4;
-            this.LbelMarca.Text = "Marca:";
-            // 
-            // LbelModelo
-            // 
-            this.LbelModelo.AutoSize = true;
-            this.LbelModelo.Location = new System.Drawing.Point(41, 67);
-            this.LbelModelo.Name = "LbelModelo";
-            this.LbelModelo.Size = new System.Drawing.Size(45, 13);
-            this.LbelModelo.TabIndex = 5;
-            this.LbelModelo.Text = "Modelo:";
+            this.LbelMarca.Text = "Modelo:";
             // 
             // LbelTurno
             // 
             this.LbelTurno.AutoSize = true;
-            this.LbelTurno.Location = new System.Drawing.Point(47, 138);
+            this.LbelTurno.Location = new System.Drawing.Point(43, 214);
             this.LbelTurno.Name = "LbelTurno";
             this.LbelTurno.Size = new System.Drawing.Size(38, 13);
             this.LbelTurno.TabIndex = 6;
@@ -114,26 +102,11 @@
             // LbelChofer
             // 
             this.LbelChofer.AutoSize = true;
-            this.LbelChofer.Location = new System.Drawing.Point(44, 273);
+            this.LbelChofer.Location = new System.Drawing.Point(43, 353);
             this.LbelChofer.Name = "LbelChofer";
             this.LbelChofer.Size = new System.Drawing.Size(41, 13);
             this.LbelChofer.TabIndex = 7;
             this.LbelChofer.Text = "Chofer:";
-            // 
-            // numMarca
-            // 
-            this.numMarca.Location = new System.Drawing.Point(87, 34);
-            this.numMarca.Name = "numMarca";
-            this.numMarca.Size = new System.Drawing.Size(170, 20);
-            this.numMarca.TabIndex = 12;
-            this.numMarca.ValueChanged += new System.EventHandler(this.numMarca_ValueChanged);
-            // 
-            // numModelo
-            // 
-            this.numModelo.Location = new System.Drawing.Point(87, 65);
-            this.numModelo.Name = "numModelo";
-            this.numModelo.Size = new System.Drawing.Size(170, 20);
-            this.numModelo.TabIndex = 13;
             // 
             // tablaTurno
             // 
@@ -143,7 +116,7 @@
             this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tablaTurno.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Elegir});
-            this.tablaTurno.Location = new System.Drawing.Point(87, 135);
+            this.tablaTurno.Location = new System.Drawing.Point(87, 214);
             this.tablaTurno.MultiSelect = false;
             this.tablaTurno.Name = "tablaTurno";
             this.tablaTurno.ReadOnly = true;
@@ -164,7 +137,7 @@
             this.tablaChofer.AllowUserToDeleteRows = false;
             this.tablaChofer.AllowUserToOrderColumns = true;
             this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaChofer.Location = new System.Drawing.Point(87, 265);
+            this.tablaChofer.Location = new System.Drawing.Point(87, 353);
             this.tablaChofer.MultiSelect = false;
             this.tablaChofer.Name = "tablaChofer";
             this.tablaChofer.ReadOnly = true;
@@ -173,18 +146,31 @@
             this.tablaChofer.TabIndex = 15;
             this.tablaChofer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaChofer_CellContentClick_2);
             // 
+            // tablaMarca
+            // 
+            this.tablaMarca.AllowUserToAddRows = false;
+            this.tablaMarca.AllowUserToDeleteRows = false;
+            this.tablaMarca.AllowUserToOrderColumns = true;
+            this.tablaMarca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaMarca.Location = new System.Drawing.Point(87, 34);
+            this.tablaMarca.MultiSelect = false;
+            this.tablaMarca.Name = "tablaMarca";
+            this.tablaMarca.ReadOnly = true;
+            this.tablaMarca.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tablaMarca.Size = new System.Drawing.Size(240, 123);
+            this.tablaMarca.TabIndex = 16;
+            this.tablaMarca.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaMarca_CellContentClick);
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 454);
+            this.ClientSize = new System.Drawing.Size(380, 551);
+            this.Controls.Add(this.tablaMarca);
             this.Controls.Add(this.tablaChofer);
             this.Controls.Add(this.tablaTurno);
-            this.Controls.Add(this.numModelo);
-            this.Controls.Add(this.numMarca);
             this.Controls.Add(this.LbelChofer);
             this.Controls.Add(this.LbelTurno);
-            this.Controls.Add(this.LbelModelo);
             this.Controls.Add(this.LbelMarca);
             this.Controls.Add(this.LbelPatente);
             this.Controls.Add(this.TxtPatente);
@@ -193,10 +179,9 @@
             this.Name = "Alta";
             this.Text = "Alta";
             this.Load += new System.EventHandler(this.Alta_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numMarca)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numModelo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaMarca)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,13 +201,11 @@
         private System.Windows.Forms.TextBox TxtPatente;
         private System.Windows.Forms.Label LbelPatente;
         private System.Windows.Forms.Label LbelMarca;
-        private System.Windows.Forms.Label LbelModelo;
         private System.Windows.Forms.Label LbelTurno;
         private System.Windows.Forms.Label LbelChofer;
-        private System.Windows.Forms.NumericUpDown numMarca;
-        private System.Windows.Forms.NumericUpDown numModelo;
         private System.Windows.Forms.DataGridView tablaTurno;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Elegir;
         private System.Windows.Forms.DataGridView tablaChofer;
+        private System.Windows.Forms.DataGridView tablaMarca;
     }
 }
