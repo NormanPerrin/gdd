@@ -8,6 +8,7 @@ using System.Data;
 using CapaNegocio;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using Entidades;
 
 namespace CapaInterfaz
 {
@@ -39,14 +40,34 @@ namespace CapaInterfaz
         }
 
 
-        public static string alta(int dni, string nombre, string apellido, string direccion, string mail, int telefono, DateTime fecha_nac, int nro_piso, string dpto ,string localidad, int cod_postal)
+        public static string alta(int dni, string nombre, string apellido, string direccion, string mail, int telefono, DateTime fecha_nac, int? nro_piso, char? dpto ,string localidad, int cod_postal)
         {
             string respuesta = CapaNegocio.NCliente.alta(dni, nombre, apellido, direccion, mail, telefono, fecha_nac, nro_piso, dpto,  localidad, cod_postal);
 
             return respuesta;
         }
 
+
+        public static string modificacion(Cliente cliente)
+        {
+            string respuesta = CapaNegocio.NCliente.modificacion(cliente);
+
+            return respuesta;
+        }
+
+        public static void BusquedaCliente(DataGridView tablaClientes, Entidades.Cliente cliente)
+        {
+            tablaClientes.DataSource = CapaNegocio.NCliente.BuscarCliente(cliente);
+
+        }
+
         #endregion
 
+
+
+        public static string eliminar(int id_cliente)
+        {
+            return CapaNegocio.NCliente.eliminar(id_cliente);
+        }
     }
 }

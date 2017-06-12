@@ -138,6 +138,23 @@ BEGIN
    DROP PROCEDURE CRAZYDRIVER.spObtenerMarcasYModelos;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spBuscarCliente') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spBuscarCliente;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spModificarCliente') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spModificarCliente;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spEliminarCliente') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spEliminarCliente;
+END;
+
+
+
 
 ---- BORRO TABLAS
 
@@ -225,6 +242,7 @@ IF OBJECT_ID('CRAZYDRIVER.Funcionalidad','U') IS NOT NULL
 BEGIN
    DROP TABLE CRAZYDRIVER.Funcionalidad;
 END;
+
 
 
 ---- ESQUEMA POR SI NO EXISTE
@@ -927,4 +945,84 @@ CREATE PROC CRAZYDRIVER.spAltaAutomovil
 		SELECT @idAuto = a.id_auto from CRAZYDRIVER.Auto a
 		WHERE a.patente = @patente;
 		EXEC CRAZYDRIVER.spAgregarAutoPorChofer @idAuto, @idTurno, @idChofer;
+GO
+
+CREATE PROC CRAZYDRIVER.spBuscarCliente
+    @nombre NVARCHAR(255),
+	@apellido NVARCHAR(255),
+	@dni int
+	AS
+
+	select c.id_cliente,c.dni,c.nombre,c.apellido,c.mail,c.telefono,c.fecha_nac,c.direccion,c.nro_piso,c.depto,c.localidad,c.cod_postal,
+	CASE when c.habilitado = 1 then 'Habilitado' else 'Deshabilitado' END habilitado
+	from CRAZYDRIVER.Cliente c
+	where CAST(c.dni as NVARCHAR(10)) like '%' + CAST(@dni as NVARCHAR(10)) + '%' 
+	and lower(c.apellido) like '%' + lower(@apellido) + '%'
+	and lower(c.nombre) like '%' + lower(@nombre) + '%';
+
+GO
+
+CREATE PROC CRAZYDRIVER.spModificarCliente
+  	  @dni int,
+	  @nombre NVARCHAR(255),
+	  @apellido NVARCHAR(255),
+	  @direccion NVARCHAR(255),
+	  @mail NVARCHAR(255),
+	  @telefono int,
+	  @fecha_nac DATETIME,
+	  @nro_piso int,
+	  @depto CHAR(1),
+	  @localidad NVARCHAR(255),
+	  @cod_postal int,
+	  @id_cliente int,
+	  @habilitado bit
+	  AS
+	  
+	  DECLARE @usuario int;
+	  DECLARE @dnib int;
+	  DECLARE @telefonob int;
+
+
+	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = c.telefono
+	  from CRAZYDRIVER.Cliente c
+	  where (@dni = c.dni or @telefono = c.telefono) and c.id_cliente != @id_cliente;
+
+	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = CASE WHEN @telefonob is null then c.telefono else @telefonob END
+	  from CRAZYDRIVER.Chofer c
+	  where (@dni = c.dni or @telefono = c.telefono) and @usuario != c.id_usuario;
+
+
+
+	  IF (@telefonob is not null and @telefono = @telefonob)
+		 BEGIN
+		 RAISERROR('Telefono existente',17,1);
+		 END
+
+	  ELSE IF (@dnib is not null and @dni = @dnib)
+		 BEGIN
+		 RAISERROR('DNI existente',17,1);
+		 END
+
+	  ELSE
+		BEGIN
+		UPDATE CRAZYDRIVER.Cliente set
+		dni = @dni,
+		nombre = @nombre ,
+		apellido = @apellido,
+		direccion = @direccion,
+		mail = @mail,
+		telefono = @telefono,
+		fecha_nac = @fecha_nac,
+		nro_piso = @nro_piso,
+		depto = @depto,
+		localidad = @localidad,
+		cod_postal = @cod_postal,
+		habilitado = @habilitado
+		where id_cliente = @id_cliente
+		END
+GO
+
+CREATE PROC CRAZYDRIVER.spEliminarCliente
+	@id_cliente int AS
+	UPDATE CRAZYDRIVER.Cliente set habilitado = 0 where id_cliente = @id_cliente
 GO

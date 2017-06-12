@@ -31,6 +31,19 @@ namespace UberFrba.AbmCliente
             ventana.ShowDialog(this);
         }
 
+
+        private void clienteVolverbtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void clienteModbtn_Click(object sender, EventArgs e)
+        {
+            Modificacion ventana = new Modificacion();
+            ventana.ShowDialog(this);
+        }
+
         #endregion
+
     }
 }

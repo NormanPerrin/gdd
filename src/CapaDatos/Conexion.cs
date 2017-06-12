@@ -43,9 +43,9 @@ namespace CapaDatos
                     Comando.CommandText = nombreProcedimiento; // agregamos el nombre del Srore procedure
                     Comando.Parameters.AddRange(parametros); // agregmos los parametros a ejecutar                
                     // ejecutamos el TSQL(Transaction SQL) en el servidor
-                    respuesta = Comando.ExecuteNonQuery() == 1 ?
-                        "No se ha podido ejecutar la transaccion": // si no se logro ejecutar
-                        "La transaccion se ha realizado con exito"; // si se logro ejecutar
+                    Comando.ExecuteNonQuery();
+                    respuesta = "La transaccion se ha realizado con exito";
+
                 }
                 catch (Exception ex)
                 {

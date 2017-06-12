@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.abmClienteBox = new System.Windows.Forms.GroupBox();
-            this.clienteAltabtn = new System.Windows.Forms.Button();
-            this.clienteModbtn = new System.Windows.Forms.Button();
             this.clienteVolverbtn = new System.Windows.Forms.Button();
+            this.clienteModbtn = new System.Windows.Forms.Button();
+            this.clienteAltabtn = new System.Windows.Forms.Button();
             this.abmClienteBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,15 +47,15 @@
             this.abmClienteBox.TabStop = false;
             this.abmClienteBox.Text = "Seleccione una acción";
             // 
-            // clienteAltabtn
+            // clienteVolverbtn
             // 
-            this.clienteAltabtn.Location = new System.Drawing.Point(20, 37);
-            this.clienteAltabtn.Name = "clienteAltabtn";
-            this.clienteAltabtn.Size = new System.Drawing.Size(140, 23);
-            this.clienteAltabtn.TabIndex = 0;
-            this.clienteAltabtn.Text = "Alta de cliente";
-            this.clienteAltabtn.UseVisualStyleBackColor = true;
-            this.clienteAltabtn.Click += new System.EventHandler(this.clienteAltabtn_Click);
+            this.clienteVolverbtn.Location = new System.Drawing.Point(20, 121);
+            this.clienteVolverbtn.Name = "clienteVolverbtn";
+            this.clienteVolverbtn.Size = new System.Drawing.Size(140, 23);
+            this.clienteVolverbtn.TabIndex = 2;
+            this.clienteVolverbtn.Text = "Volver a funcionalidades";
+            this.clienteVolverbtn.UseVisualStyleBackColor = true;
+            this.clienteVolverbtn.Click += new System.EventHandler(this.clienteVolverbtn_Click);
             // 
             // clienteModbtn
             // 
@@ -65,15 +65,17 @@
             this.clienteModbtn.TabIndex = 1;
             this.clienteModbtn.Text = "Modificación de cliente";
             this.clienteModbtn.UseVisualStyleBackColor = true;
+            this.clienteModbtn.Click += new System.EventHandler(this.clienteModbtn_Click);
             // 
-            // clienteVolverbtn
+            // clienteAltabtn
             // 
-            this.clienteVolverbtn.Location = new System.Drawing.Point(20, 121);
-            this.clienteVolverbtn.Name = "clienteVolverbtn";
-            this.clienteVolverbtn.Size = new System.Drawing.Size(140, 23);
-            this.clienteVolverbtn.TabIndex = 2;
-            this.clienteVolverbtn.Text = "Volver a funcionalidades";
-            this.clienteVolverbtn.UseVisualStyleBackColor = true;
+            this.clienteAltabtn.Location = new System.Drawing.Point(20, 37);
+            this.clienteAltabtn.Name = "clienteAltabtn";
+            this.clienteAltabtn.Size = new System.Drawing.Size(140, 23);
+            this.clienteAltabtn.TabIndex = 0;
+            this.clienteAltabtn.Text = "Alta de cliente";
+            this.clienteAltabtn.UseVisualStyleBackColor = true;
+            this.clienteAltabtn.Click += new System.EventHandler(this.clienteAltabtn_Click);
             // 
             // AbmCliente
             // 
