@@ -22,7 +22,7 @@ namespace UberFrba.AbmChofer
             get { return _choferViejo; }
             set { _choferViejo = value; }
         }
-        public Chofer Chofer
+        public Chofer ChoferNuevo
         {
             get { return _chofer; }
             set { _chofer = value; }
@@ -38,17 +38,26 @@ namespace UberFrba.AbmChofer
             txtNombreViejo.Text = choferViejo.Nombre;
             txtApellidoViejo.Text = choferViejo.Apellido;
             txtDniViejo.Text = choferViejo.DniString;
-            txtFechaNacVieja.Text = Convert.ToString(choferViejo.FechaNac);
+            txtFechaNacVieja.Text = choferViejo.FechaNacString;
             txtTelefonoViejo.Text = choferViejo.TelefonoString;
             txtMailViejo.Text = choferViejo.Mail;
             txtDireccionVieja.Text = choferViejo.Direccion;
             txtLocalidadVieja.Text = choferViejo.Localidad;
-            txtNroPisoViejo.Text = Convert.ToString(choferViejo.NroPiso);
+            txtNroPisoViejo.Text = choferViejo.NroPisoString;
             txtDeptoViejo.Text = choferViejo.Depto;
             txtEstado.Text = choferViejo.Estado;
             cbxEstado.Text = choferViejo.Estado;
 
-            Chofer = new Chofer();
+            txtNombreNuevo.Text = choferViejo.Nombre;
+            txtApellidoNuevo.Text = choferViejo.Apellido;
+            txtDniNuevo.Text = choferViejo.DniString;
+            txtFechaNacNueva.Text = choferViejo.FechaNacString;
+            txtTelefonoNuevo.Text = choferViejo.TelefonoString;
+            txtMailNuevo.Text = choferViejo.Mail;
+            txtDireccionNueva.Text = choferViejo.Direccion;
+            txtLocalidadNueva.Text = choferViejo.Localidad;
+            txtNroPisoNuevo.Text = choferViejo.NroPisoString;
+            txtDeptoNuevo.Text = choferViejo.Depto;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -61,7 +70,7 @@ namespace UberFrba.AbmChofer
             txtMailNuevo.Text = string.Empty;
             txtDireccionNueva.Text = string.Empty;
             txtLocalidadNueva.Text = string.Empty;
-            TxtNroPisoNuevo.Text = string.Empty;
+            txtNroPisoNuevo.Text = string.Empty;
             txtDeptoNuevo.Text = string.Empty;
             cbxEstado.Text = txtEstado.Text;
         }
@@ -73,17 +82,26 @@ namespace UberFrba.AbmChofer
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            this.Chofer.Nombre = this.txtNombreNuevo.Text;
-            this.Chofer.Apellido = this.txtApellidoNuevo.Text;
-            this.Chofer.DniString = this.txtDniNuevo.Text;
-            this.Chofer.FechaNacString = this.txtFechaNacNueva.Text;
-            this.Chofer.TelefonoString = this.txtTelefonoNuevo.Text;
-            this.Chofer.Mail = this.txtMailNuevo.Text;
-            this.Chofer.Direccion = this.txtDireccionNueva.Text;
-            this.Chofer.Localidad = this.txtLocalidadNueva.Text;
-            this.Chofer.NroPisoString = this.TxtNroPisoNuevo.Text;
-            this.Chofer.Depto = this.txtDeptoNuevo.Text;
-            string mensaje = CapaInterfaz.IChofer.actualizarChofer(this.Chofer, this.ChoferViejo);
+            ChoferNuevo = new Chofer();
+            ChoferNuevo.limpiarAtributos(ChoferNuevo);
+
+            this.ChoferNuevo.Nombre = this.txtNombreNuevo.Text;
+            this.ChoferNuevo.Apellido = this.txtApellidoNuevo.Text;
+            this.ChoferNuevo.DniString = this.txtDniNuevo.Text;
+            this.ChoferNuevo.FechaNacString = this.txtFechaNacNueva.Text;
+            this.ChoferNuevo.TelefonoString = this.txtTelefonoNuevo.Text;
+            this.ChoferNuevo.Mail = this.txtMailNuevo.Text;
+            this.ChoferNuevo.Direccion = this.txtDireccionNueva.Text;
+            this.ChoferNuevo.Localidad = this.txtLocalidadNueva.Text;
+            this.ChoferNuevo.NroPisoString = this.txtNroPisoNuevo.Text;
+            this.ChoferNuevo.Depto = this.txtDeptoNuevo.Text;
+            this.ChoferNuevo.Estado = this.cbxEstado.Text;
+
+            this.ChoferNuevo.Id = this.ChoferViejo.Id;
+            this.ChoferNuevo.IdUsuario = this.ChoferViejo.IdUsuario;
+            this.ChoferNuevo.Habilitado = this.ChoferViejo.Habilitado;
+
+            string mensaje = CapaInterfaz.IChofer.actualizarChofer(this.ChoferNuevo, this.ChoferViejo);
             CapaInterfaz.Decoracion.mostrarInfo(mensaje);
         }
     }

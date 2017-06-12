@@ -50,20 +50,18 @@ namespace UberFrba.AbmChofer
             chofer.limpiarAtributos(chofer);
 
             // datos de interes para la interfaz
-            chofer.Nombre = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["nombre"].Value);
-            chofer.Apellido = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["apellido"].Value);
-            chofer.DniString = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["dni"].Value);
-            chofer.FechaNac = Convert.ToDateTime(this.tablaChoferes.CurrentRow.Cells["fecha_nac"].Value);
-            chofer.TelefonoString = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["telefono"].Value);
-            chofer.Mail = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["mail"].Value);
-            chofer.Direccion = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["direccion"].Value);
-            if (this.tablaChoferes.CurrentRow.Cells["localidad"].Value != DBNull.Value)
-                chofer.Localidad = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["localidad"].Value);
-            if (this.tablaChoferes.CurrentRow.Cells["nro_piso"].Value != DBNull.Value)
-                chofer.NroPiso = Convert.ToInt32(this.tablaChoferes.CurrentRow.Cells["nro_piso"].Value);
-            if (this.tablaChoferes.CurrentRow.Cells["depto"].Value != DBNull.Value)
-                chofer.Depto = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["depto"].Value);
-            chofer.Estado = Convert.ToString(this.tablaChoferes.CurrentRow.Cells["estado"].Value);
+            chofer.Nombre = this.tablaChoferes.CurrentRow.Cells["nombre"].Value.ToString();
+            chofer.Apellido = this.tablaChoferes.CurrentRow.Cells["apellido"].Value.ToString();
+            chofer.DniString = this.tablaChoferes.CurrentRow.Cells["dni"].Value.ToString(); // ojo es un int en realidad
+            chofer.FechaNacString = this.tablaChoferes.CurrentRow.Cells["fecha_nac"].Value.ToString(); // ojo es un datetime en realidad
+            chofer.TelefonoString = this.tablaChoferes.CurrentRow.Cells["telefono"].Value.ToString(); // ojo es un int en realidad
+            chofer.Mail = this.tablaChoferes.CurrentRow.Cells["mail"].Value.ToString();
+            chofer.Direccion = this.tablaChoferes.CurrentRow.Cells["direccion"].Value.ToString();
+            chofer.Localidad = this.tablaChoferes.CurrentRow.Cells["localidad"].Value.ToString();
+            chofer.NroPisoString = this.tablaChoferes.CurrentRow.Cells["nro_piso"].Value.ToString(); // ojo es un int en realidad
+            chofer.Depto = this.tablaChoferes.CurrentRow.Cells["depto"].Value.ToString();
+            chofer.Estado = this.tablaChoferes.CurrentRow.Cells["estado"].Value.ToString();
+
             // otros datos de interes
             chofer.Id = Convert.ToInt32(this.tablaChoferes.CurrentRow.Cells["id_chofer"].Value);
             chofer.Habilitado = Convert.ToInt32(this.tablaChoferes.CurrentRow.Cells["habilitado"].Value);
@@ -72,5 +70,6 @@ namespace UberFrba.AbmChofer
             Edicion ventana = new Edicion(chofer);
             ventana.ShowDialog(this);
         }
+
     }
 }

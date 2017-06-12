@@ -76,7 +76,7 @@ namespace CapaDatos
         {
             Conexion Conexion = new Conexion();
 
-            SqlParameter[] parametros = new SqlParameter[13];
+            SqlParameter[] parametros = new SqlParameter[12];
 
             parametros[0] = new SqlParameter();
             parametros[0].ParameterName = "@choferId";
@@ -142,31 +142,11 @@ namespace CapaDatos
             parametros[10].Value = chofer.Depto;
 
             parametros[11] = new SqlParameter();
-            parametros[11].ParameterName = "@choferMail";
-            parametros[11].SqlDbType = SqlDbType.NVarChar;
-            parametros[11].Size = 255;
-            parametros[11].Value = chofer.Mail;
+            parametros[11].ParameterName = "@habilitado";
+            parametros[11].SqlDbType = SqlDbType.TinyInt;
+            parametros[11].Value = chofer.Habilitado;
 
-            parametros[12] = new SqlParameter();
-            parametros[12].ParameterName = "@habilitado";
-            parametros[12].SqlDbType = SqlDbType.Int;
-            parametros[12].Value = chofer.Habilitado;
-
-            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarChofer");
-            string respuesta = string.Empty;
-            switch (resultado)
-            {
-                case "-1":
-                    respuesta = "Se capturo un error al intentar modificar un chofer";
-                    break;
-                case "0":
-                    respuesta = "No se logro modificar un chofer";
-                    break;
-                case "1":
-                    respuesta = "Se modificar un chofer";
-                    break;
-            }
-            return respuesta;
+            return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarChofer");
         }
 
     }

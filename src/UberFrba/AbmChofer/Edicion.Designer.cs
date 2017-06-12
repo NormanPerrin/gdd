@@ -38,7 +38,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.TxtNroPisoNuevo = new System.Windows.Forms.TextBox();
+            this.txtNroPisoNuevo = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtDeptoNuevo = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -185,7 +185,7 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label11);
-            this.groupBox6.Controls.Add(this.TxtNroPisoNuevo);
+            this.groupBox6.Controls.Add(this.txtNroPisoNuevo);
             this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Controls.Add(this.txtDeptoNuevo);
             this.groupBox6.Controls.Add(this.label17);
@@ -213,12 +213,12 @@
             this.label11.Text = "Nro de piso:";
             this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // TxtNroPisoNuevo
+            // txtNroPisoNuevo
             // 
-            this.TxtNroPisoNuevo.Location = new System.Drawing.Point(121, 120);
-            this.TxtNroPisoNuevo.Name = "TxtNroPisoNuevo";
-            this.TxtNroPisoNuevo.Size = new System.Drawing.Size(162, 20);
-            this.TxtNroPisoNuevo.TabIndex = 22;
+            this.txtNroPisoNuevo.Location = new System.Drawing.Point(121, 120);
+            this.txtNroPisoNuevo.Name = "txtNroPisoNuevo";
+            this.txtNroPisoNuevo.Size = new System.Drawing.Size(162, 20);
+            this.txtNroPisoNuevo.TabIndex = 22;
             // 
             // label12
             // 
@@ -649,7 +649,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox TxtNroPisoNuevo;
+        private System.Windows.Forms.TextBox txtNroPisoNuevo;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtDeptoNuevo;
         private System.Windows.Forms.Label label17;

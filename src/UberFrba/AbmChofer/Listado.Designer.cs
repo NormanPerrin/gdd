@@ -76,7 +76,6 @@
             this.tablaChoferes.Location = new System.Drawing.Point(6, 193);
             this.tablaChoferes.MultiSelect = false;
             this.tablaChoferes.Name = "tablaChoferes";
-            this.tablaChoferes.ReadOnly = true;
             this.tablaChoferes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaChoferes.Size = new System.Drawing.Size(493, 219);
             this.tablaChoferes.TabIndex = 3;
