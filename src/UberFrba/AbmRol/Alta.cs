@@ -18,6 +18,12 @@ namespace UberFrba.AbmRol
             CapaInterfaz.Decoracion.Reorganizar(this);
         }
 
+        private void Alta_Load(object sender, EventArgs e)
+        {
+            CapaInterfaz.IRol.CargarFuncionalidades(this.tablaFuncionalidades);
+            CapaInterfaz.IRol.OcultarColumnasFuncionalidades(this.tablaFuncionalidades);
+        }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (this.txtNombre.Text != string.Empty)
@@ -48,12 +54,6 @@ namespace UberFrba.AbmRol
                 DataGridViewCheckBoxCell cellSelecion = row.Cells["Elegir"] as DataGridViewCheckBoxCell;
                 cellSelecion.Value = false;
             }
-        }
-
-        private void Alta_Load(object sender, EventArgs e)
-        {
-            CapaInterfaz.IRol.CargarFuncionalidades(this.tablaFuncionalidades);
-            CapaInterfaz.IRol.OcultarColumnasFuncionalidades(this.tablaFuncionalidades);
         }
 
         private void tablaFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)

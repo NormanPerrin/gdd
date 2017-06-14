@@ -58,14 +58,19 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferes;
 END;
 
-IF OBJECT_ID('CRAZYDRIVER.spObtenerRolesPorNombre') IS NOT NULL
+IF OBJECT_ID('CRAZYDRIVER.spBuscarRoles') IS NOT NULL
 BEGIN
-	DROP PROCEDURE CRAZYDRIVER.spObtenerRolesPorNombre;
+	DROP PROCEDURE CRAZYDRIVER.spBuscarRoles;
 END;
 
 IF OBJECT_ID('CRAZYDRIVER.spActualizarRol') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spActualizarRol;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spActualizarFuncionalidadPorRol') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spActualizarFuncionalidadPorRol;
 END;
 
 IF OBJECT_ID('CRAZYDRIVER.spObtenerTodoChoferes') IS NOT NULL
@@ -431,7 +436,7 @@ INSERT INTO CRAZYDRIVER.Rol (nombre, habilitado) -- tomarlo con pinzas, consider
 GO
 
 INSERT INTO CRAZYDRIVER.Funcionalidad(descripcion)
-	VALUES ('ABM Rol'), ('ABM cliente'), ('ABM automovil'), ('ABM turno'), ('ABM chofer'),
+	VALUES ('ABM rol'), ('ABM cliente'), ('ABM automovil'), ('ABM turno'), ('ABM chofer'),
 	('Registrar viaje'), ('Rendir viaje'), ('Facturar cliente'), ('Listado Estadistico') -- no se si agregar una mas que sea dar de alta a usuarios
 GO
 
@@ -652,7 +657,7 @@ GO
 CREATE PROC CRAZYDRIVER.spLogin
 	@username NVARCHAR(255)
 	AS
-	SELECT id_usuario, pass, intentos
+	SELECT id_usuario, pass, intentos, habilitado
 		FROM CRAZYDRIVER.Usuario
 		WHERE username=@username
 GO
@@ -673,15 +678,6 @@ CREATE PROC CRAZYDRIVER.spObtenerRolesPorUsuario
 		WHERE rpu.id_usuario = @idUsuario and rpu.id_rol = r.id_rol and r.habilitado = 1
 GO
 
-CREATE PROC CRAZYDRIVER.spObtenerFuncionalidadesPorRol
-	@rolNombre NVARCHAR(100)
-	AS
-		SELECT DISTINCT f.descripcion
-		FROM CRAZYDRIVER.FuncionalidadPorRol fpr, CRAZYDRIVER.Rol r, CRAZYDRIVER.Funcionalidad f
-		WHERE r.nombre = @rolNombre and r.id_rol = fpr.id_rol and fpr.habilitado = 1
-		and fpr.id_funcionalidad = f.id_funcionalidad
-GO
-
 CREATE PROC CRAZYDRIVER.spObtenerRoles
 	AS
 		SELECT DISTINCT id_rol, nombre, CAST(
@@ -690,7 +686,7 @@ CREATE PROC CRAZYDRIVER.spObtenerRoles
 						 THEN 'habilitado'
 					  ELSE 'deshabilitado'
 				 END AS NVARCHAR(20)
-			) as Estado
+			) as estado
 			FROM CRAZYDRIVER.Rol
 GO
 
@@ -698,6 +694,23 @@ CREATE PROC CRAZYDRIVER.spObtenerFuncionalidades
 	AS
 		SELECT DISTINCT *
 		FROM CRAZYDRIVER.Funcionalidad
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerFuncionalidadesPorRol
+	@rolId INT
+	AS
+		SELECT DISTINCT
+			f.id_funcionalidad id_funcionalidad, 
+			f.descripcion descripcion,
+			fpr.habilitado habilitado
+		FROM 
+			CRAZYDRIVER.FuncionalidadPorRol fpr, 
+			CRAZYDRIVER.Rol r, 
+			CRAZYDRIVER.Funcionalidad f
+		WHERE 
+			r.id_rol = @rolId AND 
+			fpr.id_rol = r.id_rol AND 
+			fpr.id_funcionalidad = f.id_funcionalidad
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerRol
@@ -718,12 +731,13 @@ CREATE PROC CRAZYDRIVER.spAgregarRol
 GO
 
 CREATE PROC CRAZYDRIVER.spAgregarRolFuncionalidad
-	@idRol INT ,
-	@idFuncionalidad INT
+	@idRol INT,
+	@idFuncionalidad INT,
+	@habilitado INT
 	AS
 		INSERT INTO CRAZYDRIVER.FuncionalidadPorRol
 			(id_rol, id_funcionalidad, habilitado)
-			VALUES (@idRol, @idFuncionalidad, 1)
+			VALUES (@idRol, @idFuncionalidad, @habilitado)
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerTurnos
@@ -746,7 +760,7 @@ CREATE PROC CRAZYDRIVER.spObtenerMarcasYModelos
 		JOIN CRAZYDRIVER.Marca m2 on m.id_marca = m2.id_marca
 GO
 
-CREATE PROC CRAZYDRIVER.spObtenerRolesPorNombre
+CREATE PROC CRAZYDRIVER.spBuscarRoles
 	@rolNombre NVARCHAR(100)
 	AS
 		SELECT DISTINCT id_rol, nombre, CAST(
@@ -768,6 +782,16 @@ CREATE PROC CRAZYDRIVER.spActualizarRol
 		UPDATE CRAZYDRIVER.ROL
 			SET nombre = @rolNombre, habilitado = @habilitado
 			WHERE id_rol = @idRol
+GO
+
+CREATE PROC CRAZYDRIVER.spActualizarFuncionalidadPorRol
+	@idRol INT,
+	@idFuncionalidad INT,
+	@habilitado INT
+	AS
+		UPDATE CRAZYDRIVER.FuncionalidadPorRol
+			SET habilitado = @habilitado
+			WHERE id_rol = @idRol AND id_funcionalidad = @idFuncionalidad
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerChoferesPorTurno
@@ -825,7 +849,7 @@ CREATE PROC CRAZYDRIVER.spObtenerTodoChoferes
 						 THEN 'habilitado'
 					  ELSE 'deshabilitado'
 				 END AS NVARCHAR(20)
-			) as Estado
+			) as estado
 			FROM CRAZYDRIVER.Chofer
 GO
 
@@ -840,7 +864,7 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferEspecifico
 						 THEN 'habilitado'
 					  ELSE 'deshabilitado'
 				 END AS NVARCHAR(20)
-			) as Estado
+			) as estado
 			FROM
 				CRAZYDRIVER.Chofer
 			WHERE

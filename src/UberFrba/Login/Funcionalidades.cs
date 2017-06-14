@@ -8,110 +8,84 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Entidades;
+
 namespace UberFrba
 {
     public partial class Funcionalidades : Form
     {
-        #region Atributos
+        private Rol rol;
 
-            private string _NombreRol;
+        public Funcionalidades(string nombre)
+        {
+            InitializeComponent();
+            CapaInterfaz.Decoracion.Reorganizar(this);
+            rol = CapaInterfaz.IRol.obtenerRol(nombre);
+        }
 
-        #endregion
+        private void Funcionalidades_Load(object sender, EventArgs e)
+        {
+            titulo.Text = "Rol actual: " + rol.Nombre;
+            CapaInterfaz.Decoracion.Reorganizar(this);
+            CapaInterfaz.IRol.CargarFuncionalidadesHabilitadas(cbxFuncionalidades, rol);
+            cbxFuncionalidades.SelectedIndex = 0;
+        }
 
-        #region Constructor
-
-            public Funcionalidades(string nombreRol)
+        private void btnAcceder_Click(object sender, EventArgs e)
+        {
+            if (cbxFuncionalidades.Text == "ABM rol") // despues veo como mejoro este codigo porque no me gusta que sea tan asi
             {
-                InitializeComponent();
-                CapaInterfaz.Decoracion.Reorganizar(this);
-                this.NombreRol = nombreRol;
-                titulo.Text = "Rol actual: " + nombreRol;
+                AbmRol.AbmRol siguienteVentana = new AbmRol.AbmRol();
+                siguienteVentana.ShowDialog(this);
             }
-
-        #endregion
-
-        #region Acciones
-
-            private void btnAcceder_Click(object sender, EventArgs e)
+            else if (cbxFuncionalidades.Text == "ABM cliente")
             {
-                if (cbxFuncionalidades.Text == "ABM Rol") // despues veo como mejoro este codigo porque no me gusta que sea tan asi
-                {
-                    AbmRol.AbmRol siguienteVentana = new AbmRol.AbmRol();
-                    siguienteVentana.ShowDialog(this);
-                }
-                else if (cbxFuncionalidades.Text == "ABM cliente")
-                {
-                    AbmCliente.AbmCliente siguienteVentana = new AbmCliente.AbmCliente();
-                    siguienteVentana.Show();
-                }
-                else if (cbxFuncionalidades.Text == "ABM automovil")
-                {
-                    UberFrba.AbmAuto.AbmAuto siguienteVentana = new AbmAuto.AbmAuto();
-                    siguienteVentana.ShowDialog(this);
-                }
-                else if (cbxFuncionalidades.Text == "ABM turno")
-                {
-                    AbmTurno siguienteVentana = AbmTurno.ObtenerInstancia();
-                    siguienteVentana.Show();
-                }
-                else if (cbxFuncionalidades.Text == "ABM chofer")
-                {
-                    AbmChofer.AbmChofer siguienteVentana = new AbmChofer.AbmChofer();
-                    siguienteVentana.ShowDialog(this);
-                }
-                else if (cbxFuncionalidades.Text == "Registrar viaje")
-                {
-                    RegistroViajes siguienteVentana = RegistroViajes.ObtenerInstancia();
-                    siguienteVentana.Show();
-                }
-                else if (cbxFuncionalidades.Text == "Rendir viaje")
-                {
-                    RendicionViajes siguienteVentana = RendicionViajes.ObtenerInstancia();
-                    siguienteVentana.Show();
-                }
-                else if (cbxFuncionalidades.Text == "Facturar cliente")
-                {
-                    Facturacion siguienteVentana = Facturacion.ObtenerInstancia();
-                    siguienteVentana.Show();
-                }
-                else if (cbxFuncionalidades.Text == "Listado Estadistico")
-                {
-                    ListadoEstadistico siguienteVentana = ListadoEstadistico.ObtenerInstancia();
-                    siguienteVentana.Show();
-                }
-            }
-
-            private void cerrarSesion_Click(object sender, EventArgs e)
-            {
-                Login siguienteVentana = new Login();
-                Program.contexto.MainForm = siguienteVentana;
+                AbmCliente.AbmCliente siguienteVentana = new AbmCliente.AbmCliente();
                 siguienteVentana.Show();
-                Close();
             }
-
-            private void Funcionalidades_Load(object sender, EventArgs e)
+            else if (cbxFuncionalidades.Text == "ABM automovil")
             {
-                CapaInterfaz.Decoracion.Reorganizar(this);
-                CapaInterfaz.IRol.CargarFuncionalidades(this.cbxFuncionalidades, this.NombreRol);
+                UberFrba.AbmAuto.AbmAuto siguienteVentana = new AbmAuto.AbmAuto();
+                siguienteVentana.ShowDialog(this);
             }
-
-            private void cbxFuncionalidades_SelectedIndexChanged(object sender, EventArgs e)
+            else if (cbxFuncionalidades.Text == "ABM turno")
             {
-
+                AbmTurno siguienteVentana = AbmTurno.ObtenerInstancia();
+                siguienteVentana.Show();
             }
-
-        #endregion
-
-        #region Getters/Setters
-
-            public string NombreRol
+            else if (cbxFuncionalidades.Text == "ABM chofer")
             {
-                get { return _NombreRol; }
-                set { _NombreRol = value; }
+                AbmChofer.AbmChofer siguienteVentana = new AbmChofer.AbmChofer();
+                siguienteVentana.ShowDialog(this);
             }
+            else if (cbxFuncionalidades.Text == "Registrar viaje")
+            {
+                RegistroViajes siguienteVentana = RegistroViajes.ObtenerInstancia();
+                siguienteVentana.Show();
+            }
+            else if (cbxFuncionalidades.Text == "Rendir viaje")
+            {
+                RendicionViajes siguienteVentana = RendicionViajes.ObtenerInstancia();
+                siguienteVentana.Show();
+            }
+            else if (cbxFuncionalidades.Text == "Facturar cliente")
+            {
+                Facturacion siguienteVentana = Facturacion.ObtenerInstancia();
+                siguienteVentana.Show();
+            }
+            else if (cbxFuncionalidades.Text == "Listado Estadistico")
+            {
+                ListadoEstadistico siguienteVentana = ListadoEstadistico.ObtenerInstancia();
+                siguienteVentana.Show();
+            }
+        }
 
-        #endregion
-
-
+        private void cerrarSesion_Click(object sender, EventArgs e)
+        {
+            Login siguienteVentana = new Login();
+            Program.contexto.MainForm = siguienteVentana;
+            siguienteVentana.Show();
+            Close();
+        }
     }
 }

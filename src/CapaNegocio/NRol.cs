@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using System.Data;
 using CapaDatos;
+using Entidades;
 
 namespace CapaNegocio
 {
@@ -26,10 +27,10 @@ namespace CapaNegocio
             return Objeto.ObtenerRoles(idUsuario);
         }
 
-        public static DataTable ObtenerRoles(string rolNombre)
+        public static DataTable buscarRoles(string rolNombre) // por usuario
         {
             DRol Objeto = new DRol();
-            return Objeto.ObtenerRoles(rolNombre);
+            return Objeto.buscarRoles(rolNombre);
         }
 
         public static DataTable ObtenerFuncionalidades()
@@ -37,10 +38,10 @@ namespace CapaNegocio
             return new DRol().ObtenerFuncionalidades();
         }
 
-        public static DataTable ObtenerFuncionalidades(string nombreRol)
+        public static DataTable ObtenerFuncionalidades(int rolId)
         {
             DRol Objeto = new DRol();
-            return Objeto.ObtenerFuncionalidades(nombreRol);
+            return Objeto.ObtenerFuncionalidades(rolId);
         }
 
         public static string AgregarRol(string nombreRol)
@@ -55,16 +56,16 @@ namespace CapaNegocio
             return Objeto.ObtenerRol(nombreRol);
         }
 
-        public static string AgregarRolFuncionalidad(int idRol, int idFuncionalidad)
+        public static string AgregarRolFuncionalidad(int idRol, int idFuncionalidad, int habilitado)
         {
             DRol Objeto = new DRol();
-            return Objeto.AgregarRol(idRol, idFuncionalidad);
+            return Objeto.AgregarRolFuncionalidad(idRol, idFuncionalidad, habilitado);
         }
 
-        public static string ActualizarRol(int idRol, string nombre, int estado)
+        public static string ActualizarRol(Rol rol)
         {
             DRol Objeto = new DRol();
-            return Objeto.ActualizarRol(idRol, nombre, estado);
+            return Objeto.ActualizarRol(rol);
         }
     }
 }

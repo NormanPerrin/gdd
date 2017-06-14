@@ -8,62 +8,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Entidades;
+
 namespace UberFrba
 {
     public partial class SeleccionarRol : Form
     {
-        #region Atributos
+        private Usuario usuario;
 
-            private int _IdUsuario;
-        
-        #endregion
-        
-        #region Constructor
+        public SeleccionarRol(Usuario usuarioRecibido)
+        {
+            InitializeComponent();
+            CapaInterfaz.Decoracion.Reorganizar(this);
+            usuario = usuarioRecibido;
+        }
 
-            public SeleccionarRol(int idUsuario, string username)
-            {
-                InitializeComponent();
-                this.IdUsuario = idUsuario;
-                titulo.Text = "Usuario actual: " + username;
-                CapaInterfaz.Decoracion.Reorganizar(this);
-            }
+        private void SeleccionarRol_Load(object sender, EventArgs e)
+        {
+            titulo.Text = "Usuario actual: " + usuario.Username;
+            CapaInterfaz.IRol.CargarRoles(this.cbxRoles, usuario.Id);
+        }
 
-        #endregion
+        private void btnAcceder_Click(object sender, EventArgs e)
+        {
+            string rolNombre = cbxRoles.Text;
+            Funcionalidades siguienteVentana = new Funcionalidades(rolNombre);
+            Program.contexto.MainForm = siguienteVentana;
+            siguienteVentana.Show();
+            Close();
+        }
 
-        #region Acciones
-
-            private void btnAcceder_Click(object sender, EventArgs e)
-            {
-                string rolNombre = cbxRoles.Text;
-                Funcionalidades siguienteVentana = new Funcionalidades(rolNombre);
-                Program.contexto.MainForm = siguienteVentana;
-                siguienteVentana.Show();
-                Close();
-            }
-
-            private void btnCerrarSesion_Click(object sender, EventArgs e)
-            {
-                Login siguienteVentana = new Login();
-                Program.contexto.MainForm = siguienteVentana;
-                siguienteVentana.Show();
-                Close();
-            }
-
-            private void SeleccionarRol_Load(object sender, EventArgs e)
-            {
-                CapaInterfaz.IRol.CargarRoles(this.cbxRoles, this.IdUsuario);
-            }
-
-        #endregion
-
-        #region Getters/Setters
-
-            public int IdUsuario
-            {
-                get { return _IdUsuario; }
-                set { _IdUsuario = value; }
-            }
-
-        #endregion
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Login siguienteVentana = new Login();
+            Program.contexto.MainForm = siguienteVentana;
+            siguienteVentana.Show();
+            Close();
+        }
     }
 }

@@ -157,6 +157,7 @@ namespace UberFrba.AbmCliente
             }
             catch (Exception ex)
             {
+                Exception exje = ex; 
                 return;
             }
              
