@@ -60,7 +60,7 @@ namespace UberFrba.AbmRol
         {
             if (e.ColumnIndex == tablaFuncionalidades.Columns["Elegir"].Index)
             {
-                DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell) tablaFuncionalidades.Rows[e.RowIndex].Cells["Elegir"];
+                DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell)tablaFuncionalidades.Rows[e.RowIndex].Cells["Elegir"];
                 chkElegir.Value = !Convert.ToBoolean(chkElegir.Value);
             }
         }

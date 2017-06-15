@@ -34,6 +34,7 @@ namespace UberFrba.AbmRol
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             this.txRolNombre.Text = String.Empty;
+            CapaInterfaz.IRol.CargarRoles(this.tablaRoles);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

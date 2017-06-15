@@ -58,6 +58,17 @@ namespace CapaInterfaz
         public static void CargarFuncionalidades(DataGridView tablaFuncionalidades, Rol rol)
         {
             tablaFuncionalidades.DataSource = CapaNegocio.NRol.ObtenerFuncionalidades(rol.Id);
+
+            foreach (DataGridViewRow fila in tablaFuncionalidades.Rows)
+            {
+                DataGridViewCheckBoxCell check = fila.Cells["Elegir"] as DataGridViewCheckBoxCell;
+                bool habilitado = Convert.ToBoolean(fila.Cells["habilitado"].Value);
+                if (habilitado)
+                    check.Value = true;
+                else
+                    check.Value = false;
+            }
+
             tablaFuncionalidades.Columns["habilitado"].Visible = false; // ojo esto es para las tablas de funcionalidad por rol
         }
 
@@ -94,10 +105,10 @@ namespace CapaInterfaz
         {
             bool resultado;
             resultado = false;
-            foreach (DataGridViewRow row in tablaFuncionalidades.Rows)
+            foreach (DataGridViewRow fila in tablaFuncionalidades.Rows)
             {
-                DataGridViewCheckBoxCell cellSelecion = row.Cells["Elegir"] as DataGridViewCheckBoxCell;
-                if (Convert.ToBoolean(cellSelecion.Value)) 
+                DataGridViewCheckBoxCell check = fila.Cells["Elegir"] as DataGridViewCheckBoxCell;
+                if (Convert.ToBoolean(check.Value)) 
                     resultado = true;
             }
             return resultado;
@@ -135,17 +146,24 @@ namespace CapaInterfaz
             else
                 rol.Habilitado = 0;
 
+            string msj;
+            
+            msj = CapaNegocio.NRol.ActualizarRol(rol);
+
             List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
             foreach (DataGridViewRow fila in tablaFuncionalidades.Rows)
             {
                 Funcionalidad funcionalidad = new Funcionalidad();
-                funcionalidad.Id = Convert.ToInt32(fila.Cells["id_funcionalidad"]);
-                funcionalidad.Descripcion = fila.Cells["descripcion"].ToString();
+                funcionalidad.Id = Convert.ToInt32(fila.Cells["id_funcionalidad"].Value);
+                funcionalidad.Descripcion = fila.Cells["descripcion"].Value.ToString();
                 DataGridViewCheckBoxCell celdaCheck = fila.Cells["Elegir"] as DataGridViewCheckBoxCell;
                 funcionalidad.Habilitado = Convert.ToInt32(celdaCheck.Value);
+                msj = CapaNegocio.NRol.ActualizarRolFuncionalidad(rol, funcionalidad);
             }
 
-            return CapaNegocio.NRol.ActualizarRol(rol);
+            rol.Funcionalidades = funcionalidades;
+
+            return msj;
         }
     }
 }

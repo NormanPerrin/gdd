@@ -67,5 +67,11 @@ namespace CapaNegocio
             DRol Objeto = new DRol();
             return Objeto.ActualizarRol(rol);
         }
+
+        public static string ActualizarRolFuncionalidad(Rol rol, Funcionalidad funcionalidad)
+        {
+            DRol Objeto = new DRol();
+            return Objeto.ActualizarRolFuncionalidad(rol, funcionalidad);
+        }
     }
 }

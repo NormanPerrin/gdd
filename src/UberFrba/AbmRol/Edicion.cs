@@ -45,14 +45,24 @@ namespace UberFrba.AbmRol
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             rol.Nombre = txtRolNombreNuevo.Text;
-            rol.Estado = txtRolEstadoViejo.Text;
+            rol.Estado = cbxRolEstadoNuevo.Text;
             string msj = CapaInterfaz.IRol.ActualizarRol(rol, tablaFuncionalidades);
             CapaInterfaz.Decoracion.mostrarInfo(msj);
+            this.Close(); // cerrar solo cuando sale todo bien, si sobra tiempo lo modelo
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void tablaFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == tablaFuncionalidades.Columns["Elegir"].Index)
+            {
+                DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell)tablaFuncionalidades.Rows[e.RowIndex].Cells["Elegir"];
+                chkElegir.Value = !Convert.ToBoolean(chkElegir.Value);
+            }
         }
     }
 }

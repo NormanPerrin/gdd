@@ -123,21 +123,7 @@ namespace CapaDatos
             parametros[1].Size = 100;
             parametros[1].Value = rolNombre;
 
-            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRol");
-            string respuesta = string.Empty;
-            switch (resultado)
-            {
-                case "-1":
-                    respuesta = "Se capturo un error al intentar agregar un rol";
-                    break;
-                case "0":
-                    respuesta = "No se logro agregar un rol";
-                    break;
-                case "1":
-                    respuesta = "Se agrego un usuario";
-                    break;
-            }
-            return respuesta;
+            return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRol");
         }
 
         public string AgregarRolFuncionalidad(int idRol, int idFuncionalidad, int habilitado)
@@ -161,21 +147,7 @@ namespace CapaDatos
             parametros[2].SqlDbType = SqlDbType.Int;
             parametros[2].Value = habilitado;
 
-            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRolFuncionalidad");
-            string respuesta = string.Empty;
-            switch (resultado)
-            {
-                case "-1":
-                    respuesta = "Se capturo un error al intentar agregar una funcionalidad al rol";
-                    break;
-                case "0":
-                    respuesta = "No se logro agregar una funcionalidad al rol";
-                    break;
-                case "1":
-                    respuesta = "Se agrego un usuario";
-                    break;
-            }
-            return respuesta;
+            return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarRolFuncionalidad");
         }
 
         public string ActualizarRol(Rol rol)
@@ -191,7 +163,7 @@ namespace CapaDatos
             parametros[0].Value = rol.Id;
 
             parametros[1] = new SqlParameter();
-            parametros[1].ParameterName = "@idFuncionalidad";
+            parametros[1].ParameterName = "@rolNombre";
             parametros[1].SqlDbType = SqlDbType.NVarChar;
             parametros[1].Size = 100;
             parametros[1].Value = rol.Nombre;
@@ -201,58 +173,30 @@ namespace CapaDatos
             parametros[2].SqlDbType = SqlDbType.Int;
             parametros[2].Value = rol.Habilitado;
 
-            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarRol");
-            switch (resultado)
-            {
-                case "-1":
-                    respuesta = "Se capturo un error al intentar agregar una funcionalidad al rol";
-                    break;
-                case "0":
-                    respuesta = "No se logro agregar una funcionalidad al rol";
-                    break;
-                case "1":
-                    respuesta = "Se agrego un usuario";
-                    break;
-            }
-
-            foreach (Funcionalidad funcionalidad in rol.Funcionalidades)
-            {
-                Conexion = new Conexion();
-                parametros = new SqlParameter[3];
-
-                parametros[0] = new SqlParameter();
-                parametros[0].ParameterName = "@idRol";
-                parametros[0].SqlDbType = SqlDbType.Int;
-                parametros[0].Value = rol.Id;
-
-                parametros[1] = new SqlParameter();
-                parametros[1].ParameterName = "@idFuncionalidad";
-                parametros[1].SqlDbType = SqlDbType.Int;
-                parametros[1].Value = funcionalidad.Id;
-
-                parametros[2] = new SqlParameter();
-                parametros[2].ParameterName = "@habilitado";
-                parametros[2].SqlDbType = SqlDbType.Int;
-                parametros[2].Value = funcionalidad.Habilitado;
-
-                resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarFuncionalidadPorRol");
-                respuesta = string.Empty;
-                switch (resultado)
-                {
-                    case "-1":
-                        respuesta = "Se capturo un error al intentar agregar una funcionalidad al rol";
-                        break;
-                    case "0":
-                        respuesta = "No se logro agregar una funcionalidad al rol";
-                        break;
-                    case "1":
-                        respuesta = "Se agrego un usuario";
-                        break;
-                }
-            }
-
-            return respuesta;
+            return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarRol");
         }
 
+        public string ActualizarRolFuncionalidad(Rol rol, Funcionalidad funcionalidad)
+        {
+            Conexion Conexion = new Conexion();
+            SqlParameter[] parametros = new SqlParameter[3];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idRol";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = rol.Id;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@idFuncionalidad";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = funcionalidad.Id;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@habilitado";
+            parametros[2].SqlDbType = SqlDbType.Int;
+            parametros[2].Value = funcionalidad.Habilitado;
+
+            return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spActualizarFuncionalidadPorRol");
+        }
     }
 }

@@ -75,13 +75,14 @@
             this.tablaFuncionalidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tablaFuncionalidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Elegir});
-            this.tablaFuncionalidades.Location = new System.Drawing.Point(22, 194);
+            this.tablaFuncionalidades.Location = new System.Drawing.Point(8, 194);
             this.tablaFuncionalidades.MultiSelect = false;
             this.tablaFuncionalidades.Name = "tablaFuncionalidades";
             this.tablaFuncionalidades.ReadOnly = true;
             this.tablaFuncionalidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaFuncionalidades.Size = new System.Drawing.Size(243, 179);
+            this.tablaFuncionalidades.Size = new System.Drawing.Size(273, 179);
             this.tablaFuncionalidades.TabIndex = 11;
+            this.tablaFuncionalidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaFuncionalidades_CellContentClick);
             // 
             // Elegir
             // 
