@@ -158,6 +158,15 @@ BEGIN
    DROP PROCEDURE CRAZYDRIVER.spEliminarCliente;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spActualizarChofer') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spActualizarChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spCrearChofer') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spCrearChofer;
+END;
 
 
 
@@ -311,18 +320,18 @@ GO
 
 CREATE TABLE CRAZYDRIVER.Chofer(
 	id_chofer INT IDENTITY PRIMARY KEY,
-	dni NUMERIC(18,0) UNIQUE NOT NULL,
+	id_usuario INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario),
+	habilitado TINYINT NOT NULL default 1,
 	nombre NVARCHAR(255) NOT NULL,
 	apellido NVARCHAR(255) NOT NULL,
-	mail NVARCHAR(255) NOT NULL,
-	telefono NUMERIC(18,0) NOT NULL,
+	dni NUMERIC(18,0) UNIQUE NOT NULL,
 	fecha_nac DATETIME NOT NULL,
+	telefono NUMERIC(18,0) NOT NULL,
+	mail NVARCHAR(255) NOT NULL,
 	direccion NVARCHAR(255) NOT NULL,
-	nro_piso INT, -- requisito nuevo
-	depto INT, -- requisito nuevo
 	localidad NVARCHAR(255), -- requisito nuevo
-	habilitado TINYINT NOT NULL default 1,
-	id_usuario INT NOT NULL FOREIGN KEY REFERENCES CRAZYDRIVER.Usuario(id_usuario)
+	nro_piso INT, -- requisito nuevo
+	depto CHAR(1) -- requisito nuevo
 );
 GO
 
@@ -1015,8 +1024,6 @@ CREATE PROC CRAZYDRIVER.spModificarCliente
 	  from CRAZYDRIVER.Chofer c
 	  where (@dni = c.dni or @telefono = c.telefono) and @usuario != c.id_usuario;
 
-
-
 	  IF (@telefonob is not null and @telefono = @telefonob)
 		 BEGIN
 		 RAISERROR('Telefono existente',17,1);
@@ -1050,3 +1057,98 @@ CREATE PROC CRAZYDRIVER.spEliminarCliente
 	@id_cliente int AS
 	UPDATE CRAZYDRIVER.Cliente set habilitado = 0 where id_cliente = @id_cliente
 GO
+
+
+
+CREATE PROC CRAZYDRIVER.spActualizarChofer
+	@choferId INT,
+	@choferNombre NVARCHAR(255),
+	@choferApellido NVARCHAR(255),
+	@choferDni INT,
+	@choferFechaNac DATETIME,
+	@choferTelefono INT,
+	@choferMail NVARCHAR(255),
+	@choferDireccion NVARCHAR(255),
+	@choferLocalidad NVARCHAR(255),
+	@choferNroPiso INT,
+	@choferDepto CHAR(1),
+	@habilitado TINYINT
+	AS
+		IF EXISTS (
+				SELECT 1
+					FROM CRAZYDRIVER.Chofer
+					WHERE dni = CAST(@choferDni AS NUMERIC(18,0)) AND id_chofer != @choferId  
+			)
+			OR EXISTS (
+				SELECT 1
+					FROM CRAZYDRIVER.Chofer
+					WHERE telefono = CAST(@choferTelefono AS NUMERIC(18,0)) AND id_chofer != @choferId  
+			)
+			BEGIN
+				--DECLARE @ErrorMessage NVARCHAR(255);
+				--SET @ErrorMessage = CAST(@choferId AS NVARCHAR(255));  
+				RAISERROR('Ya existe otro chofer con este DNI o con el mismo telefono' ,17,1);
+				RETURN
+			END
+		ELSE
+			BEGIN
+				UPDATE CRAZYDRIVER.Chofer
+					SET 
+						nombre = @choferNombre, 
+						apellido = @choferApellido, 
+						dni = CAST(@choferDni AS NUMERIC(18,0)),
+						fecha_nac = @choferFechaNac,
+						telefono = CAST(@choferTelefono AS NUMERIC(18,0)),
+						mail = @choferMail,
+						direccion = @choferDireccion,
+						localidad = @choferLocalidad,
+						nro_piso = @choferNroPiso,
+						depto = @choferDepto,
+						habilitado = @habilitado
+					WHERE id_chofer = @choferId
+				RAISERROR('Se ha logrado actualizar un chofer' ,17,1);
+			END
+GO
+
+CREATE PROC CRAZYDRIVER.spCrearChofer
+	@choferNombre NVARCHAR(255),
+	@choferApellido NVARCHAR(255),
+	@choferDni INT,
+	@choferFechaNac DATETIME,
+	@choferTelefono INT,
+	@choferMail NVARCHAR(255),
+	@choferDireccion NVARCHAR(255),
+	@choferLocalidad NVARCHAR(255),
+	@choferNroPiso INT,
+	@choferDepto NCHAR(1)
+	AS
+		DECLARE @usuario INT;
+		DECLARE @dnib INT;
+		DECLARE @telefonob INT;
+		SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = c.telefono
+			FROM CRAZYDRIVER.Chofer c
+			WHERE @choferDni = c.dni or @choferTelefono = c.telefono;
+		SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = CASE WHEN @telefonob is null THEN c.telefono ELSE @telefonob END
+			FROM CRAZYDRIVER.Cliente c
+			WHERE @choferDni = c.dni or @choferTelefono = c.telefono;
+		IF (@telefonob is not null and @choferTelefono = @telefonob)
+			BEGIN
+				RAISERROR('Telefono existente',17,1);
+			END
+		ELSE IF (@dnib is not null and @choferDni = @dnib)
+			BEGIN
+				RAISERROR('DNI existente',17,1);
+			END
+		ELSE
+			BEGIN
+				INSERT INTO CRAZYDRIVER.Usuario(username, pass, habilitado, intentos)
+					VALUES (CAST(@choferDni AS VARCHAR(255)), HASHBYTES('SHA2_256', N'w23e'), 1, 0);
+				IF (@usuario is null) 
+					SELECT @usuario = SCOPE_IDENTITY();
+				INSERT INTO CRAZYDRIVER.RolPorUsuario (id_rol,id_usuario) 
+					VALUES (3, @usuario);
+				INSERT INTO CRAZYDRIVER.Chofer (dni,nombre,apellido,direccion,mail,telefono,fecha_nac,nro_piso,depto,localidad,id_usuario,habilitado)
+					VALUES (@choferDni,@choferNombre,@choferApellido,@choferDireccion,@choferMail,@choferTelefono,@choferFechaNac,@choferNroPiso,@choferDepto,@choferLocalidad,@usuario,1);
+				RAISERROR('Se logro crear con exito el chofer. Por default se le agrego un usuario con username igual al dni password w23e',17,1);
+			END
+ GO
