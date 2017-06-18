@@ -45,6 +45,7 @@
     <Compile Include="DAuto.cs" />
     <Compile Include="DChofer.cs" />
     <Compile Include="DCliente.cs" />
+    <Compile Include="DEstadistico.cs" />
     <Compile Include="DRendicion.cs" />
     <Compile Include="DRol.cs" />
     <Compile Include="DTurno.cs" />

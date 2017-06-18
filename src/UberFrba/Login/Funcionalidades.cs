@@ -45,7 +45,7 @@ namespace UberFrba
             }
             else if (cbxFuncionalidades.Text == "ABM automovil")
             {
-                UberFrba.AbmAuto.AbmAuto siguienteVentana = new AbmAuto.AbmAuto();
+                AbmAuto.AbmAuto siguienteVentana = new AbmAuto.AbmAuto();
                 siguienteVentana.ShowDialog(this);
             }
             else if (cbxFuncionalidades.Text == "ABM turno")
@@ -75,8 +75,8 @@ namespace UberFrba
             }
             else if (cbxFuncionalidades.Text == "Listado Estadistico")
             {
-                ListadoEstadistico siguienteVentana = ListadoEstadistico.ObtenerInstancia();
-                siguienteVentana.Show();
+                Estadisticos.Listado siguienteVentana = new Estadisticos.Listado();
+                siguienteVentana.ShowDialog(this);
             }
         }
 

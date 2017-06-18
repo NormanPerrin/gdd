@@ -42,6 +42,7 @@
     <Compile Include="NAuto.cs" />
     <Compile Include="NChofer.cs" />
     <Compile Include="NCliente.cs" />
+    <Compile Include="NEstadistico.cs" />
     <Compile Include="NRendicion.cs" />
     <Compile Include="NRol.cs" />
     <Compile Include="NTurno.cs" />

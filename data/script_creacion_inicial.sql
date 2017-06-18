@@ -168,6 +168,31 @@ BEGIN
    DROP PROCEDURE CRAZYDRIVER.spCrearChofer;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spBuscarAnios') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spBuscarAnios;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spTop5Recaudacion') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spTop5Recaudacion;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spTop5CantVecesClienteMismoAuto') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spTop5CantVecesClienteMismoAuto;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spTop5ClientesMayorConsumo') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spTop5ClientesMayorConsumo;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spTop5ViajesMasLargos') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spTop5ViajesMasLargos;
+END;
+
 
 
 ---- BORRO TABLAS
@@ -1151,4 +1176,102 @@ CREATE PROC CRAZYDRIVER.spCrearChofer
 					VALUES (@choferDni,@choferNombre,@choferApellido,@choferDireccion,@choferMail,@choferTelefono,@choferFechaNac,@choferNroPiso,@choferDepto,@choferLocalidad,@usuario,1);
 				RAISERROR('Se logro crear con exito el chofer. Por default se le agrego un usuario con username igual al dni password w23e',17,1);
 			END
- GO
+GO
+
+CREATE PROC CRAZYDRIVER.spBuscarAnios
+	AS	
+		SELECT DISTINCT year(fecha_inicio) 
+			FROM CRAZYDRIVER.Viaje 
+GO
+
+CREATE PROC CRAZYDRIVER.spTop5Recaudacion
+	@trimestre INT,
+	@anio INT
+	AS
+		SELECT TOP 5 
+			SUM(r.importe) RECAUDACION, 
+			c.dni CHOFER_DNI, 
+			c.nombre CHOFER_NOMBRE, 
+			c.apellido CHOFER_APELLIDO
+			FROM 
+				CRAZYDRIVER.RendicionPorViaje r 
+					JOIN CRAZYDRIVER.Viaje v 
+						ON r.id_viaje = v.id_viaje
+					JOIN CRAZYDRIVER.chofer c 
+					ON c.id_chofer = v.id_chofer
+			WHERE 
+				@anio = year(v.fecha_inicio) AND 
+				(month(v.fecha_inicio) - 1) / 3 + 1 = @trimestre
+			GROUP BY c.dni, c.nombre, c.apellido
+			ORDER BY 1 DESC;
+GO
+
+CREATE PROC CRAZYDRIVER.spTop5ViajesMasLargos
+	@trimestre INT,
+	@anio INT
+	AS
+		SELECT TOP 5
+			c.dni CHOFER_DNI, c.nombre CHOFER_NOMBRE, c.apellido CHOFER_APELLIDO,
+			cl.dni CLIENTE_DNI, cl.nombre CLIENTE_NOMBRE, cl.apellido CLIENTE_APELLIDO,
+			v.cant_km CANTIDAD_KILOMETROS, t.valor_km VALOR_KM, t.descripcion TURNO_DESCRIPCION, 
+			t.hora_inicio TURNO_HORA_INICIO, t.hora_fin TURNO_HORA_FIN, f.importe IMPORTE_VIAJE
+			FROM 
+				CRAZYDRIVER.viaje v
+				JOIN CRAZYDRIVER.chofer c 
+					ON c.id_chofer = v.id_chofer
+				JOIN CRAZYDRIVER.Turno t 
+					ON t.id_turno = v.id_turno
+				JOIN CRAZYDRIVER.Cliente cl 
+					ON cl.id_cliente = v.id_cliente
+				JOIN CRAZYDRIVER.FacturacionPorViaje f 
+					ON v.id_viaje = f.id_viaje
+			WHERE 
+				@anio = year(v.fecha_inicio) AND 
+				(month(v.fecha_inicio) - 1) / 3 + 1 = @trimestre
+			ORDER BY v.cant_km DESC;
+GO
+
+CREATE PROC CRAZYDRIVER.spTop5ClientesMayorConsumo
+	@trimestre INT,
+	@anio INT
+	AS
+		SELECT TOP 5 
+			SUM(f.importe) CONSUMO, c.dni CLIENTE_DNI, 
+			c.nombre CLIENTE_NOMBRE, c.apellido CLIENTE_APELLIDO
+			FROM 
+				CRAZYDRIVER.FacturacionPorViaje f 
+				JOIN CRAZYDRIVER.Viaje v 
+					ON f.id_viaje = v.id_viaje
+				JOIN CRAZYDRIVER.Cliente c 
+					ON c.id_cliente = v.id_cliente
+			WHERE 
+				@anio = year(v.fecha_inicio) AND 
+				(month(v.fecha_inicio) - 1) / 3 + 1 = @trimestre
+			GROUP BY c.dni,c.nombre,c.apellido
+			ORDER BY 1 DESC;
+GO
+
+CREATE PROC CRAZYDRIVER.spTop5CantVecesClienteMismoAuto
+	@trimestre INT,
+	@anio INT
+	AS
+		SELECT TOP 5 
+			count(*) CANTIDAD_VECES, a.patente PATENTE, a.rodado RODADO,
+			ma.nombre MARCA, m.nombre MODELO, c.dni CLIENTE_DNI, 
+			c.nombre CLIENTE_NOMBRE, c.apellido CLIENTE_APELLIDO
+			FROM 
+				CRAZYDRIVER.Viaje v
+				JOIN CRAZYDRIVER.Cliente c 
+					ON c.id_cliente = v.id_cliente
+				JOIN CRAZYDRIVER.Auto a 
+					ON a.id_auto = v.id_auto
+				JOIN CRAZYDRIVER.Modelo m 
+					ON m.id_modelo = a.id_modelo
+				JOIN CRAZYDRIVER.Marca ma 
+					ON ma.id_marca = m.id_marca
+			WHERE 
+				@anio = year(v.fecha_inicio) AND 
+				(month(v.fecha_inicio) - 1) / 3 + 1= @trimestre
+			GROUP BY a.patente, a.rodado, ma.nombre, m.nombre, c.dni, c.nombre, c.apellido
+			ORDER BY 1 DESC;
+GO
