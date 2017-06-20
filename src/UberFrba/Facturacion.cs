@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using CapaInterfaz;
+
 namespace UberFrba
 {
     public partial class Facturacion : Form
@@ -24,10 +26,6 @@ namespace UberFrba
             {
                 InitializeComponent();
             }
-
-        #endregion
-
-        #region Acciones
 
         #endregion
 
@@ -57,5 +55,22 @@ namespace UberFrba
             }
 
         #endregion
+
+            private void Facturacion_Load(object sender, EventArgs e)
+            {
+                CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente);
+            }
+
+            private void button1_Click(object sender, EventArgs e)
+            {
+                String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
+                CapaInterfaz.IViaje.AgregarFacturacion(idCliente);
+            }
+
+            private void cbxCliente_SelectedIndexChanged(object sender, EventArgs e)
+            {
+                String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
+                CapaInterfaz.IViaje.CargarListaViajes(dataGridView1, idCliente);
+            }
     }
 }

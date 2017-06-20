@@ -1026,3 +1026,58 @@ CREATE PROC CRAZYDRIVER.spEliminarCliente
 	@id_cliente int AS
 	UPDATE CRAZYDRIVER.Cliente set habilitado = 0 where id_cliente = @id_cliente
 GO
+
+CREATE PROC CRAZYDRIVER.spObtenerViajesEntreFechasYCliente
+	@fechaDesde DATE,
+	@fechaHasta DATE,
+	@clienteid INT
+	AS
+	SELECT v.id_turno AS Turno,
+			v.fecha_inicio AS 'Fecha Inicio',
+			v.fecha_fin AS 'Fecha Fin',
+			v.cant_km AS 'Kms viajados',
+			t.precio_base AS 'Precio Base',
+			t.valor_km AS 'Valor Kms',
+			t.precio_base + (v.cant_km * t.valor_km) AS 'Total'
+		FROM CRAZYDRIVER.Viaje v, CRAZYDRIVER.Turno t
+		WHERE v.id_cliente = @clienteid AND t.id_turno = v.id_turno AND v.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta
+GO
+
+-- TARDA MUCHO
+CREATE PROC CRAZYDRIVER.spBuscarClientesSinFacturacion
+	@fechaDesde DATE,
+	@fechaHasta DATE
+	AS
+	SELECT DISTINCT c.id_cliente, c.apellido + ' ' + c.nombre FROM CRAZYDRIVER.Cliente c
+		JOIN CRAZYDRIVER.Viaje v ON v.id_cliente = c.id_cliente
+		JOIN CRAZYDRIVER.FacturacionPorViaje fxv ON fxv.id_viaje = v.id_viaje
+		JOIN CRAZYDRIVER.Facturacion f ON f.nro_facturacion = fxv.nro_facturacion
+			AND f.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta
+		ORDER BY c.id_cliente
+GO
+
+CREATE PROC CRAZYDRIVER.spAltaFactura
+	@fechaDesde DATE,
+	@fechaHasta DATE,
+	@fechaCreado DATE,
+	@clienteid INT
+	AS
+
+	-- 1) obtengo el mayor numero de factura actual
+	DECLARE @nroMax INT;
+	
+	SELECT TOP 1 @nroMax = nro_facturacion FROM CRAZYDRIVER.Facturacion
+							ORDER BY nro_facturacion DESC
+
+	-- 2) hago un insert de la facturacion
+	 INSERT INTO CRAZYDRIVER.Facturacion (nro_facturacion, fecha, fecha_inicio, fecha_fin)
+			VALUES (@nroMax + 1, @fechaCreado, @fechaDesde, @fechaHasta)
+
+	-- 3) hago un insert de los viajes de @clienteid entre fechas @fechaDesde y @fechaHasta en tabla FacturacionPorViaje
+	 INSERT INTO CRAZYDRIVER.FacturacionPorViaje (nro_facturacion, id_viaje, importe)
+			SELECT @nroMax + 1, v.id_viaje, t.precio_base + (v.cant_km * t.valor_km)
+				FROM CRAZYDRIVER.Viaje v, CRAZYDRIVER.Turno t
+				WHERE v.id_cliente = @clienteid
+					AND t.id_turno = v.id_turno
+					AND v.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta;
+GO

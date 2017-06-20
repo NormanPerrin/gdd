@@ -63,11 +63,29 @@ namespace CapaInterfaz
 
         #endregion
 
-
-
         public static string eliminar(int id_cliente)
         {
             return CapaNegocio.NCliente.eliminar(id_cliente);
+        }
+
+        public static void CargarClientesSinFacturacion(System.Windows.Forms.ComboBox cbxCliente)
+        {
+            // temporal
+            DateTime fechaDesde = new DateTime(1999, 01, 01);
+            DateTime fechaHasta = new DateTime(2017, 01, 01);
+            DataTable Datos = CapaNegocio.NCliente.ObtenerClientesSinFacturacion(fechaDesde, fechaHasta);
+
+            clientes.Clear();
+            if (Datos.Rows.Count != 0)
+            {
+                int cantidadDeItems = Datos.Rows.Count;
+                for (int i = 0; i < cantidadDeItems; i++)
+                {
+                    clientes.Add(Datos.Rows[i][0].ToString(), Datos.Rows[i][1].ToString());
+                    cbxCliente.Items.Add(Datos.Rows[i][1]);
+                }
+                cbxCliente.SelectedIndex = 0;
+            }
         }
     }
 }

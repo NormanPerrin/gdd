@@ -217,5 +217,29 @@ namespace CapaDatos
 
             return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spEliminarCliente");
         }
+
+        public DataTable ObtenerClientesSinFacturacion(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[2];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@fechaDesde";
+            parametros[0].SqlDbType = SqlDbType.Date;
+            parametros[0].Value = fechaDesde;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@fechaHasta";
+            parametros[1].SqlDbType = SqlDbType.Date;
+            parametros[1].Size = 255;
+            parametros[1].Value = fechaHasta;
+
+            DataTable DtResultado = new DataTable("Clientes");
+            DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spBuscarClientesSinFacturacion");
+
+            return DtResultado;
+        }
+
     }
 }

@@ -24,7 +24,6 @@ namespace CapaNegocio
             return objeto.AgregarCliente(dni, nombre, apellido, direccion, mail, telefono, fecha_nac, nro_piso, dpto,localidad, cod_postal);
         }
 
-
         public static DataTable BuscarCliente(Entidades.Cliente cliente)
         {
             return new DCliente().BuscarCliente(cliente);
@@ -39,6 +38,12 @@ namespace CapaNegocio
         {
             CapaDatos.DCliente objeto = new CapaDatos.DCliente();
             return objeto.eliminar(cliente);
+        }
+
+        public static DataTable ObtenerClientesSinFacturacion(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            DCliente Objeto = new DCliente();
+            return Objeto.ObtenerClientesSinFacturacion(fechaDesde, fechaHasta);
         }
     }
 }

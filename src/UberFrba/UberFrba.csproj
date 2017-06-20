@@ -232,6 +232,9 @@
     <EmbeddedResource Include="AbmRol\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion.resx">
+      <DependentUpon>Facturacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\Funcionalidades.resx">
       <DependentUpon>Funcionalidades.cs</DependentUpon>
     </EmbeddedResource>
