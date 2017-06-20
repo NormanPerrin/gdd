@@ -18,6 +18,12 @@ namespace UberFrba.AbmRol
             CapaInterfaz.Decoracion.Reorganizar(this);
         }
 
+        private void Alta_Load(object sender, EventArgs e)
+        {
+            CapaInterfaz.IRol.CargarFuncionalidades(this.tablaFuncionalidades);
+            CapaInterfaz.IRol.OcultarColumnasFuncionalidades(this.tablaFuncionalidades);
+        }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (this.txtNombre.Text != string.Empty)
@@ -50,17 +56,11 @@ namespace UberFrba.AbmRol
             }
         }
 
-        private void Alta_Load(object sender, EventArgs e)
-        {
-            CapaInterfaz.IRol.CargarFuncionalidades(this.tablaFuncionalidades);
-            CapaInterfaz.IRol.OcultarColumnasFuncionalidades(this.tablaFuncionalidades);
-        }
-
         private void tablaFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == tablaFuncionalidades.Columns["Elegir"].Index)
             {
-                DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell) tablaFuncionalidades.Rows[e.RowIndex].Cells["Elegir"];
+                DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell)tablaFuncionalidades.Rows[e.RowIndex].Cells["Elegir"];
                 chkElegir.Value = !Convert.ToBoolean(chkElegir.Value);
             }
         }

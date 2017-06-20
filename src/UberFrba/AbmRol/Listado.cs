@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Entidades;
+
 namespace UberFrba.AbmRol
 {
     public partial class Listado : Form
@@ -32,6 +34,7 @@ namespace UberFrba.AbmRol
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             this.txRolNombre.Text = String.Empty;
+            CapaInterfaz.IRol.CargarRoles(this.tablaRoles);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -41,7 +44,7 @@ namespace UberFrba.AbmRol
 
         private void txRolNombre_TextChanged(object sender, EventArgs e)
         {
-            if (this.txRolNombre.Text == string.Empty)
+            if (this.txRolNombre.Text.Equals(string.Empty))
                 CapaInterfaz.IRol.CargarRoles(this.tablaRoles);
             else
                 CapaInterfaz.IRol.BuscarRolPorNombre(this.tablaRoles, this.txRolNombre.Text);
@@ -49,10 +52,12 @@ namespace UberFrba.AbmRol
 
         private void tablaRoles_DoubleClick(object sender, EventArgs e)
         {
-            int idRol = Convert.ToInt32(this.tablaRoles.CurrentRow.Cells[0].Value);
-            string nombre = Convert.ToString(this.tablaRoles.CurrentRow.Cells[1].Value);
-            string estado = Convert.ToString(this.tablaRoles.CurrentRow.Cells[2].Value);
-            Edicion ventana = new Edicion(idRol, nombre, estado);
+            Rol rol = new Rol();
+            rol.Id = Convert.ToInt32(this.tablaRoles.CurrentRow.Cells["id_rol"].Value);
+            rol.Nombre = this.tablaRoles.CurrentRow.Cells["nombre"].Value.ToString();
+            rol.Estado = this.tablaRoles.CurrentRow.Cells["estado"].Value.ToString();
+
+            Edicion ventana = new Edicion(rol);
             ventana.ShowDialog(this);
         }
     }

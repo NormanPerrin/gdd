@@ -238,7 +238,7 @@ namespace CapaDatos
             {
                 parametros[9] = new SqlParameter();
                 parametros[9].ParameterName = "@choferDepto";
-                parametros[9].SqlDbType = SqlDbType.Char;
+                parametros[9].SqlDbType = SqlDbType.NChar;
                 parametros[9].Size = 1;
                 parametros[9].Value = DBNull.Value;
             }
@@ -246,13 +246,12 @@ namespace CapaDatos
             {
                 parametros[9] = new SqlParameter();
                 parametros[9].ParameterName = "@choferDepto";
-                parametros[9].SqlDbType = SqlDbType.Char;
+                parametros[9].SqlDbType = SqlDbType.NChar;
                 parametros[9].Size = 1;
                 parametros[9].Value = chofer.Depto;
             }
 
             return Conexion.Ejecutar(parametros, "CRAZYDRIVER.spCrearChofer");
         }
-
     }
 }

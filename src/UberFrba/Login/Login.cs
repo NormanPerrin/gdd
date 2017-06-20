@@ -8,75 +8,51 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CapaInterfaz;
+using Entidades;
 
 namespace UberFrba
 {
     public partial class Login : Form
     {
-        #region Atributos
+        public Login()
+        {
+            InitializeComponent();
+            CapaInterfaz.Decoracion.Reorganizar(this);
+        }
 
-            private static IUsuario _Usuario;
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
-        #endregion
+        private void btnIngresar_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = new Usuario();
 
-        #region Constructor
+            string msj = CapaInterfaz.IUsuario.Login(txtUsername.Text, usuario);
 
-            public Login()
+            if (!msj.Equals(string.Empty)) // si el mensaje es vacio es porque se logro todo okay
             {
-                InitializeComponent();
-                CapaInterfaz.Decoracion.Reorganizar(this);
-                Usuario = new IUsuario();
+                CapaInterfaz.Decoracion.mostrarInfo(msj);
+                return;
             }
 
-        #endregion
-
-        #region Acciones/Eventos
-
-            private void btnIngresar_Click(object sender, EventArgs e)
+            if (CapaInterfaz.IUsuario.esPassCorrecta(txtPass.Text, usuario))
             {
-                CapaInterfaz.IUsuario.Login(txtUsername.Text, Usuario);
-
-                if (Usuario != null)
+                CapaInterfaz.IUsuario.formatearIntentos(usuario);
+                SeleccionarRol siguienteVentana = new SeleccionarRol(usuario); // creo una instancia pasando por parametro el idUsuario
+                Program.contexto.MainForm = siguienteVentana; // le cambio el contexto al programa principal para que ahora el formulario principal sea la nueva ventana
+                siguienteVentana.Show();
+                this.Close();
+            }
+            else
+            {
+                if (CapaInterfaz.IUsuario.tieneIntentosDisponibles(usuario))
                 {
-                    if (CapaInterfaz.IUsuario.esPassCorrecta(txtPass.Text, Usuario))
-                    {
-                        CapaInterfaz.IUsuario.formatearIntentos(Usuario);
-                        SeleccionarRol siguienteVentana = new SeleccionarRol(Usuario.IdUsuario, Usuario.Username); // creo una instancia pasando por parametro el idUsuario
-                        Program.contexto.MainForm = siguienteVentana; // le cambio el contexto al programa principal para que ahora el formulario principal sea la nueva ventana
-                        siguienteVentana.Show();
-                        Close();
-                    }
-                    else
-                    {
-                        if (CapaInterfaz.IUsuario.tieneIntentosDisponibles(Usuario))
-                        {
-                            CapaInterfaz.IUsuario.aumentarIntentos(Usuario);
-                            CapaInterfaz.Decoracion.mostrarInfo("La contraseña ingresada es incorrecta");
-                        }
-                        else
-                            CapaInterfaz.Decoracion.mostrarInfo("El usuario esta bloqueado por exceso de intentos fallidos");
-                    }
+                    CapaInterfaz.IUsuario.aumentarIntentos(usuario);
+                    CapaInterfaz.Decoracion.mostrarInfo("La contraseña ingresada es incorrecta");
                 }
-                else
-                    CapaInterfaz.Decoracion.mostrarInfo("El usuario no existe");
             }
-
-            private void btnCerrar_Click(object sender, EventArgs e)
-            {
-                Application.Exit();
-            }
-
-        #endregion
-        
-        #region Getters/Setters 
-
-            public static IUsuario Usuario
-            {
-                get { return Login._Usuario; }
-                set { Login._Usuario = value; }
-            }
-
-        #endregion
+        }
     }
 }

@@ -8,57 +8,61 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Entidades;
+
 namespace UberFrba.AbmRol
 {
     public partial class Edicion : Form
     {
-        private int idRol;
-        private string rolNombreViejo;
-        private string rolEstadoViejo;
+        private Rol rol;
 
-        public Edicion(int id, string nombre, string estado)
+        public Edicion(Rol rolRecibido)
         {
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
-            this.rolNombreViejo = nombre;
-            this.rolEstadoViejo = estado;
-            this.idRol = id;
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            this.txtRolNombreNuevo.Text = string.Empty;
-            cbxRolEstadoNuevo.SelectedIndex = 0;
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (this.txtRolNombreNuevo.Text.Equals(this.rolNombreViejo) || this.txtRolNombreNuevo.Text.Equals(String.Empty)) // si tiene el mismo nombre..
-            {
-                if (this.cbxRolEstadoNuevo.Text.Equals(this.rolEstadoViejo)) // si tiene el mismo estado...
-                    CapaInterfaz.Decoracion.mostrarInfo("No se estan generando cambios en relacion a los datos viejos"); // no hago ningun cambio
-                else
-                    CapaInterfaz.IRol.ActualizarRol(this.idRol, this.rolNombreViejo, this.cbxRolEstadoNuevo.Text); // actualizo solo el estado
-            }
-            else // si no tiene el mismo nombre
-            {
-                if (this.cbxRolEstadoNuevo.Text.Equals(this.rolEstadoViejo)) // si tiene el mismo estado...
-                    CapaInterfaz.IRol.ActualizarRol(this.idRol, this.txtRolNombreNuevo.Text, this.rolEstadoViejo); // actualizo solo el nombre
-                else
-                    CapaInterfaz.IRol.ActualizarRol(this.idRol, this.txtRolNombreNuevo.Text, this.cbxRolEstadoNuevo.Text); // actualizo todo
-            }
+            rol = rolRecibido;
         }
 
         private void Edicion_Load(object sender, EventArgs e)
         {
-            this.txtRolNombreViejo.Text = this.rolNombreViejo;
-            this.txtRolEstadoViejo.Text = this.rolEstadoViejo;
-            cbxRolEstadoNuevo.SelectedIndex = 0;
+            txtRolNombreViejo.Text = rol.Nombre;
+            txtRolEstadoViejo.Text = rol.Estado;
+
+            txtRolNombreNuevo.Text = rol.Nombre;
+            cbxRolEstadoNuevo.Text = rol.Estado;
+            CapaInterfaz.IRol.CargarFuncionalidades(tablaFuncionalidades, rol);
+
+            CapaInterfaz.IRol.OcultarColumnasFuncionalidades(tablaFuncionalidades);
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtRolNombreNuevo.Text = rol.Nombre;
+            cbxRolEstadoNuevo.Text = rol.Estado;
+            CapaInterfaz.IRol.CargarFuncionalidades(tablaFuncionalidades, rol);
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            rol.Nombre = txtRolNombreNuevo.Text;
+            rol.Estado = cbxRolEstadoNuevo.Text;
+            string msj = CapaInterfaz.IRol.ActualizarRol(rol, tablaFuncionalidades);
+            CapaInterfaz.Decoracion.mostrarInfo(msj);
+            this.Close(); // cerrar solo cuando sale todo bien, si sobra tiempo lo modelo
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void tablaFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == tablaFuncionalidades.Columns["Elegir"].Index)
+            {
+                DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell)tablaFuncionalidades.Rows[e.RowIndex].Cells["Elegir"];
+                chkElegir.Value = !Convert.ToBoolean(chkElegir.Value);
+            }
         }
     }
 }

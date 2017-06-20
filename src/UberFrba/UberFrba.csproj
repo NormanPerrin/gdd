@@ -143,6 +143,12 @@
     <Compile Include="AbmTurno.Designer.cs">
       <DependentUpon>AbmTurno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Estadisticos\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Estadisticos\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Facturacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,12 +160,6 @@
     </Compile>
     <Compile Include="Login\Funcionalidades.Designer.cs">
       <DependentUpon>Funcionalidades.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ListadoEstadistico.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ListadoEstadistico.Designer.cs">
-      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\Login.cs">
       <SubType>Form</SubType>
@@ -234,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion.resx">
       <DependentUpon>Facturacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Estadisticos\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Funcionalidades.resx">
       <DependentUpon>Funcionalidades.cs</DependentUpon>
