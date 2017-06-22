@@ -193,6 +193,21 @@ BEGIN
    DROP PROCEDURE CRAZYDRIVER.spTop5ViajesMasLargos;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerViajesEntreFechasYCliente') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spObtenerViajesEntreFechasYCliente;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spBuscarClientesSinFacturacion') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spBuscarClientesSinFacturacion;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAltaFactura') IS NOT NULL
+BEGIN
+   DROP PROCEDURE CRAZYDRIVER.spAltaFactura;
+END;
+
 
 
 ---- BORRO TABLAS
