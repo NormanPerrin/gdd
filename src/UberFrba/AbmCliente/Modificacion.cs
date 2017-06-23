@@ -29,6 +29,7 @@ namespace UberFrba.AbmCliente
             this.calendario.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.comboHabilitado.Items.Add("Habilitado");
             this.comboHabilitado.Items.Add("Deshabilitado");
+            this.comboHabilitado.DropDownStyle = ComboBoxStyle.DropDownList;
             cliente = new Entidades.Cliente();
         }
 

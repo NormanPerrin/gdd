@@ -50,7 +50,7 @@ namespace UberFrba
             }
             else if (cbxFuncionalidades.Text == "ABM turno")
             {
-                AbmTurno siguienteVentana = AbmTurno.ObtenerInstancia();
+                AbmTurno.AbmTurno siguienteVentana = new AbmTurno.AbmTurno();
                 siguienteVentana.Show();
             }
             else if (cbxFuncionalidades.Text == "ABM chofer")

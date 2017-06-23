@@ -137,11 +137,23 @@
     <Compile Include="AbmRol\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmTurno.cs">
+    <Compile Include="AbmTurno\AbmTurno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmTurno.Designer.cs">
+    <Compile Include="AbmTurno\AbmTurno.Designer.cs">
       <DependentUpon>AbmTurno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmTurno\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmTurno\Alta.Designer.cs">
+      <DependentUpon>Alta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmTurno\Modificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmTurno\Modificacion.Designer.cs">
+      <DependentUpon>Modificacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Estadisticos\Listado.cs">
       <SubType>Form</SubType>
@@ -231,6 +243,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmTurno\AbmTurno.resx">
+      <DependentUpon>AbmTurno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmTurno\Alta.resx">
+      <DependentUpon>Alta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmTurno\Modificacion.resx">
+      <DependentUpon>Modificacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion.resx">
       <DependentUpon>Facturacion.cs</DependentUpon>

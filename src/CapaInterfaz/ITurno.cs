@@ -49,5 +49,27 @@ namespace CapaInterfaz
         }
 
         #endregion
+
+        public static string Alta(Entidades.Turno turno)
+        {
+            string respuesta = CapaNegocio.NTurno.Alta(turno);
+
+            return respuesta;
+        }
+
+        public static void BusquedaTurno(DataGridView tablaTurnos, Entidades.Turno turno)
+        {
+            tablaTurnos.DataSource = CapaNegocio.NTurno.BusquedaTurno(turno);
+        }
+
+        public static string eliminar(int id_turno)
+        {
+            return CapaNegocio.NTurno.Eliminar(id_turno);
+        }
+
+        public static string Modificar(Entidades.Turno turno)
+        {
+            return CapaNegocio.NTurno.Modificar(turno);
+        }
     }
 }

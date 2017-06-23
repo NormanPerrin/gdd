@@ -208,6 +208,26 @@ BEGIN
    DROP PROCEDURE CRAZYDRIVER.spAltaFactura;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spAltaTurno') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAltaTurno;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spBuscarTurno') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spBuscarTurno;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spEliminarTurno') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spEliminarTurno;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spModificarTurno') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spModificarTurno;
+END;
+
 
 
 ---- BORRO TABLAS
@@ -1341,4 +1361,70 @@ CREATE PROC CRAZYDRIVER.spTop5CantVecesClienteMismoAuto
 				@anio = year(v.fecha_inicio) AND
 				(month(v.fecha_inicio) - 1) / 3 + 1= @trimestre
 			GROUP BY a.patente, a.rodado, ma.nombre, m.nombre, c.dni, c.nombre, c.apellido
+GO
+
+CREATE PROC CRAZYDRIVER.spAltaTurno
+	@desc varchar(225),
+	@hinicio int,
+	@hfin int,
+	@valorkm numeric(18,2),
+	@pbase numeric(18,2),
+	@habilitado tinyint
+	AS
+		declare @existe bit;
+		
+		select @existe = count(*) from CRAZYDRIVER.Turno 
+		where ((@hinicio >= hora_inicio and @hinicio < hora_fin)
+		or (@hfin > hora_inicio and @hfin <= hora_fin)
+		or (@hinicio < hora_inicio and @hfin >= hora_fin)) and habilitado = 1;
+
+		if (@existe > 0 and @habilitado = 1)
+			RAISERROR('Los horarios del turno se superponen con un turno existente habilitado.',17,1)
+		else
+			INSERT INTO CRAZYDRIVER.Turno (descripcion,hora_inicio,hora_fin,valor_km,precio_base,habilitado)
+			values (@desc, @hinicio, @hfin, @valorkm, @pbase, @habilitado)
+			
+GO
+
+CREATE PROC CRAZYDRIVER.spBuscarTurno
+	@desc varchar(225)
+	AS
+	select t.id_turno ID_TURNO,t.descripcion DESCRIPCION,t.hora_inicio HORA_INICIO,t.hora_fin HORA_FIN,t.precio_base PRECIO_BASE,t.valor_km VALOR_KM,CASE when t.habilitado = 1 then 'Habilitado' else 'Deshabilitado' END habilitado
+	 from CRAZYDRIVER.Turno t where descripcion like '%' + @desc + '%'
+
+GO
+
+CREATE PROC CRAZYDRIVER.spEliminarTurno
+	@id_turno int
+	AS
+	UPDATE CRAZYDRIVER.Turno set habilitado = 0 where id_turno = @id_turno;
+GO
+
+CREATE PROC CRAZYDRIVER.spModificarTurno
+	@desc varchar(225),
+	@hinicio int,
+	@hfin int,
+	@valorkm numeric(18,2),
+	@pbase numeric(18,2),
+	@habilitado tinyint,
+	@id_turno int
+	AS
+		declare @existe bit;
+		
+		select @existe = count(*) from CRAZYDRIVER.Turno 
+		where ((@hinicio >= hora_inicio and @hinicio < hora_fin)
+		or (@hfin > hora_inicio and @hfin <= hora_fin)
+		or (@hinicio < hora_inicio and @hfin >= hora_fin)) and habilitado = 1 and @id_turno != id_turno;
+
+		if (@existe > 0 and @habilitado = 1)
+			RAISERROR('Los horarios del turno se superponen con un turno existente habilitado.',17,1)
+		else
+			UPDATE CRAZYDRIVER.Turno set 
+			descripcion = @desc,
+			hora_inicio = @hinicio,
+			hora_fin = @hfin,
+			valor_km = @valorkm,
+			precio_base = @pbase,
+			habilitado = @habilitado
+			where id_turno = @id_turno
 GO

@@ -26,5 +26,25 @@ namespace CapaNegocio
             }
 
         #endregion
+
+            public static string Alta(Entidades.Turno turno)
+            {
+                return new DTurno().Alta(turno);
+            }
+
+            public static object BusquedaTurno(Entidades.Turno turno)
+            {
+                return new DTurno().BusquedaTurno(turno);
+            }
+
+            public static string Eliminar(int id_turno)
+            {
+                return new DTurno().Eliminar(id_turno);
+            }
+
+            public static string Modificar(Entidades.Turno turno)
+            {
+                return new DTurno().Modificar(turno);
+            }
     }
 }
