@@ -17,32 +17,29 @@ namespace UberFrba.AbmAuto
         int idAuto;
         string licenciaVieja;
         string rodadoViejo;
-        string nombreViejo;
 
         #endregion
 
-        public Edicion(int id, string lic, string rod, string nom)
+        public Edicion(int id, string lic, string rod)
         {
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
             this.licenciaVieja = lic;
             this.rodadoViejo = rod;
-            this.nombreViejo = nom;
             this.idAuto = id;
+            this.txtLicenciaVieja.Text = this.licenciaVieja;
+            this.txtRodadoViejo.Text = this.rodadoViejo;
         }
 
         #region Acciones/Eventos
 
-        private void Edicion_Load(object sender, EventArgs e)
-        {
-            this.txtLicenciaVieja.Text = this.licenciaVieja;
-            this.txtRodadoViejo.Text = this.rodadoViejo;
-            this.txtNombreViejo.Text = this.nombreViejo;
-        }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            string respuesta = CapaInterfaz.IAuto.modificacion(idAuto,this.txtNewLicencia.Text, this.txtNewRodado.Text, this.txtNewNombre.Text);
+            if (string.IsNullOrWhiteSpace(this.txtNewLicencia.Text)) this.txtNewLicencia.Text = licenciaVieja;
+            if (string.IsNullOrWhiteSpace(this.txtNewRodado.Text)) this.txtNewRodado.Text = rodadoViejo;
+
+            string respuesta = CapaInterfaz.IAuto.modificacion(idAuto, this.txtNewLicencia.Text, this.txtNewRodado.Text);
             CapaInterfaz.Decoracion.mostrarInfo(respuesta);
             this.Close();
         }

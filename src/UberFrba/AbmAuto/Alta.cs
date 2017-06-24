@@ -32,9 +32,17 @@ namespace UberFrba.AbmAuto
             {
                 if ( CapaInterfaz.IAuto.ChequearItemSeleccionado(this.tablaTurno))
                 {
-                    string respuesta = CapaInterfaz.IAuto.alta(marca, modelo, TxtPatente.Text, this.tablaTurno, idChofer);
-                    CapaInterfaz.Decoracion.mostrarInfo(respuesta);
-                    this.Close();
+                    //chequeo patente vacia
+                    if (string.IsNullOrWhiteSpace(TxtPatente.Text))
+                    {
+                        CapaInterfaz.Decoracion.mostrarInfo("La patente no puede ser vacia");
+                    }
+                    else
+                    {
+                        string respuesta = CapaInterfaz.IAuto.alta(marca, modelo, TxtPatente.Text, this.tablaTurno, idChofer);
+                        CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+                        this.Close();
+                    }
                 }
                 else
                     CapaInterfaz.Decoracion.mostrarInfo("Debe seleccionar al menos un turno");
