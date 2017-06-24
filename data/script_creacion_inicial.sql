@@ -228,7 +228,50 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spModificarTurno;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosMarcaModelo') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosMarcaModelo;
+END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosPatente') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosPatente;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosMarcaModeloChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosMarcaModeloChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosMarcaModeloPatente') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosMarcaModeloPatente;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosPatenteChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosPatenteChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutos') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutos;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spModificacionAutomovil') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spModificacionAutomovil;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spEliminarAuto') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spEliminarAuto;
+END;
 
 ---- BORRO TABLAS
 
@@ -1427,4 +1470,133 @@ CREATE PROC CRAZYDRIVER.spModificarTurno
 			precio_base = @pbase,
 			habilitado = @habilitado
 			where id_turno = @id_turno
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModelo
+	@marca int,
+	@modelo int
+	AS
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		FROM CRAZYDRIVER.Marca ma
+		JOIN CRAZYDRIVER.Modelo mo on mo.id_marca = @marca AND mo.id_modelo = @modelo
+		JOIN CRAZYDRIVER.Auto a on mo.id_modelo = a.id_modelo
+		JOIN CRAZYDRIVER.AutoPorChofer ac on a.id_auto = ac.id_auto
+		WHERE ma.id_marca = @marca
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosChofer
+	@chofer int
+	AS
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		FROM CRAZYDRIVER.AutoPorChofer ac
+		JOIN CRAZYDRIVER.Auto a on ac.id_auto = a.id_auto
+		JOIN CRAZYDRIVER.Modelo mo on a.id_modelo = mo.id_modelo
+		JOIN CRAZYDRIVER.Marca ma on mo.id_marca = ma.id_marca
+		WHERE ac.id_chofer = @chofer
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosPatente
+	@patente nvarchar(10)
+	AS
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		FROM  CRAZYDRIVER.AutoPorChofer ac, CRAZYDRIVER.Auto a
+		JOIN CRAZYDRIVER.Modelo mo on a.id_modelo = mo.id_modelo
+		JOIN CRAZYDRIVER.Marca ma on mo.id_marca = ma.id_marca
+		WHERE a.patente = @patente AND a.id_auto = ac.id_auto
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre	
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModeloChofer
+	@marca int,
+	@modelo int,
+	@chofer int
+	AS
+		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+
+		insert into  @procedure1
+		exec CRAZYDRIVER.spObtenerAutosMarcaModelo @marca, @modelo ;
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerAutosChofer @chofer;
+
+		select * from @procedure1
+		intersect
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModeloPatente
+	@marca int,
+	@modelo int,
+	@patente nvarchar(10)
+	AS
+		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+
+		insert into  @procedure1
+		exec CRAZYDRIVER.spObtenerAutosMarcaModelo @marca, @modelo ;
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerAutosPatente @patente;
+
+		select * from @procedure1
+		intersect
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosPatenteChofer
+	@patente nvarchar(10),
+	@chofer int
+	AS
+		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+
+		insert into  @procedure1
+		exec CRAZYDRIVER.spObtenerAutosChofer @chofer ;
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerAutosPatente @patente;
+
+		select * from @procedure1
+		intersect
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutos
+	@marca int,
+	@modelo int,
+	@patente nvarchar(10),
+	@chofer int
+	AS
+		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+
+		insert into  @procedure1
+		exec CRAZYDRIVER.spObtenerAutosPatenteChofer @patente, @chofer ;
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerAutosMarcaModelo @marca, @modelo ;
+
+		select * from @procedure1
+		intersect
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spModificacionAutomovil
+	@idAuto int,
+	@licencia nvarchar(26),
+	@rodado nvarchar(10)
+	AS
+		UPDATE CRAZYDRIVER.Auto set
+		licencia = @licencia,
+		rodado = @rodado
+		WHERE id_auto = @idAuto
+GO
+
+CREATE PROC CRAZYDRIVER.spEliminarAuto
+	@idAuto int
+	AS
+	UPDATE CRAZYDRIVER.Auto set habilitado = 0 where id_auto = @idAuto;
 GO
