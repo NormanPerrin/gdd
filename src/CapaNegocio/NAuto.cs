@@ -33,22 +33,16 @@ namespace CapaNegocio
             return Objeto.ObtenerAutoHabilitado(chofer, turno);
         }
 
-        public static object ObtenerAutos(int marca, int modelo, string patente, int chofer)
-        {
-            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
-            return Objeto.ObtenerAutos(marca, modelo, patente, chofer);
-        }
-
         public static string baja(int idAuto)
         {
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
             return objeto.EliminarAuto(idAuto);
         }
 
-        public static string modificacion(int idAuto, string licencia, string rodado, string nombre)
+        public static string modificacion(int idAuto, string licencia, string rodado)
         {
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
-            return objeto.ModificacionAuto(idAuto, licencia, rodado, nombre);
+            return objeto.ModificacionAuto(idAuto, licencia, rodado);
         }
 
         public static object ObtenerMarcas()
@@ -56,5 +50,47 @@ namespace CapaNegocio
             return new CapaDatos.DAuto().ObtenerMarcas();
         }
 
+
+        public static object ObtenerAutos(int marca, int modelo)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(marca, modelo);
+        }
+
+        public static object ObtenerAutos(int chofer)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(chofer);
+        }
+
+        public static object ObtenerAutos(string patente)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(patente);
+        }
+
+        public static object ObtenerAutos(int marca, int modelo, int chofer)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(marca, modelo, chofer);
+        }
+
+        public static object ObtenerAutos(int marca, int modelo, string patente)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(marca, modelo, patente);
+        }
+
+        public static object ObtenerAutos(string patente, int chofer)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(patente, chofer);
+        }
+
+        public static object ObtenerAutos(int marca, int modelo, string patente, int chofer)
+        {
+            CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
+            return Objeto.ObtenerAutos(marca, modelo, patente, chofer);
+        }
     }
 }
