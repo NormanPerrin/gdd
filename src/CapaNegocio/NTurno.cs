@@ -25,6 +25,12 @@ namespace CapaNegocio
                 return Objeto.CargarValorTurno(turno);
             }
 
+            public static DataTable CargarLimitesFechas(String  idTurno)
+            {
+                DTurno Objeto = new DTurno();
+                return Objeto.CargarLimitesFechas(idTurno);
+            }
+
         #endregion
 
             public static string Alta(Entidades.Turno turno)

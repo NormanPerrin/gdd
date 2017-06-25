@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbxChofer = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.inputKms = new System.Windows.Forms.NumericUpDown();
             this.cbxCliente = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.dateTo = new System.Windows.Forms.DateTimePicker();
@@ -43,13 +44,13 @@
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.inputKms = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.lblCosto = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputKms)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -62,7 +63,7 @@
             this.groupBox1.Controls.Add(this.cbxChofer);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(448, 89);
+            this.groupBox1.Size = new System.Drawing.Size(462, 89);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Información auto";
@@ -74,7 +75,7 @@
             this.lblAuto.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblAuto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblAuto.Cursor = System.Windows.Forms.Cursors.No;
-            this.lblAuto.Location = new System.Drawing.Point(238, 50);
+            this.lblAuto.Location = new System.Drawing.Point(241, 50);
             this.lblAuto.MinimumSize = new System.Drawing.Size(200, 20);
             this.lblAuto.Name = "lblAuto";
             this.lblAuto.Size = new System.Drawing.Size(200, 20);
@@ -84,7 +85,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(300, 23);
+            this.label3.Location = new System.Drawing.Point(304, 28);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 13);
             this.label3.TabIndex = 4;
@@ -130,6 +131,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.inputKms);
             this.groupBox2.Controls.Add(this.cbxCliente);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.dateTo);
@@ -137,13 +139,30 @@
             this.groupBox2.Controls.Add(this.dateFrom);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.inputKms);
             this.groupBox2.Location = new System.Drawing.Point(12, 107);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(448, 87);
+            this.groupBox2.Size = new System.Drawing.Size(462, 87);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Información viaje";
+            // 
+            // inputKms
+            // 
+            this.inputKms.Location = new System.Drawing.Point(85, 20);
+            this.inputKms.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.inputKms.Name = "inputKms";
+            this.inputKms.Size = new System.Drawing.Size(74, 20);
+            this.inputKms.TabIndex = 8;
+            this.inputKms.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.inputKms.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // cbxCliente
             // 
@@ -169,8 +188,9 @@
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateTo.Location = new System.Drawing.Point(338, 52);
             this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(100, 20);
+            this.dateTo.Size = new System.Drawing.Size(112, 20);
             this.dateTo.TabIndex = 5;
+            this.dateTo.ValueChanged += new System.EventHandler(this.dateTo_ValueChanged);
             // 
             // label7
             // 
@@ -187,8 +207,9 @@
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateFrom.Location = new System.Drawing.Point(338, 19);
             this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(100, 20);
+            this.dateFrom.Size = new System.Drawing.Size(112, 20);
             this.dateFrom.TabIndex = 3;
+            this.dateFrom.ValueChanged += new System.EventHandler(this.dateFrom_ValueChanged);
             // 
             // label6
             // 
@@ -208,17 +229,9 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "Cantidad KMs";
             // 
-            // inputKms
-            // 
-            this.inputKms.AccessibleName = "";
-            this.inputKms.Location = new System.Drawing.Point(85, 19);
-            this.inputKms.Name = "inputKms";
-            this.inputKms.Size = new System.Drawing.Size(133, 20);
-            this.inputKms.TabIndex = 0;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(238, 218);
+            this.button1.Location = new System.Drawing.Point(319, 207);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -228,7 +241,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(350, 218);
+            this.button2.Location = new System.Drawing.Point(400, 207);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
@@ -238,7 +251,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(36, 207);
+            this.button3.Location = new System.Drawing.Point(12, 207);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(124, 23);
             this.button3.TabIndex = 4;
@@ -251,7 +264,7 @@
             this.lblCosto.AutoSize = true;
             this.lblCosto.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblCosto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblCosto.Location = new System.Drawing.Point(22, 233);
+            this.lblCosto.Location = new System.Drawing.Point(142, 209);
             this.lblCosto.MinimumSize = new System.Drawing.Size(150, 20);
             this.lblCosto.Name = "lblCosto";
             this.lblCosto.Size = new System.Drawing.Size(150, 20);
@@ -262,7 +275,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 264);
+            this.ClientSize = new System.Drawing.Size(485, 239);
             this.Controls.Add(this.lblCosto);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -276,6 +289,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputKms)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,10 +312,10 @@
         private System.Windows.Forms.DateTimePicker dateFrom;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox inputKms;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label lblCosto;
+        private System.Windows.Forms.NumericUpDown inputKms;
     }
 }

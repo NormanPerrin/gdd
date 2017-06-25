@@ -19,19 +19,18 @@ namespace CapaNegocio
 
         public static DataTable ObtenerListaViajesPorChofer(String idCliente)
         {
-            // TODO: sacar fechas hardcodeadas
-            DateTime fechaDesde = new DateTime(1999, 01, 01);
-            DateTime fechaHasta = new DateTime(2017, 01, 01);
+            DateTime now = DateTime.Now;
+            DateTime fechaDesde = new DateTime(now.Year, now.Month, 1);
+            DateTime fechaHasta = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
             return new CapaDatos.DViaje().ObtenerListaViajesPorChofer(idCliente, fechaDesde, fechaHasta);
         }
 
         public static void AgregarFacturacion(String idCliente)
         {
-            // TODO: sacar fechas hardcodeadas
-            DateTime fechaAhora = new DateTime(2016, 06, 06);
-            DateTime fechaDesde = new DateTime(1999, 01, 01);
-            DateTime fechaHasta = new DateTime(2017, 01, 01);
-            new CapaDatos.DViaje().AgregarFacturacion(idCliente, fechaAhora, fechaDesde, fechaHasta);
+            DateTime now = DateTime.Now;
+            DateTime fechaDesde = new DateTime(now.Year, now.Month, 1);
+            DateTime fechaHasta = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
+            new CapaDatos.DViaje().AgregarFacturacion(idCliente, now, fechaDesde, fechaHasta);
         }
     }
 }

@@ -70,12 +70,13 @@ namespace CapaInterfaz
 
         public static void CargarClientesSinFacturacion(System.Windows.Forms.ComboBox cbxCliente)
         {
-            // temporal
-            DateTime fechaDesde = new DateTime(1999, 01, 01);
-            DateTime fechaHasta = new DateTime(2017, 01, 01);
+            DateTime now = DateTime.Now;
+            DateTime fechaDesde = new DateTime(now.Year, now.Month, 01);
+            DateTime fechaHasta = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
             DataTable Datos = CapaNegocio.NCliente.ObtenerClientesSinFacturacion(fechaDesde, fechaHasta);
 
             clientes.Clear();
+            cbxCliente.Items.Clear();
             if (Datos.Rows.Count != 0)
             {
                 int cantidadDeItems = Datos.Rows.Count;

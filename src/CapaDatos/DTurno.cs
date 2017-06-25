@@ -29,6 +29,21 @@ namespace CapaDatos
             return DtResultado;
         }
 
+        public DataTable CargarLimitesFechas(String idTurno)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idTurno";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = Int32.Parse(idTurno);
+
+            DataTable DtResultado = new DataTable("Horario");
+            DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerHorarioTurno");
+            return DtResultado;
+        }
+
         public DataTable CargarValorTurno(String turno)
         {
             Conexion Conexion = new Conexion();

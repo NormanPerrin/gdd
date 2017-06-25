@@ -31,10 +31,6 @@ namespace UberFrba
 
         #region Metodos y funciones auxiliares
 
-            private void formatearAtributos()
-            {
-            }
-
             public static Facturacion ObtenerInstancia()
             {
                 if (Instancia == null)
@@ -42,6 +38,11 @@ namespace UberFrba
                     Instancia = new Facturacion();
                 }
                 return Instancia;
+            }
+
+            private void reset()
+            {
+                CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente);
             }
 
         #endregion
@@ -65,6 +66,8 @@ namespace UberFrba
             {
                 String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
                 CapaInterfaz.IViaje.AgregarFacturacion(idCliente);
+                reset();
+                MessageBox.Show("Se ha registrado la facturacion", "Registro facturacion", MessageBoxButtons.OKCancel);
             }
 
             private void cbxCliente_SelectedIndexChanged(object sender, EventArgs e)

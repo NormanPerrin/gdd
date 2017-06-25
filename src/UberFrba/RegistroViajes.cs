@@ -40,8 +40,10 @@ namespace UberFrba
             // resetea valores a su default
             private void reset()
             {
-                inputKms.Clear();
+                inputKms.Value = 1;
                 lblCosto.Text = String.Empty;
+                String turno = ITurno.getIdTurnoActual(cbxTurno.Text);
+                CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno);
             }
 
         #endregion
@@ -92,9 +94,10 @@ namespace UberFrba
                 String idauto = CapaInterfaz.IAuto.getIdAutoActual(lblAuto.Text);
                 DateTime fechaDesde = dateFrom.Value;
                 DateTime fechaHasta = dateTo.Value;
-                int kms = Int32.Parse(inputKms.Text);
+                int kms = Int32.Parse(inputKms.Value.ToString());
                 CapaInterfaz.IViaje.AgregarViaje(idcliente, idchofer, turno, idauto, fechaDesde, fechaHasta, kms);
                 reset();
+                MessageBox.Show("Se ha registrado el viaje", "Registro viaje", MessageBoxButtons.OKCancel);
             }
 
             private void cbxTurno_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,6 +106,7 @@ namespace UberFrba
                 CapaInterfaz.IChofer.CargarChoferesPorTurno(cbxChofer, turno);
                 String idChofer = CapaInterfaz.IChofer.getIdChoferActual(cbxChofer.Text);
                 CapaInterfaz.IAuto.CargarAutoHabilitado(lblAuto, idChofer, turno);
+                CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno);
             }
 
             private void cbxChofer_SelectedIndexChanged(object sender, EventArgs e)
@@ -114,10 +118,22 @@ namespace UberFrba
 
             private void button3_Click(object sender, EventArgs e)
             {
-                int kms = Int32.Parse(inputKms.Text);
+                int kms = Int32.Parse(inputKms.Value.ToString());
                 String idturno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
                 CapaInterfaz.ITurno.CargarValorTurno(lblCosto, kms, idturno);
-            } 
+            }
+
+            private void dateFrom_ValueChanged(object sender, EventArgs e)
+            {   
+                DateTime now = DateTime.Now;
+                dateTo.MinDate = new DateTime(now.Year, now.Month, now.Day, dateFrom.Value.Hour, dateFrom.Value.Minute, dateFrom.Value.Second);
+            }
+
+            private void dateTo_ValueChanged(object sender, EventArgs e)
+            {
+                DateTime now = DateTime.Now;
+                dateFrom.MaxDate = new DateTime(now.Year, now.Month, now.Day, dateTo.Value.Hour, dateTo.Value.Minute, dateTo.Value.Second);
+            }
 
     }
 }

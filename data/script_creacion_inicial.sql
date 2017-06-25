@@ -23,6 +23,11 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerFuncionalidades;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerHorarioTurno') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerHorarioTurno;
+END;
+
 IF OBJECT_ID('CRAZYDRIVER.spObtenerRolesPorUsuario') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerRolesPorUsuario;
@@ -1134,18 +1139,20 @@ CREATE PROC CRAZYDRIVER.spObtenerViajesEntreFechasYCliente
 		WHERE v.id_cliente = @clienteid AND t.id_turno = v.id_turno AND v.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta
 GO
 
--- TARDA MUCHO
+-- TARDA MUCHO. Falta filtrar clientes que ya fueron facturados
 CREATE PROC CRAZYDRIVER.spBuscarClientesSinFacturacion
 	@fechaDesde DATE,
 	@fechaHasta DATE
 	AS
 	SELECT DISTINCT c.id_cliente, c.apellido + ' ' + c.nombre FROM CRAZYDRIVER.Cliente c
-		JOIN CRAZYDRIVER.Viaje v ON v.id_cliente = c.id_cliente
+		JOIN CRAZYDRIVER.Viaje v ON v.id_cliente = c.id_cliente AND c.habilitado = 1
 		JOIN CRAZYDRIVER.FacturacionPorViaje fxv ON fxv.id_viaje = v.id_viaje
 		JOIN CRAZYDRIVER.Facturacion f ON f.nro_facturacion = fxv.nro_facturacion
 			AND f.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta
 		ORDER BY c.id_cliente
 GO
+
+
 
 CREATE PROC CRAZYDRIVER.spAltaFactura
 	@fechaDesde DATE,
@@ -1427,4 +1434,11 @@ CREATE PROC CRAZYDRIVER.spModificarTurno
 			precio_base = @pbase,
 			habilitado = @habilitado
 			where id_turno = @id_turno
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerHorarioTurno
+	@idTurno INT
+	AS
+		SELECT hora_inicio, hora_fin FROM CRAZYDRIVER.Turno
+			WHERE id_turno = @idTurno
 GO

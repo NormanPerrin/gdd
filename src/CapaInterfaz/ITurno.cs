@@ -48,6 +48,29 @@ namespace CapaInterfaz
             }
         }
 
+        public static void CargarLimitesFechas(DateTimePicker dateFrom, DateTimePicker dateTo, String idTurno)
+        {
+            DataTable Datos = CapaNegocio.NTurno.CargarLimitesFechas(idTurno);
+            if (Datos.Rows.Count != 0)
+            {
+                int horaInicio = Int32.Parse(Datos.Rows[0][0].ToString());
+                int horaFin = Int32.Parse(Datos.Rows[0][1].ToString());
+                DateTime now = DateTime.Now;
+
+                dateFrom.MaxDate = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
+                dateTo.MaxDate = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
+
+                dateFrom.MinDate = new DateTime(now.Year, now.Month, now.Day, horaInicio, 0, 0);
+                dateTo.MinDate = new DateTime(now.Year, now.Month, now.Day, horaInicio, 0, 0);
+
+                dateFrom.MaxDate = new DateTime(now.Year, now.Month, now.Day, horaFin - 1, 59, 59);
+                dateTo.MaxDate = new DateTime(now.Year, now.Month, now.Day, horaFin - 1, 59, 59);
+
+                dateFrom.Value = dateFrom.MinDate;
+                dateTo.Value = dateTo.MaxDate;
+            }
+        }
+
         #endregion
 
         public static string Alta(Entidades.Turno turno)
