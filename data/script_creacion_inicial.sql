@@ -283,6 +283,16 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerViajes;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spRendir') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spRendir;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spImportePorViaje') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spImportePorViaje;
+END;
+
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -1627,10 +1637,28 @@ CREATE PROC CRAZYDRIVER.spObtenerViajes
 	AS
 		declare @fechaSinHora datetime = CONVERT (char(10), @fecha, 103);
 
-		SELECT c.id_chofer, v.id_turno, v.fecha_inicio, (SELECT (t.precio_base+v.cant_km * t.valor_km)
+		SELECT c.id_chofer, v.id_turno, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
 			FROM CRAZYDRIVER.Turno t
 			WHERE t.id_turno = v.id_turno) as importe
 		FROM CRAZYDRIVER.Chofer c
 		JOIN CRAZYDRIVER.Viaje v on c.id_chofer = v.id_chofer
 		WHERE c.id_chofer = @chofer AND (CONVERT (char(10),v.fecha_inicio, 103)) = @fechaSinHora AND v.id_turno = @turno
 GO
+
+CREATE PROC CRAZYDRIVER.spRendir
+	@fecha datetime
+	AS
+		INSERT INTO CRAZYDRIVER.Rendicion (fecha) VALUES (@fecha)
+
+GO
+
+CREATE PROC CRAZYDRIVER.spImportePorViaje
+	@viaje int,
+	@importe int
+	AS
+		declare @idRendicion int;
+		SELECT @idRendicion = SCOPE_IDENTITY();
+
+		INSERT INTO CRAZYDRIVER.RendicionPorViaje (nro_rendicion, id_viaje, importe)
+			VALUES (@idRendicion, @viaje, @importe)
+GO 
