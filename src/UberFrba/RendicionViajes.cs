@@ -16,7 +16,8 @@ namespace UberFrba
 
             private static RendicionViajes _Instancia;
 
-            public int idChofer;
+            int idChofer;
+            int importe;
 
         #endregion
 
@@ -92,7 +93,7 @@ namespace UberFrba
                 {
                     CapaInterfaz.IRendicion.viajes(this.tablaViaje, this.fecha.Value, this.tablaTurno, idChofer);
 
-                    int importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViaje);
+                    importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViaje);
 
                     this.txtImporte.Text = System.Convert.ToString(importe);
                 }
@@ -103,6 +104,11 @@ namespace UberFrba
             private void button1_Click(object sender, EventArgs e)
             {
                 //rendir
+            }
+
+            private void button2_Click(object sender, EventArgs e)
+            {
+                this.Close();
             }
     }
 }

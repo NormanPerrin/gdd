@@ -86,10 +86,88 @@ namespace CapaInterfaz
             dataGridView.Columns[nroColumn].Visible = false; // oculto la columna del id
         }
 
+        private static bool seleccionoChofer(int chofer)
+        {
+            if (chofer == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private static bool seleccionoMarcaOModelo(int marca)
+        {
+            if (marca == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private static bool patenteVacia(string patente)
+        {
+            if(string.IsNullOrWhiteSpace(patente))
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        private static bool not(bool b)
+        {
+            if (b)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
 
         public static void BuscarAuto(DataGridView tablaAutos, int marca, int modelo, string patente, int chofer)
         {
-            tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(marca,modelo,patente,chofer);
+            //chequeo datos
+            if (patenteVacia(patente)&&not(seleccionoChofer(chofer))&&not(seleccionoMarcaOModelo(marca)))
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("seleccione por lo menos un campo");
+            }
+            else if (patenteVacia(patente) && not(seleccionoChofer(chofer)) && seleccionoMarcaOModelo(marca))
+            {
+                tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(marca, modelo);
+            }
+            else if (patenteVacia(patente) && not(seleccionoMarcaOModelo(marca)) && seleccionoChofer(chofer))
+            {
+                tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(chofer);
+            }
+            else if (not(seleccionoChofer(chofer)) && not(seleccionoMarcaOModelo(marca)) && not(patenteVacia(patente)))
+            {
+                tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(patente);
+            }
+            else if (patenteVacia(patente) && seleccionoChofer(chofer) && seleccionoMarcaOModelo(marca))
+            {
+                tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(marca, modelo, chofer);
+            }
+            else if (not(seleccionoChofer(chofer)) && not(patenteVacia(patente)) && seleccionoMarcaOModelo(marca))
+            {
+                tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(marca, modelo, patente);
+            }
+            else if (not(seleccionoMarcaOModelo(marca)) && not(patenteVacia(patente)) && seleccionoChofer(chofer))
+            {
+                tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(patente, chofer);
+            }
+            else if (not(patenteVacia(patente)) && seleccionoChofer(chofer) && seleccionoMarcaOModelo(marca))
+            {
+                tablaAutos.DataSource = CapaNegocio.NAuto.ObtenerAutos(marca, modelo, patente, chofer);
+            }
         }
 
         public static string baja(int idAuto)
@@ -98,9 +176,9 @@ namespace CapaInterfaz
             return respuesta;
         }
 
-        public static string modificacion(int idAuto, string licencia, string rodado, string nombre)
+        public static string modificacion(int idAuto, string licencia, string rodado)
         {
-            string respuesta = CapaNegocio.NAuto.modificacion(idAuto, licencia, rodado, nombre );
+            string respuesta = CapaNegocio.NAuto.modificacion(idAuto, licencia, rodado);
             return respuesta;
         }
 

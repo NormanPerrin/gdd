@@ -36,7 +36,7 @@ namespace CapaInterfaz
             foreach (DataGridViewRow row in tablaViajes.Rows)
             {
                 //en la columna de importe por viaje
-                importeTotal += System.Convert.ToInt32(row.Cells[1].Value);
+                importeTotal += System.Convert.ToInt32(row.Cells[3].Value);
 
             }
             return importeTotal;

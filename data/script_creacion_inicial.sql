@@ -233,7 +233,55 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spModificarTurno;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosMarcaModelo') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosMarcaModelo;
+END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosPatente') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosPatente;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosMarcaModeloChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosMarcaModeloChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosMarcaModeloPatente') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosMarcaModeloPatente;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutosPatenteChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutosPatenteChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerAutos') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerAutos;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spModificacionAutomovil') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spModificacionAutomovil;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spEliminarAuto') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spEliminarAuto;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerViajes') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerViajes;
+END;
 
 ---- BORRO TABLAS
 
@@ -1379,8 +1427,8 @@ CREATE PROC CRAZYDRIVER.spAltaTurno
 	@habilitado tinyint
 	AS
 		declare @existe bit;
-		
-		select @existe = count(*) from CRAZYDRIVER.Turno 
+
+		select @existe = count(*) from CRAZYDRIVER.Turno
 		where ((@hinicio >= hora_inicio and @hinicio < hora_fin)
 		or (@hfin > hora_inicio and @hfin <= hora_fin)
 		or (@hinicio < hora_inicio and @hfin >= hora_fin)) and habilitado = 1;
@@ -1390,7 +1438,7 @@ CREATE PROC CRAZYDRIVER.spAltaTurno
 		else
 			INSERT INTO CRAZYDRIVER.Turno (descripcion,hora_inicio,hora_fin,valor_km,precio_base,habilitado)
 			values (@desc, @hinicio, @hfin, @valorkm, @pbase, @habilitado)
-			
+
 GO
 
 CREATE PROC CRAZYDRIVER.spBuscarTurno
@@ -1417,8 +1465,8 @@ CREATE PROC CRAZYDRIVER.spModificarTurno
 	@id_turno int
 	AS
 		declare @existe bit;
-		
-		select @existe = count(*) from CRAZYDRIVER.Turno 
+
+		select @existe = count(*) from CRAZYDRIVER.Turno
 		where ((@hinicio >= hora_inicio and @hinicio < hora_fin)
 		or (@hfin > hora_inicio and @hfin <= hora_fin)
 		or (@hinicio < hora_inicio and @hfin >= hora_fin)) and habilitado = 1 and @id_turno != id_turno;
@@ -1426,7 +1474,7 @@ CREATE PROC CRAZYDRIVER.spModificarTurno
 		if (@existe > 0 and @habilitado = 1)
 			RAISERROR('Los horarios del turno se superponen con un turno existente habilitado.',17,1)
 		else
-			UPDATE CRAZYDRIVER.Turno set 
+			UPDATE CRAZYDRIVER.Turno set
 			descripcion = @desc,
 			hora_inicio = @hinicio,
 			hora_fin = @hfin,
@@ -1441,4 +1489,148 @@ CREATE PROC CRAZYDRIVER.spObtenerHorarioTurno
 	AS
 		SELECT hora_inicio, hora_fin FROM CRAZYDRIVER.Turno
 			WHERE id_turno = @idTurno
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModelo
+	@marca int,
+	@modelo int
+	AS
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		FROM CRAZYDRIVER.Marca ma
+		JOIN CRAZYDRIVER.Modelo mo on mo.id_marca = @marca AND mo.id_modelo = @modelo
+		JOIN CRAZYDRIVER.Auto a on mo.id_modelo = a.id_modelo
+		JOIN CRAZYDRIVER.AutoPorChofer ac on a.id_auto = ac.id_auto
+		WHERE ma.id_marca = @marca
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosChofer
+	@chofer int
+	AS
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		FROM CRAZYDRIVER.AutoPorChofer ac
+		JOIN CRAZYDRIVER.Auto a on ac.id_auto = a.id_auto
+		JOIN CRAZYDRIVER.Modelo mo on a.id_modelo = mo.id_modelo
+		JOIN CRAZYDRIVER.Marca ma on mo.id_marca = ma.id_marca
+		WHERE ac.id_chofer = @chofer
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosPatente
+	@patente nvarchar(10)
+	AS
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		FROM  CRAZYDRIVER.AutoPorChofer ac, CRAZYDRIVER.Auto a
+		JOIN CRAZYDRIVER.Modelo mo on a.id_modelo = mo.id_modelo
+		JOIN CRAZYDRIVER.Marca ma on mo.id_marca = ma.id_marca
+		WHERE a.patente = @patente AND a.id_auto = ac.id_auto
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModeloChofer
+	@marca int,
+	@modelo int,
+	@chofer int
+	AS
+		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+
+		insert into  @procedure1
+		exec CRAZYDRIVER.spObtenerAutosMarcaModelo @marca, @modelo ;
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerAutosChofer @chofer;
+
+		select * from @procedure1
+		intersect
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModeloPatente
+	@marca int,
+	@modelo int,
+	@patente nvarchar(10)
+	AS
+		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+
+		insert into  @procedure1
+		exec CRAZYDRIVER.spObtenerAutosMarcaModelo @marca, @modelo ;
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerAutosPatente @patente;
+
+		select * from @procedure1
+		intersect
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutosPatenteChofer
+	@patente nvarchar(10),
+	@chofer int
+	AS
+		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+
+		insert into  @procedure1
+		exec CRAZYDRIVER.spObtenerAutosChofer @chofer ;
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerAutosPatente @patente;
+
+		select * from @procedure1
+		intersect
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerAutos
+	@marca int,
+	@modelo int,
+	@patente nvarchar(10),
+	@chofer int
+	AS
+		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+
+		insert into  @procedure1
+		exec CRAZYDRIVER.spObtenerAutosPatenteChofer @patente, @chofer ;
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerAutosMarcaModelo @marca, @modelo ;
+
+		select * from @procedure1
+		intersect
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spModificacionAutomovil
+	@idAuto int,
+	@licencia nvarchar(26),
+	@rodado nvarchar(10)
+	AS
+		UPDATE CRAZYDRIVER.Auto set
+		licencia = @licencia,
+		rodado = @rodado
+		WHERE id_auto = @idAuto
+GO
+
+CREATE PROC CRAZYDRIVER.spEliminarAuto
+	@idAuto int
+	AS
+	UPDATE CRAZYDRIVER.Auto set habilitado = 0 where id_auto = @idAuto;
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerViajes
+	@fecha datetime,
+	@turno int,
+	@chofer int
+	AS
+		declare @fechaSinHora datetime = CONVERT (char(10), @fecha, 103);
+
+		SELECT c.id_chofer, v.id_turno, v.fecha_inicio, (SELECT (t.precio_base+v.cant_km * t.valor_km)
+			FROM CRAZYDRIVER.Turno t
+			WHERE t.id_turno = v.id_turno) as importe
+		FROM CRAZYDRIVER.Chofer c
+		JOIN CRAZYDRIVER.Viaje v on c.id_chofer = v.id_chofer
+		WHERE c.id_chofer = @chofer AND (CONVERT (char(10),v.fecha_inicio, 103)) = @fechaSinHora AND v.id_turno = @turno
 GO

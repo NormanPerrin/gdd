@@ -42,6 +42,7 @@
             this.Elegir = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.fecha = new System.Windows.Forms.DateTimePicker();
             this.btnBuscar = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaViaje)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -51,11 +52,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.tablaViaje);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Location = new System.Drawing.Point(34, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(451, 574);
+            this.groupBox1.Size = new System.Drawing.Size(451, 593);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rendicion de viajes (pago al chofer)";
@@ -201,11 +203,21 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(316, 564);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 24;
+            this.button2.Text = "Cerrar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // RendicionViajes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 607);
+            this.ClientSize = new System.Drawing.Size(521, 626);
             this.Controls.Add(this.groupBox1);
             this.Name = "RendicionViajes";
             this.Text = "RendicionViajes";
@@ -235,5 +247,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LbelChofer;
         private System.Windows.Forms.TextBox txtImporte;
+        private System.Windows.Forms.Button button2;
     }
 }
