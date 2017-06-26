@@ -37,14 +37,14 @@ namespace CapaInterfaz
             return turnos.FirstOrDefault(x => x.Value == nombreTurno).Key;
         }
 
-        public static void CargarValorTurno(Label lbl, int kms, String turno)
+        public static void CargarValorTurno(TextBox costo, int kms, String turno)
         {
             DataTable Datos = CapaNegocio.NTurno.CargarValorTurno(turno);
             if (Datos.Rows.Count != 0)
             {
                 float precioBase = float.Parse(Datos.Rows[0][0].ToString());
                 float precioPorKm = float.Parse(Datos.Rows[0][1].ToString());
-                lbl.Text = (precioBase + precioPorKm * kms).ToString();
+                costo.Text = (precioBase + precioPorKm * kms).ToString();
             }
         }
 

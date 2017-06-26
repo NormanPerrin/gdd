@@ -59,7 +59,7 @@ namespace CapaInterfaz
             tablaChofer.DataSource = CapaNegocio.NAuto.ObtenerChoferes();
         }
 
-        public static void CargarAutoHabilitado(System.Windows.Forms.Label lbl, String chofer, String turno)
+        public static void CargarAutoHabilitado(TextBox lbl, String chofer, String turno)
         {
             DataTable Datos = CapaNegocio.NAuto.ObtenerAutoHabilitado(chofer, turno);
             auto.Clear();
