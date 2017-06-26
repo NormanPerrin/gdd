@@ -60,7 +60,7 @@ namespace UberFrba
             }
             else if (cbxFuncionalidades.Text == "Registrar viaje")
             {
-                RegistroViajes siguienteVentana = RegistroViajes.ObtenerInstancia();
+                RegistroViajes siguienteVentana = new RegistroViajes();
                 siguienteVentana.Show();
             }
             else if (cbxFuncionalidades.Text == "Rendir viaje")
