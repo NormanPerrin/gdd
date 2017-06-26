@@ -1648,7 +1648,9 @@ GO
 CREATE PROC CRAZYDRIVER.spRendir
 	@fecha datetime
 	AS
-		INSERT INTO CRAZYDRIVER.Rendicion (fecha) VALUES (@fecha)
+		declare @idRendicion int;
+		SELECT @idRendicion = (max(nro_rendicion)+1) from CRAZYDRIVER.Rendicion;
+		INSERT INTO CRAZYDRIVER.Rendicion (nro_rendicion ,fecha) VALUES (@idRendicion, @fecha)
 
 GO
 
@@ -1657,7 +1659,7 @@ CREATE PROC CRAZYDRIVER.spImportePorViaje
 	@importe int
 	AS
 		declare @idRendicion int;
-		SELECT @idRendicion = SCOPE_IDENTITY();
+		SELECT @idRendicion = (max(nro_rendicion)) from CRAZYDRIVER.Rendicion;
 
 		INSERT INTO CRAZYDRIVER.RendicionPorViaje (nro_rendicion, id_viaje, importe)
 			VALUES (@idRendicion, @viaje, @importe)
