@@ -293,6 +293,15 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spImportePorViaje;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerViajesPorChofer') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerViajesPorChofer;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spHabilitarAuto') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spHabilitarAuto;
+END;
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -1100,7 +1109,7 @@ CREATE PROC CRAZYDRIVER.spAltaAutomovil
 		DECLARE @idAuto int;
 
 		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.Auto
-			WHERE patente = @patente)
+			WHERE patente = @patente AND habilitado = 1)
 			BEGIN
 			RAISERROR('Patente existente',17,1);
 			RETURN
@@ -1640,6 +1649,12 @@ CREATE PROC CRAZYDRIVER.spEliminarAuto
 	UPDATE CRAZYDRIVER.Auto set habilitado = 0 where id_auto = @idAuto;
 GO
 
+CREATE PROC CRAZYDRIVER.spHabilitarAuto
+	@idAuto int
+	AS
+	UPDATE CRAZYDRIVER.Auto set habilitado = 1 where id_auto = @idAuto;
+GO
+
 CREATE PROC CRAZYDRIVER.spObtenerViajes
 	@fecha datetime,
 	@turno int,
@@ -1652,7 +1667,20 @@ CREATE PROC CRAZYDRIVER.spObtenerViajes
 			WHERE t.id_turno = v.id_turno) as importe
 		FROM CRAZYDRIVER.Chofer c
 		JOIN CRAZYDRIVER.Viaje v on c.id_chofer = v.id_chofer
-		WHERE c.id_chofer = @chofer AND (CONVERT (char(10),v.fecha_inicio, 103)) = @fechaSinHora AND v.id_turno = @turno
+		WHERE v.id_viaje NOT IN (SELECT id_viaje FROM CRAZYDRIVER.RendicionPorViaje) AND
+		c.id_chofer = @chofer AND (CONVERT (char(10),v.fecha_inicio, 103)) = @fechaSinHora AND v.id_turno = @turno
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerViajesPorChofer
+	@chofer int
+	AS
+		SELECT c.id_chofer, v.id_turno, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
+			FROM CRAZYDRIVER.Turno t
+			WHERE t.id_turno = v.id_turno) as importe
+		FROM CRAZYDRIVER.Chofer c
+		JOIN CRAZYDRIVER.Viaje v on c.id_chofer = v.id_chofer
+		WHERE v.id_viaje NOT IN (SELECT id_viaje FROM CRAZYDRIVER.RendicionPorViaje) AND
+		c.id_chofer = @chofer
 GO
 
 CREATE PROC CRAZYDRIVER.spRendir

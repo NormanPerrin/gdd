@@ -44,16 +44,21 @@
             this.tabBaja = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.tabHabilitar = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.btnHabilitar = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabEdicion.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabBaja.SuspendLayout();
+            this.tabHabilitar.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabEdicion);
             this.tabControl1.Controls.Add(this.tabBaja);
+            this.tabControl1.Controls.Add(this.tabHabilitar);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -208,6 +213,38 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // tabHabilitar
+            // 
+            this.tabHabilitar.Controls.Add(this.btnHabilitar);
+            this.tabHabilitar.Controls.Add(this.button3);
+            this.tabHabilitar.Location = new System.Drawing.Point(4, 22);
+            this.tabHabilitar.Name = "tabHabilitar";
+            this.tabHabilitar.Padding = new System.Windows.Forms.Padding(3);
+            this.tabHabilitar.Size = new System.Drawing.Size(310, 223);
+            this.tabHabilitar.TabIndex = 2;
+            this.tabHabilitar.Text = "Habilitar";
+            this.tabHabilitar.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(41, 98);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "Cerrar";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btnHabilitar
+            // 
+            this.btnHabilitar.Location = new System.Drawing.Point(180, 98);
+            this.btnHabilitar.Name = "btnHabilitar";
+            this.btnHabilitar.Size = new System.Drawing.Size(75, 23);
+            this.btnHabilitar.TabIndex = 13;
+            this.btnHabilitar.Text = "Habilitar";
+            this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
+            // 
             // Edicion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,6 +258,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabBaja.ResumeLayout(false);
+            this.tabHabilitar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -243,6 +281,9 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtNewLicencia;
+        private System.Windows.Forms.TabPage tabHabilitar;
+        private System.Windows.Forms.Button btnHabilitar;
+        private System.Windows.Forms.Button button3;
 
     }
 }

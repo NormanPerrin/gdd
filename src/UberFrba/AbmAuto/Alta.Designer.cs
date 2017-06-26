@@ -35,13 +35,12 @@
             this.LbelMarca = new System.Windows.Forms.Label();
             this.LbelTurno = new System.Windows.Forms.Label();
             this.LbelChofer = new System.Windows.Forms.Label();
-            this.tablaTurno = new System.Windows.Forms.DataGridView();
-            this.Elegir = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tablaChofer = new System.Windows.Forms.DataGridView();
             this.tablaMarca = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).BeginInit();
+            this.tablaTurno = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaMarca)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnAlta
@@ -108,29 +107,6 @@
             this.LbelChofer.TabIndex = 7;
             this.LbelChofer.Text = "Chofer:";
             // 
-            // tablaTurno
-            // 
-            this.tablaTurno.AllowUserToAddRows = false;
-            this.tablaTurno.AllowUserToDeleteRows = false;
-            this.tablaTurno.AllowUserToOrderColumns = true;
-            this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaTurno.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Elegir});
-            this.tablaTurno.Location = new System.Drawing.Point(68, 192);
-            this.tablaTurno.MultiSelect = false;
-            this.tablaTurno.Name = "tablaTurno";
-            this.tablaTurno.ReadOnly = true;
-            this.tablaTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaTurno.Size = new System.Drawing.Size(240, 123);
-            this.tablaTurno.TabIndex = 14;
-            this.tablaTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaTurno_CellContentClick_1);
-            // 
-            // Elegir
-            // 
-            this.Elegir.HeaderText = "Elegir";
-            this.Elegir.Name = "Elegir";
-            this.Elegir.ReadOnly = true;
-            // 
             // tablaChofer
             // 
             this.tablaChofer.AllowUserToAddRows = false;
@@ -161,14 +137,29 @@
             this.tablaMarca.TabIndex = 16;
             this.tablaMarca.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaMarca_CellContentClick);
             // 
+            // tablaTurno
+            // 
+            this.tablaTurno.AllowUserToAddRows = false;
+            this.tablaTurno.AllowUserToDeleteRows = false;
+            this.tablaTurno.AllowUserToOrderColumns = true;
+            this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaTurno.Location = new System.Drawing.Point(68, 192);
+            this.tablaTurno.MultiSelect = false;
+            this.tablaTurno.Name = "tablaTurno";
+            this.tablaTurno.ReadOnly = true;
+            this.tablaTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tablaTurno.Size = new System.Drawing.Size(240, 123);
+            this.tablaTurno.TabIndex = 17;
+            this.tablaTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaTurno_CellContentClick);
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 506);
+            this.Controls.Add(this.tablaTurno);
             this.Controls.Add(this.tablaMarca);
             this.Controls.Add(this.tablaChofer);
-            this.Controls.Add(this.tablaTurno);
             this.Controls.Add(this.LbelChofer);
             this.Controls.Add(this.LbelTurno);
             this.Controls.Add(this.LbelMarca);
@@ -179,9 +170,9 @@
             this.Name = "Alta";
             this.Text = "Alta";
             this.Load += new System.EventHandler(this.Alta_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaMarca)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,9 +194,8 @@
         private System.Windows.Forms.Label LbelMarca;
         private System.Windows.Forms.Label LbelTurno;
         private System.Windows.Forms.Label LbelChofer;
-        private System.Windows.Forms.DataGridView tablaTurno;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Elegir;
         private System.Windows.Forms.DataGridView tablaChofer;
         private System.Windows.Forms.DataGridView tablaMarca;
+        private System.Windows.Forms.DataGridView tablaTurno;
     }
 }

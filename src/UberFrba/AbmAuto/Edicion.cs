@@ -58,5 +58,17 @@ namespace UberFrba.AbmAuto
         }
 
         #endregion
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            string respuesta = CapaInterfaz.IAuto.alta(idAuto);
+            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            this.Close();
+        }
     }
 }

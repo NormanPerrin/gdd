@@ -334,5 +334,22 @@ namespace CapaDatos
 
             return DtResultado;
         }
+
+        public string HabilitarAuto(int idAuto)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[1];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idAuto";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = idAuto;
+
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spHabilitarAuto");
+            string respuesta = string.Empty;
+
+            return resultado;
+        }
     }
 }

@@ -14,18 +14,8 @@ namespace CapaInterfaz
     public class IRendicion
     {
 
-        public static void viajes(System.Windows.Forms.DataGridView tablaViajes, DateTime fecha, System.Windows.Forms.DataGridView tablaTurnos, int idChofer)
+        public static void viajes(System.Windows.Forms.DataGridView tablaViajes, DateTime fecha, int turno, int idChofer)
         {
-            int turno = 0;
-
-            foreach (DataGridViewRow row in tablaTurnos.Rows)
-            {
-                if (Convert.ToBoolean(row.Cells[0].Value))
-                {
-                    turno = System.Convert.ToInt32(row.Cells[1].Value);
-                }
-            }
-            
             tablaViajes.DataSource = CapaNegocio.NRendicion.ObtenerViajes(fecha, turno, idChofer);
         }
 
@@ -58,6 +48,11 @@ namespace CapaInterfaz
             }
         }
 
-        
+
+
+        public static void viajes(DataGridView tablaViajes2, int idChofer)
+        {
+            tablaViajes2.DataSource = CapaNegocio.NRendicion.ObtenerViajes(idChofer);
+        }
     }
 }

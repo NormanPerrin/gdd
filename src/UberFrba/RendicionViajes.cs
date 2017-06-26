@@ -14,6 +14,7 @@ namespace UberFrba
     {
         int idChofer;
         int importe;
+        int turno;
 
         public RendicionViajes()
         {
@@ -24,8 +25,10 @@ namespace UberFrba
             CapaInterfaz.Decoracion.Reorganizar(this);
             CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
             CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
-            CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 1);
+            CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer2);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer2, 0);
         }
 
         private void tablaTurno_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -49,16 +52,11 @@ namespace UberFrba
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (CapaInterfaz.IAuto.ChequearItemSeleccionado(this.tablaTurno))
-            {
-                CapaInterfaz.IRendicion.viajes(this.tablaViaje, this.fecha.Value, this.tablaTurno, idChofer);
+                CapaInterfaz.IRendicion.viajes(this.tablaViaje, this.fecha.Value, turno, idChofer);
 
                 importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViaje);
 
                 this.txtImporte.Text = System.Convert.ToString(importe);
-            }
-            else
-                CapaInterfaz.Decoracion.mostrarInfo("Debe seleccionar al menos un turno");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -67,12 +65,40 @@ namespace UberFrba
 
             CapaInterfaz.IRendicion.rendir(this.tablaViaje, this.fecha.Value);
             CapaInterfaz.Decoracion.mostrarInfo("Transaccion finalizada");
-            //this.Close(); 
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        private void tablaTurno_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+                turno = Convert.ToInt32(selectedCell.FormattedValue);
+            }
+        }
+
+
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CapaInterfaz.IRendicion.viajes(this.tablaViajes2, idChofer);
+
+            importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViaje);
+
+            this.txtImporte.Text = System.Convert.ToString(importe);
+        }
+
+        private void tablaChofer2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer2[0, e.RowIndex];
+            idChofer = Convert.ToInt32(selectedCell.FormattedValue);
+        }
+
+
     }
 }

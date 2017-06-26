@@ -14,6 +14,7 @@ namespace UberFrba.AbmAuto
     {
         public int idChofer;
         public int modelo;
+        public int turno;
         public int marca;
 
         public Alta()
@@ -24,8 +25,6 @@ namespace UberFrba.AbmAuto
 
         private void BtnAlta_Click(object sender, EventArgs e)
         {
-            if ( CapaInterfaz.IAuto.ChequearItemSeleccionado(this.tablaTurno))
-            {
                 //chequeo patente vacia
                 if (string.IsNullOrWhiteSpace(TxtPatente.Text))
                 {
@@ -33,13 +32,11 @@ namespace UberFrba.AbmAuto
                 }
                 else
                 {
-                    string respuesta = CapaInterfaz.IAuto.alta(marca, modelo, TxtPatente.Text, this.tablaTurno, idChofer);
+                    string respuesta = CapaInterfaz.IAuto.alta(marca, modelo, TxtPatente.Text, turno, idChofer);
                     CapaInterfaz.Decoracion.mostrarInfo(respuesta);
                     this.Close();
                 }
-            }
-            else
-                CapaInterfaz.Decoracion.mostrarInfo("Debe seleccionar al menos un turno");
+          
         }
 
         private void Alta_Load(object sender, EventArgs e)
@@ -91,6 +88,12 @@ namespace UberFrba.AbmAuto
                 System.Windows.Forms.DataGridViewCell selectedCell2 = this.tablaMarca[2, e.RowIndex];
                 marca = Convert.ToInt32(selectedCell2.FormattedValue);
             }
+        }
+
+        private void tablaTurno_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno[0, e.RowIndex];
+            turno = Convert.ToInt32(selectedCell.FormattedValue);
         }
 
     }

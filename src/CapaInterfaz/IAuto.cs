@@ -20,17 +20,8 @@ namespace CapaInterfaz
 
         #endregion
 
-        public static string alta(int marca, int modelo, string patente, DataGridView tablaTurno, int chofer)
+        public static string alta(int marca, int modelo, string patente, int turno, int chofer)
         {
-            int turno = 0;
-
-            foreach (DataGridViewRow row in tablaTurno.Rows)
-            {
-                if (Convert.ToBoolean(row.Cells[0].Value))
-                {
-                    turno = System.Convert.ToInt32(row.Cells[1].Value);
-                }
-            }
 
             string respuesta = CapaNegocio.NAuto.alta(marca, modelo, patente, turno, chofer);
             return respuesta;
@@ -188,5 +179,11 @@ namespace CapaInterfaz
         }
 
 
+
+        public static string alta(int idAuto)
+        {
+            string respuesta = CapaNegocio.NAuto.alta(idAuto);
+            return respuesta;
+        }
     }
 }

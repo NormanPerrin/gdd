@@ -92,5 +92,11 @@ namespace CapaNegocio
             CapaDatos.DAuto Objeto = new CapaDatos.DAuto();
             return Objeto.ObtenerAutos(marca, modelo, patente, chofer);
         }
+
+        public static string alta(int idAuto)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.HabilitarAuto(idAuto);
+        }
     }
 }
