@@ -13,36 +13,28 @@ namespace UberFrba.AbmAuto
 {
     public partial class AbmAuto : Form
     {
+        public AbmAuto()
+        {
+            InitializeComponent();
+            CapaInterfaz.Decoracion.Reorganizar(this);
+        }
 
-        #region Constructor
+        private void btnNuevoAuto_Click(object sender, EventArgs e)
+        {
+            Alta ventana = new Alta();
+            ventana.ShowDialog(this);
+        }
 
-            public AbmAuto()
-            {
-                InitializeComponent();
-                CapaInterfaz.Decoracion.Reorganizar(this);
-            }
+        private void btnLista_Click_1(object sender, EventArgs e)
+        {
+            Listado ventana = new Listado();
+            ventana.ShowDialog(this);
+        }
 
-        #endregion
-        
-        #region Acciones
+        private void btnVolver_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-            private void btnNuevoAuto_Click(object sender, EventArgs e)
-            {
-                Alta ventana = new Alta();
-                ventana.ShowDialog(this);
-            }
-
-            private void btnLista_Click_1(object sender, EventArgs e)
-            {
-                Listado ventana = new Listado();
-                ventana.ShowDialog(this);
-            }
-
-            private void btnVolver_Click_1(object sender, EventArgs e)
-            {
-                this.Close();
-            }
-
-        #endregion
     }
 }

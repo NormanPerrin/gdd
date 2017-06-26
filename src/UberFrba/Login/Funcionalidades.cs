@@ -65,12 +65,12 @@ namespace UberFrba
             }
             else if (cbxFuncionalidades.Text == "Rendir viaje")
             {
-                RendicionViajes siguienteVentana = RendicionViajes.ObtenerInstancia();
+                RendicionViajes siguienteVentana = new RendicionViajes();
                 siguienteVentana.Show();
             }
             else if (cbxFuncionalidades.Text == "Facturar cliente")
             {
-                Facturacion siguienteVentana = Facturacion.ObtenerInstancia();
+                Facturacion siguienteVentana = new Facturacion();
                 siguienteVentana.Show();
             }
             else if (cbxFuncionalidades.Text == "Listado Estadistico")

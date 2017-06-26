@@ -38,6 +38,7 @@
             // 
             // cbxCliente
             // 
+            this.cbxCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCliente.FormattingEnabled = true;
             this.cbxCliente.Location = new System.Drawing.Point(11, 24);
             this.cbxCliente.Name = "cbxCliente";

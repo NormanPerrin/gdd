@@ -153,6 +153,7 @@
             0,
             0});
             this.inputKms.Name = "inputKms";
+            this.inputKms.ReadOnly = true;
             this.inputKms.Size = new System.Drawing.Size(74, 20);
             this.inputKms.TabIndex = 8;
             this.inputKms.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

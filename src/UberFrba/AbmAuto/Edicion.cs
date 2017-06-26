@@ -12,13 +12,9 @@ namespace UberFrba.AbmAuto
 {
     public partial class Edicion : Form
     {
-        #region Atributos
-
         int idAuto;
         string licenciaVieja;
         string rodadoViejo;
-
-        #endregion
 
         public Edicion(int id, string lic, string rod)
         {

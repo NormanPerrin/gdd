@@ -31,9 +31,10 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabEdicion = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtNewLicencia = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtNewRodado = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtNewRodado = new System.Windows.Forms.TextBox();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.txtRodadoViejo = new System.Windows.Forms.TextBox();
@@ -43,7 +44,6 @@
             this.tabBaja = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.txtNewLicencia = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabEdicion.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -54,10 +54,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabEdicion);
             this.tabControl1.Controls.Add(this.tabBaja);
-            this.tabControl1.Location = new System.Drawing.Point(30, 27);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(318, 282);
+            this.tabControl1.Size = new System.Drawing.Size(318, 249);
             this.tabControl1.TabIndex = 0;
             // 
             // tabEdicion
@@ -66,7 +66,7 @@
             this.tabEdicion.Location = new System.Drawing.Point(4, 22);
             this.tabEdicion.Name = "tabEdicion";
             this.tabEdicion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEdicion.Size = new System.Drawing.Size(310, 256);
+            this.tabEdicion.Size = new System.Drawing.Size(310, 223);
             this.tabEdicion.TabIndex = 0;
             this.tabEdicion.Text = "Edicion";
             this.tabEdicion.UseVisualStyleBackColor = true;
@@ -85,10 +85,17 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(25, 18);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(259, 214);
+            this.groupBox1.Size = new System.Drawing.Size(259, 186);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modifique los datos deseados del Auto seleccionado:";
+            // 
+            // txtNewLicencia
+            // 
+            this.txtNewLicencia.Location = new System.Drawing.Point(25, 112);
+            this.txtNewLicencia.Name = "txtNewLicencia";
+            this.txtNewLicencia.Size = new System.Drawing.Size(91, 20);
+            this.txtNewLicencia.TabIndex = 15;
             // 
             // label5
             // 
@@ -99,13 +106,6 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Rodado nuevo:";
             // 
-            // txtNewRodado
-            // 
-            this.txtNewRodado.Location = new System.Drawing.Point(145, 112);
-            this.txtNewRodado.Name = "txtNewRodado";
-            this.txtNewRodado.Size = new System.Drawing.Size(91, 20);
-            this.txtNewRodado.TabIndex = 13;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -115,9 +115,16 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Licencia nueva:";
             // 
+            // txtNewRodado
+            // 
+            this.txtNewRodado.Location = new System.Drawing.Point(145, 112);
+            this.txtNewRodado.Name = "txtNewRodado";
+            this.txtNewRodado.Size = new System.Drawing.Size(91, 20);
+            this.txtNewRodado.TabIndex = 13;
+            // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(33, 166);
+            this.btnCerrar.Location = new System.Drawing.Point(97, 151);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 10;
@@ -127,7 +134,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(154, 166);
+            this.btnGuardar.Location = new System.Drawing.Point(178, 151);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 4;
@@ -139,6 +146,7 @@
             // 
             this.txtRodadoViejo.Location = new System.Drawing.Point(145, 64);
             this.txtRodadoViejo.Name = "txtRodadoViejo";
+            this.txtRodadoViejo.ReadOnly = true;
             this.txtRodadoViejo.Size = new System.Drawing.Size(91, 20);
             this.txtRodadoViejo.TabIndex = 3;
             // 
@@ -175,14 +183,14 @@
             this.tabBaja.Location = new System.Drawing.Point(4, 22);
             this.tabBaja.Name = "tabBaja";
             this.tabBaja.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBaja.Size = new System.Drawing.Size(310, 256);
+            this.tabBaja.Size = new System.Drawing.Size(310, 223);
             this.tabBaja.TabIndex = 1;
             this.tabBaja.Text = "Baja";
             this.tabBaja.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(58, 181);
+            this.button2.Location = new System.Drawing.Point(51, 96);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
@@ -192,7 +200,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(192, 181);
+            this.button1.Location = new System.Drawing.Point(188, 96);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -200,18 +208,11 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txtNewLicencia
-            // 
-            this.txtNewLicencia.Location = new System.Drawing.Point(25, 112);
-            this.txtNewLicencia.Name = "txtNewLicencia";
-            this.txtNewLicencia.Size = new System.Drawing.Size(91, 20);
-            this.txtNewLicencia.TabIndex = 15;
-            // 
             // Edicion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 331);
+            this.ClientSize = new System.Drawing.Size(341, 272);
             this.Controls.Add(this.tabControl1);
             this.Name = "Edicion";
             this.Text = "Edicion";

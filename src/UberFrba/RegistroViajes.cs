@@ -61,6 +61,7 @@ namespace UberFrba
             CapaInterfaz.IViaje.AgregarViaje(idcliente, idchofer, turno, idauto, fechaDesde, fechaHasta, kms);
             reset();
             MessageBox.Show("Se ha registrado el viaje", "Registro viaje", MessageBoxButtons.OKCancel);
+            this.Close();
         }
 
         private void cbxTurno_SelectedIndexChanged(object sender, EventArgs e)

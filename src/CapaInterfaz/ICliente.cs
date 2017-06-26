@@ -14,8 +14,6 @@ namespace CapaInterfaz
 {
     public class ICliente
     {
-        #region Metodos/Atributos
-
         private static Dictionary<String, String> clientes = new Dictionary<String, String> {};
 
         public static void CargarClientes(ComboBox cbxCliente, DateTime dateFrom, DateTime dateTo)
@@ -61,8 +59,6 @@ namespace CapaInterfaz
             tablaClientes.DataSource = CapaNegocio.NCliente.BuscarCliente(cliente);
 
         }
-
-        #endregion
 
         public static string eliminar(int id_cliente)
         {

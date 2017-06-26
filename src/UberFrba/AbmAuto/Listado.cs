@@ -12,7 +12,6 @@ namespace UberFrba.AbmAuto
 {
     public partial class Listado : Form
     {
-
         int marca;
         int modelo;
         int chofer;
@@ -30,11 +29,6 @@ namespace UberFrba.AbmAuto
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca, 2);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

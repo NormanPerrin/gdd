@@ -14,66 +14,34 @@ namespace UberFrba
 {
     public partial class Facturacion : Form
     {
-        #region Atributos
+        public Facturacion()
+        {
+            InitializeComponent();
+            CapaInterfaz.Decoracion.Reorganizar(this);
+        }
+        private void reset()
+        {
+            CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente);
+        }
 
-            private static Facturacion _Instancia;
+        private void Facturacion_Load(object sender, EventArgs e)
+        {
+            CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente);
+        }
 
-        #endregion
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
+            CapaInterfaz.IViaje.AgregarFacturacion(idCliente);
+            reset();
+            MessageBox.Show("Se ha registrado la facturacion", "Registro facturacion", MessageBoxButtons.OKCancel);
+            this.Close();
+        }
 
-        #region Constructor
-
-            public Facturacion()
-            {
-                InitializeComponent();
-            }
-
-        #endregion
-
-        #region Metodos y funciones auxiliares
-
-            public static Facturacion ObtenerInstancia()
-            {
-                if (Instancia == null)
-                {
-                    Instancia = new Facturacion();
-                }
-                return Instancia;
-            }
-
-            private void reset()
-            {
-                CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente);
-            }
-
-        #endregion
-
-        #region Getters/Setters
-
-            public static Facturacion Instancia
-            {
-                get { return Facturacion._Instancia; }
-                set { Facturacion._Instancia = value; }
-            }
-
-        #endregion
-
-            private void Facturacion_Load(object sender, EventArgs e)
-            {
-                CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente);
-            }
-
-            private void button1_Click(object sender, EventArgs e)
-            {
-                String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
-                CapaInterfaz.IViaje.AgregarFacturacion(idCliente);
-                reset();
-                MessageBox.Show("Se ha registrado la facturacion", "Registro facturacion", MessageBoxButtons.OKCancel);
-            }
-
-            private void cbxCliente_SelectedIndexChanged(object sender, EventArgs e)
-            {
-                String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
-                CapaInterfaz.IViaje.CargarListaViajes(dataGridView1, idCliente);
-            }
+        private void cbxCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
+            CapaInterfaz.IViaje.CargarListaViajes(dataGridView1, idCliente);
+        }
     }
 }

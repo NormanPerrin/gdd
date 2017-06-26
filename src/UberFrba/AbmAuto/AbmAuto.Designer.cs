@@ -40,7 +40,7 @@
             this.groupBox1.Controls.Add(this.btnVolver);
             this.groupBox1.Controls.Add(this.btnLista);
             this.groupBox1.Controls.Add(this.btnNuevoAuto);
-            this.groupBox1.Location = new System.Drawing.Point(22, 35);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(168, 150);
             this.groupBox1.TabIndex = 1;
@@ -81,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(212, 220);
+            this.ClientSize = new System.Drawing.Size(195, 175);
             this.Controls.Add(this.groupBox1);
             this.Name = "AbmAuto";
             this.Text = "AbmAuto";
