@@ -1524,36 +1524,36 @@ CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModelo
 	@marca int,
 	@modelo int
 	AS
-		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre, a.habilitado
 		FROM CRAZYDRIVER.Marca ma
 		JOIN CRAZYDRIVER.Modelo mo on mo.id_marca = @marca AND mo.id_modelo = @modelo
 		JOIN CRAZYDRIVER.Auto a on mo.id_modelo = a.id_modelo
 		JOIN CRAZYDRIVER.AutoPorChofer ac on a.id_auto = ac.id_auto
 		WHERE ma.id_marca = @marca
-		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre, a.habilitado
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerAutosChofer
 	@chofer int
 	AS
-		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre, a.habilitado
 		FROM CRAZYDRIVER.AutoPorChofer ac
 		JOIN CRAZYDRIVER.Auto a on ac.id_auto = a.id_auto
 		JOIN CRAZYDRIVER.Modelo mo on a.id_modelo = mo.id_modelo
 		JOIN CRAZYDRIVER.Marca ma on mo.id_marca = ma.id_marca
 		WHERE ac.id_chofer = @chofer
-		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre, a.habilitado
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerAutosPatente
 	@patente nvarchar(10)
 	AS
-		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		SELECT a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre, a.habilitado
 		FROM  CRAZYDRIVER.AutoPorChofer ac, CRAZYDRIVER.Auto a
 		JOIN CRAZYDRIVER.Modelo mo on a.id_modelo = mo.id_modelo
 		JOIN CRAZYDRIVER.Marca ma on mo.id_marca = ma.id_marca
 		WHERE a.patente = @patente AND a.id_auto = ac.id_auto
-		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre
+		GROUP BY a.id_auto, ma.id_marca, mo.id_modelo, a.patente, ac.id_chofer, a.licencia, a.rodado, mo.nombre, a.habilitado
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModeloChofer

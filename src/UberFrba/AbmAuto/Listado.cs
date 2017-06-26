@@ -16,6 +16,7 @@ namespace UberFrba.AbmAuto
         int modelo;
         int chofer;
         int idAuto;
+        int habilitado;
         string licencia;
         string rodado;
 
@@ -34,6 +35,7 @@ namespace UberFrba.AbmAuto
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             CapaInterfaz.IAuto.BuscarAuto(this.tablaAutos, marca, modelo, txtPatente.Text, chofer);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 8);
         }
 
         private void tablaMarca_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -63,9 +65,12 @@ namespace UberFrba.AbmAuto
             idAuto = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[0].Value);
             licencia = Convert.ToString(this.tablaAutos.CurrentRow.Cells[5].Value);
             rodado = Convert.ToString(this.tablaAutos.CurrentRow.Cells[6].Value);
-
-            Edicion ventana = new Edicion(idAuto, licencia, rodado);
+            habilitado = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[8].Value);
+            Edicion ventana = new Edicion(idAuto, licencia, rodado, habilitado);
             ventana.ShowDialog(this);
+            CapaInterfaz.IAuto.BuscarAuto(this.tablaAutos, marca, modelo, txtPatente.Text, chofer);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 8);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -15,14 +15,16 @@ namespace UberFrba.AbmAuto
         int idAuto;
         string licenciaVieja;
         string rodadoViejo;
+        int habilitado;
 
-        public Edicion(int id, string lic, string rod)
+        public Edicion(int id, string lic, string rod, int hab)
         {
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
             this.licenciaVieja = lic;
             this.rodadoViejo = rod;
             this.idAuto = id;
+            this.habilitado = hab;
             this.txtLicenciaVieja.Text = this.licenciaVieja;
             this.txtRodadoViejo.Text = this.rodadoViejo;
         }
@@ -52,8 +54,15 @@ namespace UberFrba.AbmAuto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string respuesta = CapaInterfaz.IAuto.baja(idAuto);
-            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            if (habilitado == 0)
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("Este auto ya se encuentra deshabilitado");
+            }
+            else
+            {
+                string respuesta = CapaInterfaz.IAuto.baja(idAuto);
+                CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            }
             this.Close();
         }
 
@@ -66,9 +75,18 @@ namespace UberFrba.AbmAuto
 
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
-            string respuesta = CapaInterfaz.IAuto.alta(idAuto);
-            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            if (habilitado == 1)
+            { 
+                CapaInterfaz.Decoracion.mostrarInfo("Este auto ya se encuentra habilitado"); 
+            }
+            else
+            {
+                string respuesta = CapaInterfaz.IAuto.alta(idAuto);
+                CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            }
             this.Close();
         }
+
+       
     }
 }
