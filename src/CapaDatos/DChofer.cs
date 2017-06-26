@@ -17,15 +17,26 @@ namespace CapaDatos
         {
         }
 
-        public DataTable ObtenerChoferes(String turno)
+        public DataTable ObtenerChoferes(DateTime dateFrom, DateTime dateTo, String turno)
         {
             Conexion Conexion = new Conexion();
 
-            SqlParameter[] parametros = new SqlParameter[1];
+            SqlParameter[] parametros = new SqlParameter[3];
+
             parametros[0] = new SqlParameter();
             parametros[0].ParameterName = "@turno";
             parametros[0].SqlDbType = SqlDbType.Int;
             parametros[0].Value = Int32.Parse(turno);
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@dateFrom";
+            parametros[1].SqlDbType = SqlDbType.DateTime;
+            parametros[1].Value = dateFrom;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@dateTo";
+            parametros[2].SqlDbType = SqlDbType.DateTime;
+            parametros[2].Value = dateTo;
 
             DataTable DtResultado = new DataTable("Chofer");
             DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerChoferesPorTurno");

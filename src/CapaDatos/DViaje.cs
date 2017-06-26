@@ -71,12 +71,12 @@ namespace CapaDatos
 
             parametros[4] = new SqlParameter();
             parametros[4].ParameterName = "@fechaDesde";
-            parametros[4].SqlDbType = SqlDbType.Date;
+            parametros[4].SqlDbType = SqlDbType.DateTime;
             parametros[4].Value = fechaDesde;
 
             parametros[5] = new SqlParameter();
             parametros[5].ParameterName = "@fechaHasta";
-            parametros[5].SqlDbType = SqlDbType.Date;
+            parametros[5].SqlDbType = SqlDbType.DateTime;
             parametros[5].Value = fechaHasta;
 
             parametros[6] = new SqlParameter();
@@ -84,7 +84,7 @@ namespace CapaDatos
             parametros[6].SqlDbType = SqlDbType.Int;
             parametros[6].Value = kms;
 
-            Conexion.Ejecutar(parametros, "CRAZYDRIVER.spagregarviaje");
+            Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarViaje");
         }
 
         public DataTable ObtenerListaViajesPorChofer(String idCliente, DateTime fechaDesde, DateTime fechaHasta)
@@ -99,12 +99,12 @@ namespace CapaDatos
 
             parametros[1] = new SqlParameter();
             parametros[1].ParameterName = "@fechaDesde";
-            parametros[1].SqlDbType = SqlDbType.Date;
+            parametros[1].SqlDbType = SqlDbType.DateTime;
             parametros[1].Value = fechaDesde;
 
             parametros[2] = new SqlParameter();
             parametros[2].ParameterName = "@fechaHasta";
-            parametros[2].SqlDbType = SqlDbType.Date;
+            parametros[2].SqlDbType = SqlDbType.DateTime;
             parametros[2].Value = fechaHasta;
 
             DataTable DtResultado = new DataTable("Viajes");

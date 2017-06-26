@@ -18,9 +18,10 @@ namespace CapaInterfaz
 
         private static Dictionary<String, String> clientes = new Dictionary<String, String> {};
 
-        public static void CargarClientes(ComboBox cbxCliente)
+        public static void CargarClientes(ComboBox cbxCliente, DateTime dateFrom, DateTime dateTo)
         {
-            DataTable Datos = CapaNegocio.NCliente.ObtenerClientes();
+            DataTable Datos = CapaNegocio.NCliente.ObtenerClientes(dateFrom, dateTo);
+            cbxCliente.Items.Clear();
             clientes.Clear();
             if (Datos.Rows.Count != 0)
             {

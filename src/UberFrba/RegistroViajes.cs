@@ -44,6 +44,10 @@ namespace UberFrba
                 lblCosto.Text = String.Empty;
                 String turno = ITurno.getIdTurnoActual(cbxTurno.Text);
                 CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno);
+                CapaInterfaz.IChofer.CargarChoferesPorTurno(cbxChofer, dateFrom.Value, dateTo.Value, turno);
+                String idChofer = CapaInterfaz.IChofer.getIdChoferActual(cbxChofer.Text);
+                CapaInterfaz.IAuto.CargarAutoHabilitado(lblAuto, idChofer, turno);
+                CapaInterfaz.ICliente.CargarClientes(cbxCliente, dateFrom.Value, dateTo.Value);
             }
 
         #endregion
@@ -83,7 +87,6 @@ namespace UberFrba
             private void RegistroViajes_Load(object sender, EventArgs e)
             {
                 CapaInterfaz.ITurno.CargarTurnos(cbxTurno);
-                CapaInterfaz.ICliente.CargarClientes(cbxCliente);
             }
 
             private void button2_Click(object sender, EventArgs e)
@@ -103,10 +106,11 @@ namespace UberFrba
             private void cbxTurno_SelectedIndexChanged(object sender, EventArgs e)
             {
                 String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
-                CapaInterfaz.IChofer.CargarChoferesPorTurno(cbxChofer, turno);
+                CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno);
+                CapaInterfaz.IChofer.CargarChoferesPorTurno(cbxChofer, dateFrom.Value, dateTo.Value, turno);
                 String idChofer = CapaInterfaz.IChofer.getIdChoferActual(cbxChofer.Text);
                 CapaInterfaz.IAuto.CargarAutoHabilitado(lblAuto, idChofer, turno);
-                CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno);
+                CapaInterfaz.ICliente.CargarClientes(cbxCliente, dateFrom.Value, dateTo.Value);
             }
 
             private void cbxChofer_SelectedIndexChanged(object sender, EventArgs e)
@@ -127,12 +131,16 @@ namespace UberFrba
             {   
                 DateTime now = DateTime.Now;
                 dateTo.MinDate = new DateTime(now.Year, now.Month, now.Day, dateFrom.Value.Hour, dateFrom.Value.Minute, dateFrom.Value.Second);
+                String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
+                CapaInterfaz.ICliente.CargarClientes(cbxCliente, dateFrom.Value, dateTo.Value);
             }
 
             private void dateTo_ValueChanged(object sender, EventArgs e)
             {
                 DateTime now = DateTime.Now;
                 dateFrom.MaxDate = new DateTime(now.Year, now.Month, now.Day, dateTo.Value.Hour, dateTo.Value.Minute, dateTo.Value.Second);
+                String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
+                CapaInterfaz.ICliente.CargarClientes(cbxCliente, dateFrom.Value, dateTo.Value);
             }
 
     }

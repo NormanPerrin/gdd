@@ -12,10 +12,10 @@ namespace CapaNegocio
     public class NCliente
     {
 
-        public static DataTable ObtenerClientes()
+        public static DataTable ObtenerClientes(DateTime dateFrom, DateTime dateTo)
         {
             DCliente Objeto = new DCliente();
-            return Objeto.ObtenerClientes();
+            return Objeto.ObtenerClientes(dateFrom, dateTo);
         }
 
         public static string alta(int dni, string nombre, string apellido, string direccion, string mail, int telefono, DateTime fecha_nac, int? nro_piso, char? dpto, string localidad, int cod_postal)

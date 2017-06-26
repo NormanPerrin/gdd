@@ -14,10 +14,10 @@ namespace CapaNegocio
     public class NChofer
     {
 
-        public static DataTable ObtenerChoferes(String turno)
+        public static DataTable ObtenerChoferes(DateTime dateFrom, DateTime dateTo, String turno)
         {
             DChofer Objeto = new DChofer();
-            return Objeto.ObtenerChoferes(turno);
+            return Objeto.ObtenerChoferes(dateFrom, dateTo, turno);
         }
 
         public static DataTable ObtenerChoferes()

@@ -15,9 +15,10 @@ namespace CapaInterfaz
     {
         static Dictionary<String, String> choferes = new Dictionary<String, String> {};
 
-        public static void CargarChoferesPorTurno(ComboBox cbxChofer, String turno)
+        public static void CargarChoferesPorTurno(ComboBox cbxChofer, DateTime dateFrom, DateTime dateTo, String turno)
         {
-            DataTable Datos = CapaNegocio.NChofer.ObtenerChoferes(turno);
+            DataTable Datos = CapaNegocio.NChofer.ObtenerChoferes(dateFrom, dateTo, turno);
+            cbxChofer.Items.Clear();
             choferes.Clear();
             if (Datos.Rows.Count != 0)
             {

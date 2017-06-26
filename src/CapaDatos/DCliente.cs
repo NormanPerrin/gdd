@@ -16,11 +16,24 @@ namespace CapaDatos
         {
         }
 
-        public DataTable ObtenerClientes()
+        public DataTable ObtenerClientes(DateTime dateFrom, DateTime dateTo)
         {
             Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[2];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@dateFrom";
+            parametros[0].SqlDbType = SqlDbType.DateTime;
+            parametros[0].Value = dateFrom;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@dateTo";
+            parametros[1].SqlDbType = SqlDbType.DateTime;
+            parametros[1].Value = dateTo;
+
             DataTable DtResultado = new DataTable("Clientes");
-            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerClientes");
+            DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerClientes");
             return DtResultado;
         }
 
@@ -226,12 +239,12 @@ namespace CapaDatos
 
             parametros[0] = new SqlParameter();
             parametros[0].ParameterName = "@fechaDesde";
-            parametros[0].SqlDbType = SqlDbType.Date;
+            parametros[0].SqlDbType = SqlDbType.DateTime;
             parametros[0].Value = fechaDesde;
 
             parametros[1] = new SqlParameter();
             parametros[1].ParameterName = "@fechaHasta";
-            parametros[1].SqlDbType = SqlDbType.Date;
+            parametros[1].SqlDbType = SqlDbType.DateTime;
             parametros[1].Size = 255;
             parametros[1].Value = fechaHasta;
 

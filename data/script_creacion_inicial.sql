@@ -88,9 +88,9 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spAgregarCliente;
 END;
 
-IF OBJECT_ID('CRAZYDRIVER.spagregarviaje') IS NOT NULL
+IF OBJECT_ID('CRAZYDRIVER.spAgregarViaje') IS NOT NULL
 BEGIN
-	DROP PROCEDURE CRAZYDRIVER.spagregarviaje;
+	DROP PROCEDURE CRAZYDRIVER.spAgregarViaje;
 END;
 
 IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferesPorTurno') IS NOT NULL
@@ -917,12 +917,16 @@ CREATE PROC CRAZYDRIVER.spActualizarFuncionalidadPorRol
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerChoferesPorTurno
-	@turno INT
+	@turno INT,
+	@dateFrom DATETIME,
+	@dateTo DATETIME
 	AS
 		SELECT DISTINCT c.id_chofer, c.nombre FROM CRAZYDRIVER.Chofer c
-			JOIN CRAZYDRIVER.Usuario usr ON usr.habilitado = 1
-			JOIN CRAZYDRIVER.AutoPorChofer apc ON apc.id_chofer = c.id_chofer and apc.id_turno = @turno
-			JOIN CRAZYDRIVER.Auto a ON a.id_auto = apc.id_auto
+			JOIN CRAZYDRIVER.AutoPorChofer apc ON apc.id_chofer = c.id_chofer AND apc.id_turno = @turno
+			WHERE c.habilitado = 1
+				AND (SELECT DISTINCT 1 FROM CRAZYDRIVER.Viaje v 
+					WHERE v.id_chofer = c.id_chofer
+						AND v.fecha_inicio BETWEEN @dateFrom AND @dateTo) IS NULL
 			ORDER BY c.nombre
 GO
 
@@ -939,8 +943,15 @@ CREATE PROC CRAZYDRIVER.spObtenerAutoPorIDChoferTurno
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerClientes
+	@dateFrom DATETIME,
+	@dateTo DATETIME
 	AS
 	SELECT c.id_cliente, c.apellido, c.nombre FROM CRAZYDRIVER.Cliente c
+		WHERE c.habilitado = 1
+			AND (SELECT DISTINCT 1 FROM CRAZYDRIVER.Viaje v 
+					WHERE v.id_cliente = c.id_cliente
+						AND v.fecha_inicio BETWEEN @dateFrom AND @dateTo) IS NULL
+		ORDER BY c.id_cliente
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerValorTurno
@@ -950,13 +961,13 @@ CREATE PROC CRAZYDRIVER.spObtenerValorTurno
 			WHERE t.id_turno = @turno
 GO
 
-CREATE PROC crazydriver.spagregarviaje
+CREATE PROC crazydriver.spAgregarViaje
 	@idcliente INT,
 	@idchofer INT,
 	@turno INT,
 	@idauto INT,
-    @fechaDesde DATE,
-	@fechaHasta DATE,
+    @fechaDesde DATETIME,
+	@fechaHasta DATETIME,
  	@kms NUMERIC(18, 0)
 	AS
 		INSERT INTO CRAZYDRIVER.Viaje(id_cliente, id_chofer, id_turno, id_auto, fecha_inicio, fecha_fin, cant_km)
@@ -1047,7 +1058,6 @@ CREATE PROC CRAZYDRIVER.spAgregarCliente
 		INSERT INTO CRAZYDRIVER.Cliente (dni,nombre,apellido,direccion,mail,telefono,fecha_nac,nro_piso,depto,localidad,cod_postal,id_usuario,habilitado)
 		values (@dni,@nombre,@apellido,@direccion,@mail,@telefono,@fecha_nac,@nro_piso,@depto,@localidad,@cod_postal,@usuario,1);
 		END
-
  GO
 
 
@@ -1172,8 +1182,8 @@ CREATE PROC CRAZYDRIVER.spEliminarCliente
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerViajesEntreFechasYCliente
-	@fechaDesde DATE,
-	@fechaHasta DATE,
+	@fechaDesde DATETIME,
+	@fechaHasta DATETIME,
 	@clienteid INT
 	AS
 	SELECT v.id_turno AS Turno,
@@ -1187,20 +1197,20 @@ CREATE PROC CRAZYDRIVER.spObtenerViajesEntreFechasYCliente
 		WHERE v.id_cliente = @clienteid AND t.id_turno = v.id_turno AND v.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta
 GO
 
--- TARDA MUCHO. Falta filtrar clientes que ya fueron facturados
 CREATE PROC CRAZYDRIVER.spBuscarClientesSinFacturacion
-	@fechaDesde DATE,
-	@fechaHasta DATE
+	@fechaDesde DATETIME,
+	@fechaHasta DATETIME
 	AS
 	SELECT DISTINCT c.id_cliente, c.apellido + ' ' + c.nombre FROM CRAZYDRIVER.Cliente c
-		JOIN CRAZYDRIVER.Viaje v ON v.id_cliente = c.id_cliente AND c.habilitado = 1
-		JOIN CRAZYDRIVER.FacturacionPorViaje fxv ON fxv.id_viaje = v.id_viaje
-		JOIN CRAZYDRIVER.Facturacion f ON f.nro_facturacion = fxv.nro_facturacion
-			AND f.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta
+		JOIN CRAZYDRIVER.Viaje v ON v.id_cliente = c.id_cliente
+			AND v.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta
+		WHERE (SELECT 1 FROM CRAZYDRIVER.Viaje v
+				JOIN CRAZYDRIVER.FacturacionPorViaje fv ON v.id_viaje = fv.id_viaje
+				JOIN CRAZYDRIVER.Facturacion f ON f.nro_facturacion = fv.nro_facturacion
+				WHERE v.id_cliente = c.id_cliente
+					AND f.fecha BETWEEN @fechaDesde AND @fechaHasta) IS NULL
 		ORDER BY c.id_cliente
 GO
-
-
 
 CREATE PROC CRAZYDRIVER.spAltaFactura
 	@fechaDesde DATE,
