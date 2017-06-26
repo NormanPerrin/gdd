@@ -31,10 +31,16 @@ namespace UberFrba
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (cbxCliente.Text == "")
+            {
+                MessageBox.Show("No hay clientes para facturar", "Error facturación", MessageBoxButtons.OK);
+                return;
+            }
+
             String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
             CapaInterfaz.IViaje.AgregarFacturacion(idCliente);
             reset();
-            MessageBox.Show("Se ha registrado la facturacion", "Registro facturacion", MessageBoxButtons.OKCancel);
+            MessageBox.Show("Se ha registrado la facturacion", "Registro facturacion", MessageBoxButtons.OK);
             this.Close();
         }
 

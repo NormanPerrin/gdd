@@ -69,7 +69,7 @@ namespace CapaInterfaz
         {
             DateTime now = DateTime.Now;
             DateTime fechaDesde = new DateTime(now.Year, now.Month, 01);
-            DateTime fechaHasta = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
+            DateTime fechaHasta = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month), 23, 59, 59);
             DataTable Datos = CapaNegocio.NCliente.ObtenerClientesSinFacturacion(fechaDesde, fechaHasta);
 
             clientes.Clear();

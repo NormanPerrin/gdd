@@ -60,7 +60,7 @@ namespace UberFrba
             int kms = Int32.Parse(inputKms.Value.ToString());
             CapaInterfaz.IViaje.AgregarViaje(idcliente, idchofer, turno, idauto, fechaDesde, fechaHasta, kms);
             reset();
-            MessageBox.Show("Se ha registrado el viaje", "Registro viaje", MessageBoxButtons.OKCancel);
+            MessageBox.Show("Se ha registrado el viaje", "Registro viaje", MessageBoxButtons.OK);
             this.Close();
         }
 

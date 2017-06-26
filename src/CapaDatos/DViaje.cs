@@ -19,26 +19,26 @@ namespace CapaDatos
         {
             Conexion Conexion = new Conexion();
             SqlParameter[] parametros = new SqlParameter[4];
+            
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@fechaDesde";
+            parametros[0].SqlDbType = SqlDbType.DateTime;
+            parametros[0].Value = fechaDesde;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@fechaHasta";
+            parametros[1].SqlDbType = SqlDbType.DateTime;
+            parametros[1].Value = fechaHasta;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@fechaCreado";
+            parametros[2].SqlDbType = SqlDbType.DateTime;
+            parametros[2].Value = fechaAhora;
 
             parametros[3] = new SqlParameter();
             parametros[3].ParameterName = "@clienteid";
             parametros[3].SqlDbType = SqlDbType.Int;
             parametros[3].Value = Int32.Parse(idCliente);
-
-            parametros[2] = new SqlParameter();
-            parametros[2].ParameterName = "@fechaCreado";
-            parametros[2].SqlDbType = SqlDbType.Date;
-            parametros[2].Value = fechaAhora;
-            
-            parametros[0] = new SqlParameter();
-            parametros[0].ParameterName = "@fechaDesde";
-            parametros[0].SqlDbType = SqlDbType.Date;
-            parametros[0].Value = fechaDesde;
-
-            parametros[1] = new SqlParameter();
-            parametros[1].ParameterName = "@fechaHasta";
-            parametros[1].SqlDbType = SqlDbType.Date;
-            parametros[1].Value = fechaHasta;
 
             Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spAltaFactura");
         }

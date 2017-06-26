@@ -1223,7 +1223,7 @@ CREATE PROC CRAZYDRIVER.spBuscarClientesSinFacturacion
 	SELECT DISTINCT c.id_cliente, c.apellido + ' ' + c.nombre FROM CRAZYDRIVER.Cliente c
 		JOIN CRAZYDRIVER.Viaje v ON v.id_cliente = c.id_cliente
 			AND v.fecha_inicio BETWEEN @fechaDesde AND @fechaHasta
-		WHERE (SELECT 1 FROM CRAZYDRIVER.Viaje v
+		WHERE (SELECT DISTINCT 1 FROM CRAZYDRIVER.Viaje v
 				JOIN CRAZYDRIVER.FacturacionPorViaje fv ON v.id_viaje = fv.id_viaje
 				JOIN CRAZYDRIVER.Facturacion f ON f.nro_facturacion = fv.nro_facturacion
 				WHERE v.id_cliente = c.id_cliente
@@ -1232,9 +1232,9 @@ CREATE PROC CRAZYDRIVER.spBuscarClientesSinFacturacion
 GO
 
 CREATE PROC CRAZYDRIVER.spAltaFactura
-	@fechaDesde DATE,
-	@fechaHasta DATE,
-	@fechaCreado DATE,
+	@fechaDesde DATETIME,
+	@fechaHasta DATETIME,
+	@fechaCreado DATETIME,
 	@clienteid INT
 	AS
 

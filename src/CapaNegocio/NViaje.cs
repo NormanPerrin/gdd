@@ -29,7 +29,7 @@ namespace CapaNegocio
         {
             DateTime now = DateTime.Now;
             DateTime fechaDesde = new DateTime(now.Year, now.Month, 1);
-            DateTime fechaHasta = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
+            DateTime fechaHasta = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month), 23, 59, 59);
             new CapaDatos.DViaje().AgregarFacturacion(idCliente, now, fechaDesde, fechaHasta);
         }
     }
