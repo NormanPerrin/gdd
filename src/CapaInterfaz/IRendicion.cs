@@ -36,11 +36,28 @@ namespace CapaInterfaz
             foreach (DataGridViewRow row in tablaViajes.Rows)
             {
                 //en la columna de importe por viaje
-                importeTotal += System.Convert.ToInt32(row.Cells[3].Value);
+                importeTotal += System.Convert.ToInt32(row.Cells[4].Value);
 
             }
             return importeTotal;
 
         }
+
+        public static void rendir(DataGridView tablaViajes, DateTime fecha)
+        {
+            CapaNegocio.NRendicion.rendir(fecha);
+
+            int importe = 0;
+            int viaje = 0;
+            foreach (DataGridViewRow row in tablaViajes.Rows)
+            {
+                //en la columna de importe por viaje
+                importe = System.Convert.ToInt32(row.Cells[4].Value);
+                viaje = System.Convert.ToInt32(row.Cells[3].Value);
+                CapaNegocio.NRendicion.importesPorViaje(viaje, importe);
+            }
+        }
+
+        
     }
 }

@@ -40,5 +40,39 @@ namespace CapaDatos
 
             return DtResultado;
         }
+
+        public void rendir(DateTime fecha)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[1];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@fecha";
+            parametros[0].SqlDbType = SqlDbType.DateTime;
+            parametros[0].Value = fecha;
+
+            Conexion.Ejecutar(parametros, "CRAZYDRIVER.spRendir");
+        }
+
+        public void importesPorViaje(int viaje, int importe)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[2];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@viaje";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = viaje;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@importe";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = importe;
+
+            Conexion.Ejecutar(parametros, "CRAZYDRIVER.spImportePorViaje");
+
+        }
     }
 }

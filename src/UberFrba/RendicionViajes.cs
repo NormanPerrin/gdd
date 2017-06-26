@@ -104,6 +104,10 @@ namespace UberFrba
             private void button1_Click(object sender, EventArgs e)
             {
                 //rendir
+
+                CapaInterfaz.IRendicion.rendir(this.tablaViaje, this.fecha.Value);
+                CapaInterfaz.Decoracion.mostrarInfo("Transaccion finalizada");
+                //this.Close(); 
             }
 
             private void button2_Click(object sender, EventArgs e)
