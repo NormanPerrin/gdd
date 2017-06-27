@@ -75,21 +75,15 @@ namespace CapaDatos
 
         }
 
-        public object ObtenerViajes(int idChofer)
+        public object ObtenerViajes()
         {
             Conexion Conexion = new Conexion();
 
             DataTable DtResultado = new DataTable("Viajes");
 
-            SqlParameter[] parametros = new SqlParameter[1];
-
-            parametros[0] = new SqlParameter();
-            parametros[0].ParameterName = "@chofer";
-            parametros[0].SqlDbType = SqlDbType.Int;
-            parametros[0].Value = idChofer;
 
             //retornar una tabla con los viajes y una columna adicional que sea el importe del viaje (base+ km * precio km) as importe
-            DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerViajesPorChofer");
+            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerViajesPorChofer");
 
             return DtResultado;
         }

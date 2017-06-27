@@ -1672,15 +1672,13 @@ CREATE PROC CRAZYDRIVER.spObtenerViajes
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerViajesPorChofer
-	@chofer int
 	AS
 		SELECT c.id_chofer, v.id_turno, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
 			FROM CRAZYDRIVER.Turno t
 			WHERE t.id_turno = v.id_turno) as importe
 		FROM CRAZYDRIVER.Chofer c
 		JOIN CRAZYDRIVER.Viaje v on c.id_chofer = v.id_chofer
-		WHERE v.id_viaje NOT IN (SELECT id_viaje FROM CRAZYDRIVER.RendicionPorViaje) AND
-		c.id_chofer = @chofer
+		WHERE v.id_viaje NOT IN (SELECT id_viaje FROM CRAZYDRIVER.RendicionPorViaje)
 GO
 
 CREATE PROC CRAZYDRIVER.spRendir

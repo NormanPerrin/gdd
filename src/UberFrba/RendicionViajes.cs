@@ -25,10 +25,8 @@ namespace UberFrba
             CapaInterfaz.Decoracion.Reorganizar(this);
             CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
             CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
-            CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer2);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
-            CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer2, 0);
         }
 
         private void tablaTurno_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -86,17 +84,11 @@ namespace UberFrba
 
         private void button4_Click(object sender, EventArgs e)
         {
-            CapaInterfaz.IRendicion.viajes(this.tablaViajes2, idChofer);
+            CapaInterfaz.IRendicion.viajes(this.tablaViajes2);
 
-            importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViaje);
+            importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViajes2);
 
-            this.txtImporte.Text = System.Convert.ToString(importe);
-        }
-
-        private void tablaChofer2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer2[0, e.RowIndex];
-            idChofer = Convert.ToInt32(selectedCell.FormattedValue);
+            this.txtImporte2.Text = System.Convert.ToString(importe);
         }
 
 

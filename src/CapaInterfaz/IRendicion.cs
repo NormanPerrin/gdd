@@ -50,9 +50,9 @@ namespace CapaInterfaz
 
 
 
-        public static void viajes(DataGridView tablaViajes2, int idChofer)
+        public static void viajes(DataGridView tablaViajes2)
         {
-            tablaViajes2.DataSource = CapaNegocio.NRendicion.ObtenerViajes(idChofer);
+            tablaViajes2.DataSource = CapaNegocio.NRendicion.ObtenerViajes();
         }
     }
 }

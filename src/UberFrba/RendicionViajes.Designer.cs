@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tablaTurno = new System.Windows.Forms.DataGridView();
             this.txtImporte = new System.Windows.Forms.TextBox();
@@ -42,24 +43,20 @@
             this.tablaChofer = new System.Windows.Forms.DataGridView();
             this.fecha = new System.Windows.Forms.DateTimePicker();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tablaChofer2 = new System.Windows.Forms.DataGridView();
-            this.tablaViajes2 = new System.Windows.Forms.DataGridView();
-            this.label4 = new System.Windows.Forms.Label();
-            this.importe2 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
+            this.txtImporte2 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tablaViajes2 = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaViaje)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaViajes2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,15 +71,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rendicion de viajes (pago al chofer)";
             // 
-            // button2
+            // tabControl1
             // 
-            this.button2.Location = new System.Drawing.Point(383, 566);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 24;
-            this.button2.Text = "Cerrar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(7, 19);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(496, 541);
+            this.tabControl1.TabIndex = 25;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(488, 515);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Rendicion";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -219,66 +227,46 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(7, 19);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(496, 541);
-            this.tabControl1.TabIndex = 25;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(488, 515);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Rendicion";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.importe2);
+            this.tabPage2.Controls.Add(this.txtImporte2);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.tablaViajes2);
-            this.tabPage2.Controls.Add(this.tablaChofer2);
-            this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(488, 515);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Rendicion por chofer";
+            this.tabPage2.Text = "Todas las rendiciones";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // button4
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 31);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Chofer:";
+            this.button4.Location = new System.Drawing.Point(140, 75);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(205, 23);
+            this.button4.TabIndex = 26;
+            this.button4.Text = "Buscar todas las rendiciones";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // tablaChofer2
+            // txtImporte2
             // 
-            this.tablaChofer2.AllowUserToAddRows = false;
-            this.tablaChofer2.AllowUserToDeleteRows = false;
-            this.tablaChofer2.AllowUserToOrderColumns = true;
-            this.tablaChofer2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaChofer2.Location = new System.Drawing.Point(69, 31);
-            this.tablaChofer2.MultiSelect = false;
-            this.tablaChofer2.Name = "tablaChofer2";
-            this.tablaChofer2.ReadOnly = true;
-            this.tablaChofer2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaChofer2.Size = new System.Drawing.Size(393, 89);
-            this.tablaChofer2.TabIndex = 20;
-            this.tablaChofer2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaChofer2_CellContentClick);
+            this.txtImporte2.Location = new System.Drawing.Point(167, 467);
+            this.txtImporte2.Name = "txtImporte2";
+            this.txtImporte2.ReadOnly = true;
+            this.txtImporte2.Size = new System.Drawing.Size(178, 20);
+            this.txtImporte2.TabIndex = 25;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(33, 470);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(68, 13);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "Importe total:";
             // 
             // tablaViajes2
             // 
@@ -286,40 +274,23 @@
             this.tablaViajes2.AllowUserToDeleteRows = false;
             this.tablaViajes2.AllowUserToOrderColumns = true;
             this.tablaViajes2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaViajes2.Location = new System.Drawing.Point(12, 258);
+            this.tablaViajes2.Location = new System.Drawing.Point(12, 127);
             this.tablaViajes2.MultiSelect = false;
             this.tablaViajes2.Name = "tablaViajes2";
             this.tablaViajes2.ReadOnly = true;
             this.tablaViajes2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaViajes2.Size = new System.Drawing.Size(463, 177);
+            this.tablaViajes2.Size = new System.Drawing.Size(463, 308);
             this.tablaViajes2.TabIndex = 21;
             // 
-            // label4
+            // button2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(33, 470);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 13);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Importe:";
-            // 
-            // importe2
-            // 
-            this.importe2.Location = new System.Drawing.Point(96, 463);
-            this.importe2.Name = "importe2";
-            this.importe2.ReadOnly = true;
-            this.importe2.Size = new System.Drawing.Size(178, 20);
-            this.importe2.TabIndex = 25;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(372, 145);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 26;
-            this.button4.Text = "Buscar";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button2.Location = new System.Drawing.Point(383, 566);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 24;
+            this.button2.Text = "Cerrar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // RendicionViajes
             // 
@@ -330,16 +301,15 @@
             this.Name = "RendicionViajes";
             this.Text = "RendicionViajes";
             this.groupBox1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaViaje)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaViajes2)).EndInit();
             this.ResumeLayout(false);
 
@@ -365,10 +335,8 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox importe2;
+        private System.Windows.Forms.TextBox txtImporte2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView tablaViajes2;
-        private System.Windows.Forms.DataGridView tablaChofer2;
-        private System.Windows.Forms.Label label3;
     }
 }
