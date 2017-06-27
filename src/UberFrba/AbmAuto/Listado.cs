@@ -35,7 +35,11 @@ namespace UberFrba.AbmAuto
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             CapaInterfaz.IAuto.BuscarAuto(this.tablaAutos, marca, modelo, txtPatente.Text, chofer);
-            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 8);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 2);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 4);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 6);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 9);
         }
 
         private void tablaMarca_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -63,13 +67,17 @@ namespace UberFrba.AbmAuto
         {
             
             idAuto = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[0].Value);
-            licencia = Convert.ToString(this.tablaAutos.CurrentRow.Cells[5].Value);
-            rodado = Convert.ToString(this.tablaAutos.CurrentRow.Cells[6].Value);
-            habilitado = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[8].Value);
+            licencia = Convert.ToString(this.tablaAutos.CurrentRow.Cells[7].Value);
+            rodado = Convert.ToString(this.tablaAutos.CurrentRow.Cells[8].Value);
+            habilitado = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[9].Value);
             Edicion ventana = new Edicion(idAuto, licencia, rodado, habilitado);
             ventana.ShowDialog(this);
             CapaInterfaz.IAuto.BuscarAuto(this.tablaAutos, marca, modelo, txtPatente.Text, chofer);
-            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 8);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 2);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 4);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 6);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 9);
             
         }
 
