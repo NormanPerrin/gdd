@@ -83,7 +83,7 @@ namespace CapaDatos
 
 
             //retornar una tabla con los viajes y una columna adicional que sea el importe del viaje (base+ km * precio km) as importe
-            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerViajesPorChofer");
+            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerTotalViajes");
 
             return DtResultado;
         }
