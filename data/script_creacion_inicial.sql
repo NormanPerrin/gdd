@@ -1662,7 +1662,7 @@ CREATE PROC CRAZYDRIVER.spObtenerViajes
 	AS
 		declare @fechaSinHora datetime = CONVERT (char(10), @fecha, 103);
 
-		SELECT c.id_chofer, c.apellido, v.id_turno, t.descripcion, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
+		SELECT c.id_chofer,c.nombre , c.apellido, v.id_turno, t.descripcion, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
 			FROM CRAZYDRIVER.Turno t
 			WHERE t.id_turno = v.id_turno) as importe
 		FROM CRAZYDRIVER.Chofer c
@@ -1674,9 +1674,7 @@ GO
 
 CREATE PROC CRAZYDRIVER.spObtenerTotalViajes
 	AS
-		SELECT c.id_chofer, c.apellido, v.id_turno, t.descripcion, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
-			FROM CRAZYDRIVER.Turno t
-			WHERE t.id_turno = v.id_turno) as importe
+		SELECT c.id_chofer,c.nombre , c.apellido, v.id_turno, t.descripcion, v.fecha_inicio as fecha, v.id_viaje
 		FROM CRAZYDRIVER.Chofer c
 		JOIN CRAZYDRIVER.Viaje v on c.id_chofer = v.id_chofer
 		JOIN CRAZYDRIVER.Turno t on v.id_turno = t.id_turno

@@ -45,8 +45,6 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
-            this.txtImporte2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.tablaViajes2 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -230,8 +228,6 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.txtImporte2);
-            this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.tablaViajes2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -250,23 +246,6 @@
             this.button4.Text = "Buscar todas las rendiciones";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // txtImporte2
-            // 
-            this.txtImporte2.Location = new System.Drawing.Point(167, 467);
-            this.txtImporte2.Name = "txtImporte2";
-            this.txtImporte2.ReadOnly = true;
-            this.txtImporte2.Size = new System.Drawing.Size(178, 20);
-            this.txtImporte2.TabIndex = 25;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(33, 470);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 13);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Importe total:";
             // 
             // tablaViajes2
             // 
@@ -309,7 +288,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tablaViaje)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaViajes2)).EndInit();
             this.ResumeLayout(false);
 
@@ -335,8 +313,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox txtImporte2;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView tablaViajes2;
     }
 }

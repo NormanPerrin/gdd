@@ -18,8 +18,8 @@ namespace CapaInterfaz
         {
             tablaViajes.DataSource = CapaNegocio.NRendicion.ObtenerViajes(fecha, turno, idChofer);
             CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 0);
-            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 2);
-            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 5);
+            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 3);
+            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 6);
         }
 
         public static int calcularImporte(DataGridView tablaViajes)
@@ -29,7 +29,7 @@ namespace CapaInterfaz
             foreach (DataGridViewRow row in tablaViajes.Rows)
             {
                 //en la columna de importe por viaje
-                importeTotal += System.Convert.ToInt32(row.Cells[6].Value);
+                importeTotal += System.Convert.ToInt32(row.Cells[7].Value);
 
             }
             return importeTotal;
@@ -45,8 +45,8 @@ namespace CapaInterfaz
             foreach (DataGridViewRow row in tablaViajes.Rows)
             {
                 //en la columna de importe por viaje
-                importe = System.Convert.ToInt32(row.Cells[6].Value);
-                viaje = System.Convert.ToInt32(row.Cells[5].Value);
+                importe = System.Convert.ToInt32(row.Cells[7].Value);
+                viaje = System.Convert.ToInt32(row.Cells[6].Value);
                 CapaNegocio.NRendicion.importesPorViaje(viaje, importe);
             }
         }
@@ -57,8 +57,8 @@ namespace CapaInterfaz
         {
             tablaViajes2.DataSource = CapaNegocio.NRendicion.ObtenerViajes();
             CapaInterfaz.IAuto.OcultarColumnas(tablaViajes2, 0);
-            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes2, 2);
-            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes2, 5);
+            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes2, 3);
+            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes2, 6);
         }
     }
 }

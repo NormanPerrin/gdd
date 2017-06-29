@@ -85,10 +85,6 @@ namespace UberFrba
         private void button4_Click(object sender, EventArgs e)
         {
             CapaInterfaz.IRendicion.viajes(this.tablaViajes2);
-
-            importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViajes2);
-
-            this.txtImporte2.Text = System.Convert.ToString(importe);
         }
 
 
