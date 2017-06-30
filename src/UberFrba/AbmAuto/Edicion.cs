@@ -13,11 +13,13 @@ namespace UberFrba.AbmAuto
     public partial class Edicion : Form
     {
         int idAuto;
+        int idTurno;
+        int idChofer;
         string licenciaVieja;
         string rodadoViejo;
         int habilitado;
 
-        public Edicion(int id, string lic, string rod, int hab)
+        public Edicion(int id, string nomC, string apeC, string descT, string lic, string rod, int hab)
         {
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
@@ -25,6 +27,10 @@ namespace UberFrba.AbmAuto
             this.rodadoViejo = rod;
             this.idAuto = id;
             this.habilitado = hab;
+
+            this.txtApellidoChofer.Text = apeC;
+            this.txtNombreChofer.Text = nomC;
+            this.txtTurno.Text = descT;
             this.txtLicenciaVieja.Text = this.licenciaVieja;
             this.txtRodadoViejo.Text = this.rodadoViejo;
         }
@@ -85,6 +91,21 @@ namespace UberFrba.AbmAuto
                 CapaInterfaz.Decoracion.mostrarInfo(respuesta);
             }
             this.Close();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void txtGuardarChofer_Click(object sender, EventArgs e)
+        {
+
         }
 
        

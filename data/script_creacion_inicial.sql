@@ -1524,45 +1524,53 @@ CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModelo
 	@marca int,
 	@modelo int
 	AS
-		SELECT a.id_auto, a.patente, ma.id_marca, ma.nombre as nombreMarca, mo.id_modelo, mo.nombre as nombreModelo, ac.id_chofer, a.licencia, a.rodado, a.habilitado
-		FROM CRAZYDRIVER.Marca ma
+		SELECT a.id_auto, a.patente, ma.id_marca, ma.nombre as marca, mo.id_modelo, mo.nombre as modelo, 
+		ac.id_chofer, c.nombre,c.apellido, ac.id_turno, t.descripcion,a.licencia, a.rodado, a.habilitado
+		FROM CRAZYDRIVER.Chofer c, CRAZYDRIVER.Turno t ,CRAZYDRIVER.Marca ma
 		JOIN CRAZYDRIVER.Modelo mo on mo.id_marca = @marca AND mo.id_modelo = @modelo
 		JOIN CRAZYDRIVER.Auto a on mo.id_modelo = a.id_modelo
 		JOIN CRAZYDRIVER.AutoPorChofer ac on a.id_auto = ac.id_auto
-		WHERE ma.id_marca = @marca
-		GROUP BY a.id_auto, a.patente, ma.id_marca, ma.nombre, mo.id_modelo, mo.nombre, ac.id_chofer, a.licencia, a.rodado, a.habilitado
+		WHERE ma.id_marca = @marca AND ac.id_chofer = c.id_chofer AND ac.id_turno = t.id_turno
+		GROUP BY a.id_auto, a.patente, ma.id_marca, ma.nombre, mo.id_modelo, mo.nombre, 
+		ac.id_chofer, c.nombre,c.apellido, ac.id_turno, t.descripcion, a.licencia, a.rodado, a.habilitado
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerAutosChofer
 	@chofer int
 	AS
-		SELECT a.id_auto, a.patente, ma.id_marca, ma.nombre as nombreMarca, mo.id_modelo, mo.nombre as nombreModelo, ac.id_chofer, a.licencia, a.rodado, a.habilitado
-		FROM CRAZYDRIVER.AutoPorChofer ac
+		SELECT a.id_auto, a.patente, ma.id_marca, ma.nombre as marca, mo.id_modelo, mo.nombre as modelo, 
+		ac.id_chofer, c.nombre,c.apellido, ac.id_turno, t.descripcion, a.licencia, a.rodado, a.habilitado
+		FROM CRAZYDRIVER.Chofer c, CRAZYDRIVER.Turno t, CRAZYDRIVER.AutoPorChofer ac
 		JOIN CRAZYDRIVER.Auto a on ac.id_auto = a.id_auto
 		JOIN CRAZYDRIVER.Modelo mo on a.id_modelo = mo.id_modelo
 		JOIN CRAZYDRIVER.Marca ma on mo.id_marca = ma.id_marca
-		WHERE ac.id_chofer = @chofer
-		GROUP BY a.id_auto, a.patente, ma.id_marca, ma.nombre, mo.id_modelo, mo.nombre, ac.id_chofer, a.licencia, a.rodado, a.habilitado
+		WHERE ac.id_chofer = @chofer AND ac.id_chofer = c.id_chofer AND ac.id_turno = t.id_turno
+		GROUP BY a.id_auto, a.patente, ma.id_marca, ma.nombre, mo.id_modelo, mo.nombre, 
+		ac.id_chofer, c.nombre,c.apellido, ac.id_turno, t.descripcion, a.licencia, a.rodado, a.habilitado
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerAutosPatente
 	@patente nvarchar(10)
 	AS
-		SELECT a.id_auto, a.patente, ma.id_marca, ma.nombre as nombreMarca, mo.id_modelo, mo.nombre as nombreModelo, ac.id_chofer, a.licencia, a.rodado, a.habilitado
-		FROM  CRAZYDRIVER.AutoPorChofer ac, CRAZYDRIVER.Auto a
+		SELECT a.id_auto, a.patente, ma.id_marca, ma.nombre as marca, mo.id_modelo, mo.nombre as modelo, 
+		ac.id_chofer, c.nombre,c.apellido, ac.id_turno, t.descripcion, a.licencia, a.rodado, a.habilitado
+		FROM  CRAZYDRIVER.AutoPorChofer ac, CRAZYDRIVER.Chofer c, CRAZYDRIVER.Turno t, CRAZYDRIVER.Auto a
 		JOIN CRAZYDRIVER.Modelo mo on a.id_modelo = mo.id_modelo
 		JOIN CRAZYDRIVER.Marca ma on mo.id_marca = ma.id_marca
-		WHERE a.patente = @patente AND a.id_auto = ac.id_auto
-		GROUP BY a.id_auto, a.patente, ma.id_marca, ma.nombre, mo.id_modelo, mo.nombre, ac.id_chofer, a.licencia, a.rodado, a.habilitado
+		WHERE a.patente = @patente AND a.id_auto = ac.id_auto AND ac.id_chofer = c.id_chofer AND ac.id_turno = t.id_turno
+		GROUP BY a.id_auto, a.patente, ma.id_marca, ma.nombre, mo.id_modelo, mo.nombre, 
+		ac.id_chofer, c.nombre,c.apellido, ac.id_turno, t.descripcion, a.licencia, a.rodado, a.habilitado
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModeloChofer
 	@marca int,
 	@modelo int,
 	@chofer int
-	AS
-		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
-		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+	AS 
+		declare @procedure1 table ( id_auto int, patente nvarchar(10), id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255), 
+		id_chofer int, nomChofer nvarchar(255), apeChofer nvarchar(255), id_turno int, descTurno nvarchar(255), licencia nvarchar(26),rodado nvarchar(10), habilitado int)
+		declare @procedure2 table ( id_auto int, patente nvarchar(10), id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255), 
+		id_chofer int, nomChofer nvarchar(255), apeChofer nvarchar(255), id_turno int, descTurno nvarchar(255), licencia nvarchar(26),rodado nvarchar(10), habilitado int)
 
 		insert into  @procedure1
 		exec CRAZYDRIVER.spObtenerAutosMarcaModelo @marca, @modelo ;
@@ -1580,8 +1588,10 @@ CREATE PROC CRAZYDRIVER.spObtenerAutosMarcaModeloPatente
 	@modelo int,
 	@patente nvarchar(10)
 	AS
-		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
-		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure1 table ( id_auto int, patente nvarchar(10), id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255), 
+		id_chofer int, nomChofer nvarchar(255), apeChofer nvarchar(255), id_turno int, descTurno nvarchar(255), licencia nvarchar(26),rodado nvarchar(10), habilitado int)
+		declare @procedure2 table ( id_auto int, patente nvarchar(10), id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255), 
+		id_chofer int, nomChofer nvarchar(255), apeChofer nvarchar(255), id_turno int, descTurno nvarchar(255), licencia nvarchar(26),rodado nvarchar(10), habilitado int)
 
 		insert into  @procedure1
 		exec CRAZYDRIVER.spObtenerAutosMarcaModelo @marca, @modelo ;
@@ -1598,8 +1608,10 @@ CREATE PROC CRAZYDRIVER.spObtenerAutosPatenteChofer
 	@patente nvarchar(10),
 	@chofer int
 	AS
-		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
-		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure1 table ( id_auto int, patente nvarchar(10), id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255), 
+		id_chofer int, nomChofer nvarchar(255), apeChofer nvarchar(255), id_turno int, descTurno nvarchar(255), licencia nvarchar(26),rodado nvarchar(10), habilitado int)
+		declare @procedure2 table ( id_auto int, patente nvarchar(10), id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255), 
+		id_chofer int, nomChofer nvarchar(255), apeChofer nvarchar(255), id_turno int, descTurno nvarchar(255), licencia nvarchar(26),rodado nvarchar(10), habilitado int)
 
 		insert into  @procedure1
 		exec CRAZYDRIVER.spObtenerAutosChofer @chofer ;
@@ -1618,8 +1630,10 @@ CREATE PROC CRAZYDRIVER.spObtenerAutos
 	@patente nvarchar(10),
 	@chofer int
 	AS
-		declare @procedure1 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
-		declare @procedure2 table ( id_auto int, id_marca int, id_modelo int, patente nvarchar(10), id_chofer int, licencia nvarchar(26), rodado nvarchar(10), nombre nvarchar(255))
+		declare @procedure1 table ( id_auto int, patente nvarchar(10), id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255), 
+		id_chofer int, nomChofer nvarchar(255), apeChofer nvarchar(255), id_turno int, descTurno nvarchar(255), licencia nvarchar(26),rodado nvarchar(10), habilitado int)
+		declare @procedure2 table ( id_auto int, patente nvarchar(10), id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255), 
+		id_chofer int, nomChofer nvarchar(255), apeChofer nvarchar(255), id_turno int, descTurno nvarchar(255), licencia nvarchar(26),rodado nvarchar(10), habilitado int)
 
 		insert into  @procedure1
 		exec CRAZYDRIVER.spObtenerAutosPatenteChofer @patente, @chofer ;

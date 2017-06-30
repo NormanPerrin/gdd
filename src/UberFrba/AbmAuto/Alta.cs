@@ -44,7 +44,7 @@ namespace UberFrba.AbmAuto
             CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
             CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
             CapaInterfaz.IAuto.CargarMarca(this.tablaMarca);
-            CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 1);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca, 2);
