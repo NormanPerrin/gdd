@@ -940,13 +940,13 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferesPorTurno
 	@dateFrom DATETIME,
 	@dateTo DATETIME
 	AS
-		SELECT DISTINCT c.id_chofer, c.nombre FROM CRAZYDRIVER.Chofer c
+		SELECT DISTINCT c.id_chofer, c.nombre + ' ' + c.apellido as nombre FROM CRAZYDRIVER.Chofer c
 			JOIN CRAZYDRIVER.AutoPorChofer apc ON apc.id_chofer = c.id_chofer AND apc.id_turno = @turno
 			WHERE c.habilitado = 1
 				AND (SELECT DISTINCT 1 FROM CRAZYDRIVER.Viaje v 
 					WHERE v.id_chofer = c.id_chofer
 						AND v.fecha_inicio BETWEEN @dateFrom AND @dateTo) IS NULL
-			ORDER BY c.nombre
+			ORDER BY nombre
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerAutoPorIDChoferTurno
@@ -965,7 +965,7 @@ CREATE PROC CRAZYDRIVER.spObtenerClientes
 	@dateFrom DATETIME,
 	@dateTo DATETIME
 	AS
-	SELECT c.id_cliente, c.apellido, c.nombre FROM CRAZYDRIVER.Cliente c
+	SELECT c.id_cliente, c.nombre, c.apellido FROM CRAZYDRIVER.Cliente c
 		WHERE c.habilitado = 1
 			AND (SELECT DISTINCT 1 FROM CRAZYDRIVER.Viaje v 
 					WHERE v.id_cliente = c.id_cliente
@@ -980,7 +980,7 @@ CREATE PROC CRAZYDRIVER.spObtenerValorTurno
 			WHERE t.id_turno = @turno
 GO
 
-CREATE PROC crazydriver.spAgregarViaje
+CREATE PROC CRAZYDRIVER.spAgregarViaje
 	@idcliente INT,
 	@idchofer INT,
 	@turno INT,
