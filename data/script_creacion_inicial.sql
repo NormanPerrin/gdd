@@ -975,11 +975,33 @@ CREATE PROC CRAZYDRIVER.spObtenerClientes
 	@dateFrom DATETIME,
 	@dateTo DATETIME
 	AS
+
+	DECLARE @fd_anio INT;
+	DECLARE @fd_mes INT;
+	SELECT @fd_anio = YEAR(@dateFrom), @fd_mes = MONTH(@dateFrom);
+
+	DECLARE @fh_anio INT;
+	DECLARE @fh_mes INT;
+	SELECT @fh_anio = YEAR(@dateTo), @fh_mes = MONTH(@dateTo);
+
+	DECLARE @fd DATE;
+	SELECT @fd = CONVERT(varchar(4), @fd_anio) + '-' + CONVERT(varchar(2), @fd_mes) + '-01';
+
+	DECLARE @fh DATE;
+	SELECT @fh = CONVERT(varchar(4), @fd_anio) + '-' + CONVERT(varchar(2), @fd_mes) + '-' + CONVERT(varchar(2), DATEDIFF(DAY, @dateTo, DATEADD(MONTH, 1, @dateTo)));
+
 	SELECT c.id_cliente, c.nombre, c.apellido FROM CRAZYDRIVER.Cliente c
 		WHERE c.habilitado = 1
+			-- no tiene viajes en esa fecha
 			AND (SELECT DISTINCT 1 FROM CRAZYDRIVER.Viaje v 
 					WHERE v.id_cliente = c.id_cliente
 						AND v.fecha_inicio BETWEEN @dateFrom AND @dateTo) IS NULL
+			-- tampoco le facturaron ese mes
+			AND (SELECT DISTINCT 1 FROM CRAZYDRIVER.Viaje v
+				JOIN CRAZYDRIVER.FacturacionPorViaje fv ON v.id_viaje = fv.id_viaje
+				JOIN CRAZYDRIVER.Facturacion f ON f.nro_facturacion = fv.nro_facturacion
+				WHERE v.id_cliente = c.id_cliente
+					AND f.fecha BETWEEN @fd AND @fh) IS NULL
 		ORDER BY c.id_cliente
 GO
 
