@@ -15,11 +15,13 @@ namespace UberFrba.AbmAuto
         int idAuto;
         int idTurno;
         int idChofer;
+        int newidTurno;
+        int newidChofer;
         string licenciaVieja;
         string rodadoViejo;
         int habilitado;
 
-        public Edicion(int id, string nomC, string apeC, string descT, string lic, string rod, int hab)
+        public Edicion(int id, int idChofer, string nomC, string apeC,int idTurno, string descT, string lic, string rod, int hab)
         {
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
@@ -27,12 +29,20 @@ namespace UberFrba.AbmAuto
             this.rodadoViejo = rod;
             this.idAuto = id;
             this.habilitado = hab;
+            this.idChofer = idChofer;
+            this.idTurno = idTurno;
 
             this.txtApellidoChofer.Text = apeC;
             this.txtNombreChofer.Text = nomC;
             this.txtTurno.Text = descT;
             this.txtLicenciaVieja.Text = this.licenciaVieja;
             this.txtRodadoViejo.Text = this.rodadoViejo;
+
+            CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
+            CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 1);
         }
 
         #region Acciones/Eventos
@@ -105,7 +115,36 @@ namespace UberFrba.AbmAuto
 
         private void txtGuardarChofer_Click(object sender, EventArgs e)
         {
+            string respuesta = CapaInterfaz.IAuto.modificarChofer(this.idAuto ,this.newidChofer,this.idTurno);
+            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            this.Close();
+        }
 
+        private void txtGuardarTurno_Click(object sender, EventArgs e)
+        {
+            string respuesta = CapaInterfaz.IAuto.modificarTurno(this.idAuto, this.idChofer, this.newidTurno);
+            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+            this.Close();
+        }
+
+        private void tablaChofer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+                //ID DEL NUEVO CHOFER HECHO POR DATAGRID
+                this.newidChofer = Convert.ToInt32(selectedCell.FormattedValue);
+            }
+        }
+
+        private void tablaTurno_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno[0, e.RowIndex];
+                //ID DEL NUEVO TURNO HECHO POR DATAGRID
+                this.newidTurno = Convert.ToInt32(selectedCell.FormattedValue);
+            }
         }
 
        

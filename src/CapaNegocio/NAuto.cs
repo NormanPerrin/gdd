@@ -98,5 +98,17 @@ namespace CapaNegocio
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
             return objeto.HabilitarAuto(idAuto);
         }
+
+        public static string modificarChofer(int auto, int chofer, int turno)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.modificarChofer(auto, chofer, turno);
+        }
+
+        public static string modificarTurno(int auto, int chofer, int turno)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.modificarTurno(auto, chofer, turno);
+        }
     }
 }

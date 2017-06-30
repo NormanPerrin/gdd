@@ -179,10 +179,21 @@ namespace CapaInterfaz
         }
 
 
-
         public static string alta(int idAuto)
         {
             string respuesta = CapaNegocio.NAuto.alta(idAuto);
+            return respuesta;
+        }
+
+        public static string modificarChofer(int auto, int chofer, int turno)
+        {
+            string respuesta = CapaNegocio.NAuto.modificarChofer(auto, chofer, turno);
+            return respuesta;
+        }
+
+        public static string modificarTurno(int auto, int chofer, int turno)
+        {
+            string respuesta = CapaNegocio.NAuto.modificarTurno(auto, chofer, turno);
             return respuesta;
         }
     }

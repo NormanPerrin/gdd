@@ -60,6 +60,8 @@
             this.tabHabilitar = new System.Windows.Forms.TabPage();
             this.btnHabilitar = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.tablaChofer = new System.Windows.Forms.DataGridView();
+            this.tablaTurno = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabEdicion.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -69,6 +71,8 @@
             this.groupBox3.SuspendLayout();
             this.tabBaja.SuspendLayout();
             this.tabHabilitar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -212,6 +216,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tablaChofer);
             this.groupBox2.Controls.Add(this.txtApellidoChofer);
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.txtGuardarChofer);
@@ -226,7 +231,7 @@
             // 
             // txtApellidoChofer
             // 
-            this.txtApellidoChofer.Location = new System.Drawing.Point(141, 64);
+            this.txtApellidoChofer.Location = new System.Drawing.Point(142, 32);
             this.txtApellidoChofer.Name = "txtApellidoChofer";
             this.txtApellidoChofer.ReadOnly = true;
             this.txtApellidoChofer.Size = new System.Drawing.Size(91, 20);
@@ -254,7 +259,7 @@
             // 
             // txtNombreChofer
             // 
-            this.txtNombreChofer.Location = new System.Drawing.Point(25, 64);
+            this.txtNombreChofer.Location = new System.Drawing.Point(25, 32);
             this.txtNombreChofer.Name = "txtNombreChofer";
             this.txtNombreChofer.ReadOnly = true;
             this.txtNombreChofer.Size = new System.Drawing.Size(91, 20);
@@ -263,7 +268,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(26, 48);
+            this.label8.Location = new System.Drawing.Point(22, 16);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(105, 13);
             this.label8.TabIndex = 0;
@@ -281,6 +286,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.tablaTurno);
             this.groupBox3.Controls.Add(this.button6);
             this.groupBox3.Controls.Add(this.txtGuardarTurno);
             this.groupBox3.Controls.Add(this.txtTurno);
@@ -310,10 +316,11 @@
             this.txtGuardarTurno.TabIndex = 4;
             this.txtGuardarTurno.Text = "Guardar";
             this.txtGuardarTurno.UseVisualStyleBackColor = true;
+            this.txtGuardarTurno.Click += new System.EventHandler(this.txtGuardarTurno_Click);
             // 
             // txtTurno
             // 
-            this.txtTurno.Location = new System.Drawing.Point(25, 64);
+            this.txtTurno.Location = new System.Drawing.Point(25, 32);
             this.txtTurno.Name = "txtTurno";
             this.txtTurno.ReadOnly = true;
             this.txtTurno.Size = new System.Drawing.Size(91, 20);
@@ -322,7 +329,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(26, 48);
+            this.label12.Location = new System.Drawing.Point(22, 16);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(70, 13);
             this.label12.TabIndex = 0;
@@ -392,6 +399,36 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // tablaChofer
+            // 
+            this.tablaChofer.AllowUserToAddRows = false;
+            this.tablaChofer.AllowUserToDeleteRows = false;
+            this.tablaChofer.AllowUserToOrderColumns = true;
+            this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaChofer.Location = new System.Drawing.Point(25, 58);
+            this.tablaChofer.MultiSelect = false;
+            this.tablaChofer.Name = "tablaChofer";
+            this.tablaChofer.ReadOnly = true;
+            this.tablaChofer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tablaChofer.Size = new System.Drawing.Size(208, 77);
+            this.tablaChofer.TabIndex = 16;
+            this.tablaChofer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaChofer_CellContentClick);
+            // 
+            // tablaTurno
+            // 
+            this.tablaTurno.AllowUserToAddRows = false;
+            this.tablaTurno.AllowUserToDeleteRows = false;
+            this.tablaTurno.AllowUserToOrderColumns = true;
+            this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaTurno.Location = new System.Drawing.Point(25, 58);
+            this.tablaTurno.MultiSelect = false;
+            this.tablaTurno.Name = "tablaTurno";
+            this.tablaTurno.ReadOnly = true;
+            this.tablaTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tablaTurno.Size = new System.Drawing.Size(212, 79);
+            this.tablaTurno.TabIndex = 18;
+            this.tablaTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaTurno_CellContentClick);
+            // 
             // Edicion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -412,6 +449,8 @@
             this.groupBox3.PerformLayout();
             this.tabBaja.ResumeLayout(false);
             this.tabHabilitar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -450,6 +489,8 @@
         private System.Windows.Forms.TextBox txtTurno;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtApellidoChofer;
+        private System.Windows.Forms.DataGridView tablaChofer;
+        private System.Windows.Forms.DataGridView tablaTurno;
 
     }
 }

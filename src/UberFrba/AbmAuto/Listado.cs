@@ -92,7 +92,7 @@ namespace UberFrba.AbmAuto
                 licencia = Convert.ToString(this.tablaAutos.CurrentRow.Cells[11].Value);
                 rodado = Convert.ToString(this.tablaAutos.CurrentRow.Cells[12].Value);
                 habilitado = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[13].Value);
-                Edicion ventana = new Edicion(idAuto, nombreChofer, apellidoChofer, descTurno, licencia, rodado, habilitado);
+                Edicion ventana = new Edicion(idAuto, idChofer, nombreChofer, apellidoChofer, idTurno, descTurno, licencia, rodado, habilitado);
                 ventana.ShowDialog(this);
                 CapaInterfaz.IAuto.BuscarAuto(this.tablaAutos, marca, modelo, txtPatente.Text, chofer);
                 CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 0);

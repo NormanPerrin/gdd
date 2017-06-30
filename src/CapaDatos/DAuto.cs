@@ -351,5 +351,59 @@ namespace CapaDatos
 
             return resultado;
         }
+
+        public string modificarChofer(int auto, int chofer, int turno)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[3];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idAuto";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = auto;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@idChofer";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = chofer;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@idTurno";
+            parametros[2].SqlDbType = SqlDbType.Int;
+            parametros[2].Value = turno;
+
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spModificarChofer");
+            string respuesta = string.Empty;
+
+            return resultado;
+        }
+
+        public string modificarTurno(int auto, int chofer, int turno)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[3];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idAuto";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = auto;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@idChofer";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = chofer;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@idTurno";
+            parametros[2].SqlDbType = SqlDbType.Int;
+            parametros[2].Value = turno;
+
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spModificarTurnoAuto");
+            string respuesta = string.Empty;
+
+            return resultado;
+        }
     }
 }

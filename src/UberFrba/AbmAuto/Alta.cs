@@ -92,8 +92,11 @@ namespace UberFrba.AbmAuto
 
         private void tablaTurno_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex > -1)
+            {
             System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno[0, e.RowIndex];
             turno = Convert.ToInt32(selectedCell.FormattedValue);
+            }
         }
 
     }
