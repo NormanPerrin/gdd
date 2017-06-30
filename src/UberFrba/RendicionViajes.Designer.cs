@@ -214,6 +214,7 @@
             this.fecha.Name = "fecha";
             this.fecha.Size = new System.Drawing.Size(280, 20);
             this.fecha.TabIndex = 4;
+            this.fecha.Value = new System.DateTime(2015, 12, 12, 0, 0, 0, 0);
             // 
             // btnBuscar
             // 

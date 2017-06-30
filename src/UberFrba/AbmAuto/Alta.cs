@@ -30,7 +30,10 @@ namespace UberFrba.AbmAuto
                 {
                     CapaInterfaz.Decoracion.mostrarInfo("La patente no puede ser vacia");
                 }
-                else
+                else if (turno == 0 || idChofer == 0 || marca == 0)
+                {
+                    CapaInterfaz.Decoracion.mostrarInfo("Selecciona otra vez valores en TODOS los campos");
+                }else
                 {
                     string respuesta = CapaInterfaz.IAuto.alta(marca, modelo, TxtPatente.Text, turno, idChofer);
                     CapaInterfaz.Decoracion.mostrarInfo(respuesta);
@@ -58,15 +61,6 @@ namespace UberFrba.AbmAuto
         private void numMarca_ValueChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void tablaTurno_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == tablaTurno.Columns["Elegir"].Index)
-            {
-                DataGridViewCheckBoxCell chkElegir = (DataGridViewCheckBoxCell)tablaTurno.Rows[e.RowIndex].Cells["Elegir"];
-                chkElegir.Value = !Convert.ToBoolean(chkElegir.Value);
-            }
         }
 
         private void tablaChofer_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
