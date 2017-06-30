@@ -94,6 +94,7 @@ namespace UberFrba
             dateTo.MinDate = new DateTime(now.Year, now.Month, now.Day, dateFrom.Value.Hour, dateFrom.Value.Minute, dateFrom.Value.Second);
             String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
             CapaInterfaz.ICliente.CargarClientes(cbxCliente, dateFrom.Value, dateTo.Value);
+            CapaInterfaz.IChofer.CargarChoferesPorTurno(cbxChofer, dateFrom.Value, dateTo.Value, turno);
         }
 
         private void dateTo_ValueChanged(object sender, EventArgs e)
@@ -102,6 +103,7 @@ namespace UberFrba
             dateFrom.MaxDate = new DateTime(now.Year, now.Month, now.Day, dateTo.Value.Hour, dateTo.Value.Minute, dateTo.Value.Second);
             String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
             CapaInterfaz.ICliente.CargarClientes(cbxCliente, dateFrom.Value, dateTo.Value);
+            CapaInterfaz.IChofer.CargarChoferesPorTurno(cbxChofer, dateFrom.Value, dateTo.Value, turno);
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
