@@ -27,6 +27,7 @@ namespace UberFrba
             CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
+            this.fecha.Value = Properties.Settings.Default.FechaSistema;
         }
 
         private void tablaTurno_CellContentClick(object sender, DataGridViewCellEventArgs e)
