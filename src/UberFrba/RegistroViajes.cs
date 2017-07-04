@@ -32,7 +32,7 @@ namespace UberFrba
             inputKms.Value = 1;
             txtCosto.Text = String.Empty;
             String turno = ITurno.getIdTurnoActual(cbxTurno.Text);
-            CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno);
+            CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno, Properties.Settings.Default.FechaSistema);
             CapaInterfaz.IChofer.CargarChoferesPorTurno(cbxChofer, dateFrom.Value, dateTo.Value, turno);
             String idChofer = CapaInterfaz.IChofer.getIdChoferActual(cbxChofer.Text);
             CapaInterfaz.IAuto.CargarAutoHabilitado(txtAuto, idChofer, turno);
@@ -67,7 +67,7 @@ namespace UberFrba
         private void cbxTurno_SelectedIndexChanged(object sender, EventArgs e)
         {
             String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
-            CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno);
+            CapaInterfaz.ITurno.CargarLimitesFechas(dateFrom, dateTo, turno, Properties.Settings.Default.FechaSistema);
             CapaInterfaz.IChofer.CargarChoferesPorTurno(cbxChofer, dateFrom.Value, dateTo.Value, turno);
             String idChofer = CapaInterfaz.IChofer.getIdChoferActual(cbxChofer.Text);
             CapaInterfaz.IAuto.CargarAutoHabilitado(txtAuto, idChofer, turno);
@@ -90,7 +90,7 @@ namespace UberFrba
 
         private void dateFrom_ValueChanged(object sender, EventArgs e)
         {   
-            DateTime now = DateTime.Now;
+            DateTime now = Properties.Settings.Default.FechaSistema;
             dateTo.MinDate = new DateTime(now.Year, now.Month, now.Day, dateFrom.Value.Hour, dateFrom.Value.Minute, dateFrom.Value.Second);
             String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
             CapaInterfaz.ICliente.CargarClientes(cbxCliente, dateFrom.Value, dateTo.Value);
@@ -99,7 +99,7 @@ namespace UberFrba
 
         private void dateTo_ValueChanged(object sender, EventArgs e)
         {
-            DateTime now = DateTime.Now;
+            DateTime now = Properties.Settings.Default.FechaSistema;
             dateFrom.MaxDate = new DateTime(now.Year, now.Month, now.Day, dateTo.Value.Hour, dateTo.Value.Minute, dateTo.Value.Second);
             String turno = CapaInterfaz.ITurno.getIdTurnoActual(cbxTurno.Text);
             CapaInterfaz.ICliente.CargarClientes(cbxCliente, dateFrom.Value, dateTo.Value);

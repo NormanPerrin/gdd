@@ -48,14 +48,13 @@ namespace CapaInterfaz
             }
         }
 
-        public static void CargarLimitesFechas(DateTimePicker dateFrom, DateTimePicker dateTo, String idTurno)
+        public static void CargarLimitesFechas(DateTimePicker dateFrom, DateTimePicker dateTo, String idTurno, DateTime now)
         {
             DataTable Datos = CapaNegocio.NTurno.CargarLimitesFechas(idTurno);
             if (Datos.Rows.Count != 0)
             {
                 int horaInicio = Int32.Parse(Datos.Rows[0][0].ToString());
                 int horaFin = Int32.Parse(Datos.Rows[0][1].ToString());
-                DateTime now = DateTime.Now;
 
                 dateFrom.MaxDate = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
                 dateTo.MaxDate = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);

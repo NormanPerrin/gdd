@@ -21,12 +21,12 @@ namespace UberFrba
         }
         private void reset()
         {
-            CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente);
+            CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente, Properties.Settings.Default.FechaSistema);
         }
 
         private void Facturacion_Load(object sender, EventArgs e)
         {
-            CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente);
+            CapaInterfaz.ICliente.CargarClientesSinFacturacion(cbxCliente, Properties.Settings.Default.FechaSistema);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace UberFrba
             }
 
             String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
-            CapaInterfaz.IViaje.AgregarFacturacion(idCliente);
+            CapaInterfaz.IViaje.AgregarFacturacion(idCliente, Properties.Settings.Default.FechaSistema);
             reset();
             MessageBox.Show("Se ha registrado la facturacion", "Registro facturacion", MessageBoxButtons.OK);
             this.Close();
@@ -47,7 +47,7 @@ namespace UberFrba
         private void cbxCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
-            CapaInterfaz.IViaje.CargarListaViajes(dataGridView1, idCliente);
+            CapaInterfaz.IViaje.CargarListaViajes(dataGridView1, idCliente, Properties.Settings.Default.FechaSistema);
         }
     }
 }
