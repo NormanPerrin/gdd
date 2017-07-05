@@ -71,6 +71,12 @@
     <Compile Include="AbmAuto\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmChoferListado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmChoferListado.Designer.cs">
+      <DependentUpon>AbmChoferListado.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmChofer\AbmChofer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmAuto\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmChoferListado.resx">
+      <DependentUpon>AbmChoferListado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmChofer\AbmChofer.resx">
       <DependentUpon>AbmChofer.cs</DependentUpon>

@@ -906,7 +906,7 @@ GO
 
 CREATE PROC CRAZYDRIVER.spObtenerMarcasYModelos
 	AS
-		SELECT DISTINCT m.id_modelo, m.nombre, m.id_marca, m2.nombre
+		SELECT DISTINCT m.id_modelo id_modelo, m.nombre Modelo, m.id_marca id_marca, m2.nombre Marca
 		FROM CRAZYDRIVER.Modelo m
 		JOIN CRAZYDRIVER.Marca m2 on m.id_marca = m2.id_marca
 GO

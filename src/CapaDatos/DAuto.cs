@@ -63,7 +63,6 @@ namespace CapaDatos
             return DtResultado;
         }
 
-
         public object ObtenerChoferes()
         {
             Conexion Conexion = new Conexion();
@@ -94,10 +93,6 @@ namespace CapaDatos
             DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerAutoPorIDChoferTurno");
             return DtResultado;
         }
-
-        #region Getters y Setters
-
-     
 
         public string EliminarAuto(int idAuto)
         {
@@ -144,8 +139,6 @@ namespace CapaDatos
   
             return resultado;
         }
-
-        #endregion
 
         public object ObtenerMarcas()
         {
