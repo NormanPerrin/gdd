@@ -14,6 +14,12 @@ namespace CapaNegocio
             return Objeto.ObtenerViajes(fecha, turno, idChofer);
         }
 
+        public static object ObtenerViajesS(DateTime fecha, int idChofer)
+        {
+            CapaDatos.DRendicion Objeto = new CapaDatos.DRendicion();
+            return Objeto.ObtenerViajesS(fecha, idChofer);
+        }
+
         public static void rendir(DateTime fecha)
         {
             CapaDatos.DRendicion Objeto = new CapaDatos.DRendicion();
@@ -32,10 +38,5 @@ namespace CapaNegocio
             return Objeto.ObtenerViajes();
         }
 
-        public static object traerRendiciones(DateTime fecha, int idChofer)
-        {
-            CapaDatos.DRendicion Objeto = new CapaDatos.DRendicion();
-            return Objeto.traerRendiciones(fecha, idChofer);
-        }
     }
 }

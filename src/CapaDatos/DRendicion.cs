@@ -41,6 +41,30 @@ namespace CapaDatos
             return DtResultado;
         }
 
+        public object ObtenerViajesS(DateTime fecha, int chofer)
+        {
+            Conexion Conexion = new Conexion();
+
+            DataTable DtResultado = new DataTable("Viajes");
+
+            SqlParameter[] parametros = new SqlParameter[2];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@fecha";
+            parametros[0].SqlDbType = SqlDbType.DateTime;
+            parametros[0].Value = fecha;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@chofer";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = chofer;
+
+            //retornar una tabla con los viajes y una columna adicional que sea el importe del viaje (base+ km * precio km) as importe
+            DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerViajes2");
+
+            return DtResultado;
+        }
+
         public void rendir(DateTime fecha)
         {
             Conexion Conexion = new Conexion();
@@ -88,28 +112,7 @@ namespace CapaDatos
             return DtResultado;
         }
 
-        public object traerRendiciones(DateTime fecha, int idChofer)
-        {
-            Conexion Conexion = new Conexion();
 
-            DataTable DtResultado = new DataTable("Viajes");
 
-            SqlParameter[] parametros = new SqlParameter[2];
-
-            parametros[0] = new SqlParameter();
-            parametros[0].ParameterName = "@fecha";
-            parametros[0].SqlDbType = SqlDbType.DateTime;
-            parametros[0].Value = fecha;
-
-            parametros[1] = new SqlParameter();
-            parametros[1].ParameterName = "@chofer";
-            parametros[1].SqlDbType = SqlDbType.Int;
-            parametros[1].Value = idChofer;
-
-            //retornar una tabla con los viajes y una columna adicional que sea el importe del viaje (base+ km * precio km) as importe
-            DtResultado = Conexion.RetornarTabla(parametros, "CRAZYDRIVER.spObtenerRendiciones");
-
-            return DtResultado;
-        }
     }
 }

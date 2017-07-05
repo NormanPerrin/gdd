@@ -22,6 +22,14 @@ namespace CapaInterfaz
             CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 6);
         }
 
+        public static void viajes2(System.Windows.Forms.DataGridView tablaViajes, DateTime fecha, int idChofer)
+        {
+            tablaViajes.DataSource = CapaNegocio.NRendicion.ObtenerViajesS(fecha, idChofer);
+            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 3);
+            CapaInterfaz.IAuto.OcultarColumnas(tablaViajes, 6);
+        }
+
         public static int calcularImporte(DataGridView tablaViajes)
         {
             int importeTotal = 0;
@@ -37,13 +45,7 @@ namespace CapaInterfaz
         }
 
         public static void rendir(DataGridView tablaViajes, DateTime fecha)
-        {
-            //validacion de fecha
-            DataGridView rendiciones = new DataGridView();
-            int idChofer = System.Convert.ToInt32(tablaViajes.Rows[0].Cells[0].Value);
-            rendiciones.DataSource = CapaNegocio.NRendicion.traerRendiciones(fecha, idChofer);
-            if (rendiciones.RowCount == 0)
-            {
+        {  
                 //rendicion
                 CapaNegocio.NRendicion.rendir(fecha);
 
@@ -56,11 +58,7 @@ namespace CapaInterfaz
                     viaje = System.Convert.ToInt32(row.Cells[6].Value);
                     CapaNegocio.NRendicion.importesPorViaje(viaje, importe);
                 }
-            }
-            else
-            {
-                CapaInterfaz.Decoracion.mostrarInfo("Ya se le rindio a este chofer");
-            }
+       
         }
 
 

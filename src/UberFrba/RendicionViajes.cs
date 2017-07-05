@@ -78,9 +78,13 @@ namespace UberFrba
             }
             else
             {
+                CapaInterfaz.IRendicion.viajes2(this.tablaViaje, this.fecha.Value, idChofer);
+
                 CapaInterfaz.IRendicion.rendir(this.tablaViaje, this.fechaBuscada);
 
-                CapaInterfaz.Decoracion.mostrarInfo("Transaccion finalizada");
+                CapaInterfaz.IRendicion.viajes2(this.tablaViaje, this.fecha.Value, idChofer);
+
+                CapaInterfaz.Decoracion.mostrarInfo("Se rindieron todos los turnos del chofer");
             }
         }
 

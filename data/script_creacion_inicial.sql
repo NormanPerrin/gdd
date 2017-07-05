@@ -283,6 +283,11 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerViajes;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerViajes2') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerViajes2;
+END;
+
 IF OBJECT_ID('CRAZYDRIVER.spRendir') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spRendir;
@@ -311,11 +316,6 @@ END;
 IF OBJECT_ID('CRAZYDRIVER.spModificarTurnoAuto') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spModificarTurnoAuto;
-END;
-
-IF OBJECT_ID('CRAZYDRIVER.spObtenerRendiciones') IS NOT NULL
-BEGIN
-	DROP PROCEDURE CRAZYDRIVER.spObtenerRendicioneso;
 END;
 ---- BORRO TABLAS
 
@@ -1765,6 +1765,22 @@ CREATE PROC CRAZYDRIVER.spObtenerViajes
 		c.id_chofer = @chofer AND (CONVERT (char(10),v.fecha_inicio, 103)) = @fechaSinHora AND v.id_turno = @turno
 GO
 
+CREATE PROC CRAZYDRIVER.spObtenerViajes2
+	@fecha datetime,
+	@chofer int
+	AS
+		declare @fechaSinHora datetime = CONVERT (char(10), @fecha, 103);
+
+		SELECT c.id_chofer,c.nombre , c.apellido, v.id_turno, t.descripcion, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
+			FROM CRAZYDRIVER.Turno t
+			WHERE t.id_turno = v.id_turno) as importe
+		FROM CRAZYDRIVER.Chofer c
+		JOIN CRAZYDRIVER.Viaje v on c.id_chofer = v.id_chofer
+		JOIN CRAZYDRIVER.Turno t on v.id_turno = t.id_turno
+		WHERE v.id_viaje NOT IN (SELECT id_viaje FROM CRAZYDRIVER.RendicionPorViaje) AND
+		c.id_chofer = @chofer AND (CONVERT (char(10),v.fecha_inicio, 103)) = @fechaSinHora
+GO
+
 CREATE PROC CRAZYDRIVER.spObtenerTotalViajes
 	AS
 		SELECT c.id_chofer,c.nombre , c.apellido, v.id_turno, t.descripcion, v.fecha_inicio as fecha, v.id_viaje
@@ -1793,17 +1809,4 @@ CREATE PROC CRAZYDRIVER.spImportePorViaje
 
 		INSERT INTO CRAZYDRIVER.RendicionPorViaje (nro_rendicion, id_viaje, importe)
 			VALUES (@idRendicion, @viaje, @importe)
-GO 
-
-
-CREATE PROC CRAZYDRIVER.spObtenerRendiciones
-	@fecha datetime,
-	@idChofer int
-	AS
-		declare @fechaSinHora datetime = CONVERT (char(10), @fecha, 103);
-
-		SELECT 1 FROM CRAZYDRIVER.Rendicion r
-		join CRAZYDRIVER.RendicionPorViaje rv on r.nro_rendicion = rv.nro_rendicion
-		join CRAZYDRIVER.Viaje v on rv.id_viaje = v.id_viaje
-		WHERE r.fecha = @fechaSinHora AND v.id_chofer = @idChofer
 GO 
