@@ -116,7 +116,7 @@
             this.tablaTurno.AllowUserToDeleteRows = false;
             this.tablaTurno.AllowUserToOrderColumns = true;
             this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaTurno.Location = new System.Drawing.Point(59, 56);
+            this.tablaTurno.Location = new System.Drawing.Point(62, 151);
             this.tablaTurno.MultiSelect = false;
             this.tablaTurno.Name = "tablaTurno";
             this.tablaTurno.ReadOnly = true;
@@ -178,7 +178,7 @@
             // LbelChofer
             // 
             this.LbelChofer.AutoSize = true;
-            this.LbelChofer.Location = new System.Drawing.Point(15, 190);
+            this.LbelChofer.Location = new System.Drawing.Point(16, 97);
             this.LbelChofer.Name = "LbelChofer";
             this.LbelChofer.Size = new System.Drawing.Size(41, 13);
             this.LbelChofer.TabIndex = 18;
@@ -187,7 +187,7 @@
             // LbelTurno
             // 
             this.LbelTurno.AutoSize = true;
-            this.LbelTurno.Location = new System.Drawing.Point(15, 92);
+            this.LbelTurno.Location = new System.Drawing.Point(16, 183);
             this.LbelTurno.Name = "LbelTurno";
             this.LbelTurno.Size = new System.Drawing.Size(38, 13);
             this.LbelTurno.TabIndex = 17;
@@ -199,7 +199,7 @@
             this.tablaChofer.AllowUserToDeleteRows = false;
             this.tablaChofer.AllowUserToOrderColumns = true;
             this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaChofer.Location = new System.Drawing.Point(59, 151);
+            this.tablaChofer.Location = new System.Drawing.Point(62, 56);
             this.tablaChofer.MultiSelect = false;
             this.tablaChofer.Name = "tablaChofer";
             this.tablaChofer.ReadOnly = true;

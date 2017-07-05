@@ -15,6 +15,7 @@ namespace UberFrba
         int idChofer;
         int importe;
         int turno;
+        DateTime fechaBuscada;
 
         public RendicionViajes()
         {
@@ -51,20 +52,36 @@ namespace UberFrba
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            if (turno == 0 || idChofer == 0 || turno == 0)
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("Selecciona otra vez valores en TODOS los campos");
+            }
+            else
+            {
                 CapaInterfaz.IRendicion.viajes(this.tablaViaje, this.fecha.Value, turno, idChofer);
+
+                this.fechaBuscada = this.fecha.Value;
 
                 importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViaje);
 
                 this.txtImporte.Text = System.Convert.ToString(importe);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //rendir
 
-            CapaInterfaz.IRendicion.rendir(this.tablaViaje, this.fecha.Value);
-            CapaInterfaz.Decoracion.mostrarInfo("Transaccion finalizada");
-           
+            if (this.tablaViaje.RowCount == 0)
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("No hay viajes por rendir");
+            }
+            else
+            {
+                CapaInterfaz.IRendicion.rendir(this.tablaViaje, this.fechaBuscada);
+
+                CapaInterfaz.Decoracion.mostrarInfo("Transaccion finalizada");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

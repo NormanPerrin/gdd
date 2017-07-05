@@ -112,5 +112,14 @@ namespace UberFrba.AbmAuto
         {
             this.Close();
         }
+
+        private void btnReiniciar_Click(object sender, EventArgs e)
+        {
+            marca = 0;
+            modelo = 0;
+            txtPatente.Text = "";
+            chofer = 0;
+            CapaInterfaz.Decoracion.mostrarInfo("Seleccione DE VUELTA los campos que desea");
+        }
     }
 }

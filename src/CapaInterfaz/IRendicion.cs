@@ -38,16 +38,28 @@ namespace CapaInterfaz
 
         public static void rendir(DataGridView tablaViajes, DateTime fecha)
         {
-            CapaNegocio.NRendicion.rendir(fecha);
-
-            int importe = 0;
-            int viaje = 0;
-            foreach (DataGridViewRow row in tablaViajes.Rows)
+            //validacion de fecha
+            DataGridView rendiciones = new DataGridView();
+            int idChofer = System.Convert.ToInt32(tablaViajes.Rows[0].Cells[0].Value);
+            rendiciones.DataSource = CapaNegocio.NRendicion.traerRendiciones(fecha, idChofer);
+            if (rendiciones.RowCount == 0)
             {
-                //en la columna de importe por viaje
-                importe = System.Convert.ToInt32(row.Cells[7].Value);
-                viaje = System.Convert.ToInt32(row.Cells[6].Value);
-                CapaNegocio.NRendicion.importesPorViaje(viaje, importe);
+                //rendicion
+                CapaNegocio.NRendicion.rendir(fecha);
+
+                int importe = 0;
+                int viaje = 0;
+                foreach (DataGridViewRow row in tablaViajes.Rows)
+                {
+                    //en la columna de importe por viaje
+                    importe = System.Convert.ToInt32(row.Cells[7].Value);
+                    viaje = System.Convert.ToInt32(row.Cells[6].Value);
+                    CapaNegocio.NRendicion.importesPorViaje(viaje, importe);
+                }
+            }
+            else
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("Ya se le rindio a este chofer");
             }
         }
 

@@ -31,5 +31,11 @@ namespace CapaNegocio
             CapaDatos.DRendicion Objeto = new CapaDatos.DRendicion();
             return Objeto.ObtenerViajes();
         }
+
+        public static object traerRendiciones(DateTime fecha, int idChofer)
+        {
+            CapaDatos.DRendicion Objeto = new CapaDatos.DRendicion();
+            return Objeto.traerRendiciones(fecha, idChofer);
+        }
     }
 }
