@@ -76,6 +76,10 @@ namespace UberFrba
             {
                 CapaInterfaz.Decoracion.mostrarInfo("No hay viajes por rendir");
             }
+            else if (this.fecha.Value == Properties.Settings.Default.FechaSistema)
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("No puede rendir los viajes del dia de la fecha");
+            }
             else
             {
                 CapaInterfaz.IRendicion.viajes2(this.tablaViaje, this.fecha.Value, idChofer);
