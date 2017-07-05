@@ -115,16 +115,30 @@ namespace UberFrba.AbmAuto
 
         private void txtGuardarChofer_Click(object sender, EventArgs e)
         {
-            string respuesta = CapaInterfaz.IAuto.modificarChofer(this.idAuto ,this.newidChofer,this.idTurno);
-            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
-            this.Close();
+            if (this.newidChofer == 0)
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("Seleccione bien el chofer"); 
+            }
+            else
+            {
+                string respuesta = CapaInterfaz.IAuto.modificarChofer(this.idAuto, this.newidChofer, this.idTurno);
+                CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+                this.Close();
+            }
         }
 
         private void txtGuardarTurno_Click(object sender, EventArgs e)
         {
-            string respuesta = CapaInterfaz.IAuto.modificarTurno(this.idAuto, this.idChofer, this.newidTurno);
-            CapaInterfaz.Decoracion.mostrarInfo(respuesta);
-            this.Close();
+            if (this.newidTurno == 0)
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("Seleccione bien el turno");
+            }
+            else
+            {
+                string respuesta = CapaInterfaz.IAuto.modificarTurno(this.idAuto, this.idChofer, this.newidTurno);
+                CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+                this.Close();
+            }
         }
 
         private void tablaChofer_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -130,6 +130,7 @@ namespace CapaInterfaz
             if (patenteVacia(patente)&&not(seleccionoChofer(chofer))&&not(seleccionoMarcaOModelo(marca)))
             {
                 CapaInterfaz.Decoracion.mostrarInfo("seleccione por lo menos un campo");
+                tablaAutos.DataSource = null;
             }
             else if (patenteVacia(patente) && not(seleccionoChofer(chofer)) && seleccionoMarcaOModelo(marca))
             {
