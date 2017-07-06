@@ -89,6 +89,8 @@ namespace UberFrba
                 CapaInterfaz.IRendicion.viajes2(this.tablaViaje, this.fecha.Value, idChofer);
 
                 CapaInterfaz.Decoracion.mostrarInfo("Se rindieron todos los turnos del chofer");
+
+                this.Close();
             }
         }
 

@@ -49,5 +49,10 @@ namespace UberFrba
             String idCliente = CapaInterfaz.ICliente.getIdClienteActual(cbxCliente.Text);
             CapaInterfaz.IViaje.CargarListaViajes(dataGridView1, idCliente, Properties.Settings.Default.FechaSistema);
         }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
