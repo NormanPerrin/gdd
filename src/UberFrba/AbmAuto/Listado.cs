@@ -131,7 +131,7 @@ namespace UberFrba.AbmAuto
             modelo = 0;
             txtPatente.Text = "";
             chofer = 0;
-            CapaInterfaz.Decoracion.mostrarInfo("Seleccione DE VUELTA los campos que desea");
+           // CapaInterfaz.Decoracion.mostrarInfo("Seleccione DE VUELTA los campos que desea");
         }
     }
 }
