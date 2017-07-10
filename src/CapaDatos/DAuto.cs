@@ -345,11 +345,11 @@ namespace CapaDatos
             return resultado;
         }
 
-        public string modificarChofer(int auto, int chofer, int turno)
+        public string modificarChofer(int auto, int chofer, int nuevoC, int turno)
         {
             Conexion Conexion = new Conexion();
 
-            SqlParameter[] parametros = new SqlParameter[3];
+            SqlParameter[] parametros = new SqlParameter[4];
 
             parametros[0] = new SqlParameter();
             parametros[0].ParameterName = "@idAuto";
@@ -359,12 +359,17 @@ namespace CapaDatos
             parametros[1] = new SqlParameter();
             parametros[1].ParameterName = "@idChofer";
             parametros[1].SqlDbType = SqlDbType.Int;
-            parametros[1].Value = chofer;
+            parametros[1].Value = nuevoC;
 
             parametros[2] = new SqlParameter();
             parametros[2].ParameterName = "@idTurno";
             parametros[2].SqlDbType = SqlDbType.Int;
             parametros[2].Value = turno;
+
+            parametros[3] = new SqlParameter();
+            parametros[3].ParameterName = "@idChoferViejo";
+            parametros[3].SqlDbType = SqlDbType.Int;
+            parametros[3].Value = chofer;
 
             string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spModificarChofer");
             string respuesta = string.Empty;
@@ -372,7 +377,39 @@ namespace CapaDatos
             return resultado;
         }
 
-        public string modificarTurno(int auto, int chofer, int turno)
+        public string modificarTurno(int auto, int chofer, int turno, int nuevoT)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[4];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idAuto";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = auto;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@idChofer";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = chofer;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@idTurnoViejo";
+            parametros[2].SqlDbType = SqlDbType.Int;
+            parametros[2].Value = turno;
+
+            parametros[3] = new SqlParameter();
+            parametros[3].ParameterName = "@idTurnoNuevo";
+            parametros[3].SqlDbType = SqlDbType.Int;
+            parametros[3].Value = nuevoT;
+
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spModificarTurnoAuto");
+            string respuesta = string.Empty;
+
+            return resultado;
+        }
+
+        public string agregarTurno(int auto, int chofer, int turno)
         {
             Conexion Conexion = new Conexion();
 
@@ -393,10 +430,37 @@ namespace CapaDatos
             parametros[2].SqlDbType = SqlDbType.Int;
             parametros[2].Value = turno;
 
-            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spModificarTurnoAuto");
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spAgregarTurnoAuto");
             string respuesta = string.Empty;
 
             return resultado;
+        }
+
+        public string quitarTurno(int auto, int chofer, int turno)
+        {
+            Conexion Conexion = new Conexion();
+
+            SqlParameter[] parametros = new SqlParameter[3];
+
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@idAuto";
+            parametros[0].SqlDbType = SqlDbType.Int;
+            parametros[0].Value = auto;
+
+            parametros[1] = new SqlParameter();
+            parametros[1].ParameterName = "@idChofer";
+            parametros[1].SqlDbType = SqlDbType.Int;
+            parametros[1].Value = chofer;
+
+            parametros[2] = new SqlParameter();
+            parametros[2].ParameterName = "@idTurno";
+            parametros[2].SqlDbType = SqlDbType.Int;
+            parametros[2].Value = turno;
+
+            string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spQuitarTurnoAuto");
+            string respuesta = string.Empty;
+
+            return resultado; 
         }
     }
 }

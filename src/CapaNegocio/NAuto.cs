@@ -99,16 +99,28 @@ namespace CapaNegocio
             return objeto.HabilitarAuto(idAuto);
         }
 
-        public static string modificarChofer(int auto, int chofer, int turno)
+        public static string modificarChofer(int auto, int chofer, int nuevoChofer, int turno)
         {
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
-            return objeto.modificarChofer(auto, chofer, turno);
+            return objeto.modificarChofer(auto, chofer, nuevoChofer, turno);
         }
 
-        public static string modificarTurno(int auto, int chofer, int turno)
+        public static string modificarTurno(int auto, int chofer, int turno, int nuevoTurno)
         {
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
-            return objeto.modificarTurno(auto, chofer, turno);
+            return objeto.modificarTurno(auto, chofer, turno, nuevoTurno);
+        }
+
+        public static string agregarrChofer(int auto, int chofer, int turno)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.agregarTurno(auto, chofer, turno);
+        }
+
+        public static string quitarChofer(int auto, int chofer, int turno)
+        {
+            CapaDatos.DAuto objeto = new CapaDatos.DAuto();
+            return objeto.quitarTurno(auto, chofer, turno );
         }
     }
 }

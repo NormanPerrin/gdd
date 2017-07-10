@@ -33,19 +33,19 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tablaAutos = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tablaChofer = new System.Windows.Forms.DataGridView();
+            this.btnReiniciar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.tablaMarca = new System.Windows.Forms.DataGridView();
             this.txtPatente = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnReiniciar = new System.Windows.Forms.Button();
+            this.tablaMarca2 = new System.Windows.Forms.DataGridView();
+            this.tablaChofer2 = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaAutos)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaMarca)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaMarca2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -91,16 +91,17 @@
             this.tablaAutos.MultiSelect = false;
             this.tablaAutos.Name = "tablaAutos";
             this.tablaAutos.ReadOnly = true;
+            this.tablaAutos.RowHeadersVisible = false;
             this.tablaAutos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaAutos.Size = new System.Drawing.Size(473, 152);
             this.tablaAutos.TabIndex = 3;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tablaChofer2);
+            this.groupBox2.Controls.Add(this.tablaMarca2);
             this.groupBox2.Controls.Add(this.btnReiniciar);
-            this.groupBox2.Controls.Add(this.tablaChofer);
             this.groupBox2.Controls.Add(this.btnBuscar);
-            this.groupBox2.Controls.Add(this.tablaMarca);
             this.groupBox2.Controls.Add(this.txtPatente);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
@@ -112,20 +113,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Criterio de busqueda:";
             // 
-            // tablaChofer
+            // btnReiniciar
             // 
-            this.tablaChofer.AllowUserToAddRows = false;
-            this.tablaChofer.AllowUserToDeleteRows = false;
-            this.tablaChofer.AllowUserToOrderColumns = true;
-            this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaChofer.Location = new System.Drawing.Point(66, 123);
-            this.tablaChofer.MultiSelect = false;
-            this.tablaChofer.Name = "tablaChofer";
-            this.tablaChofer.ReadOnly = true;
-            this.tablaChofer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaChofer.Size = new System.Drawing.Size(389, 79);
-            this.tablaChofer.TabIndex = 18;
-            this.tablaChofer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaChofer_CellContentClick);
+            this.btnReiniciar.Location = new System.Drawing.Point(285, 214);
+            this.btnReiniciar.Name = "btnReiniciar";
+            this.btnReiniciar.Size = new System.Drawing.Size(75, 23);
+            this.btnReiniciar.TabIndex = 19;
+            this.btnReiniciar.Text = "Reiniciar";
+            this.btnReiniciar.UseVisualStyleBackColor = true;
+            this.btnReiniciar.Click += new System.EventHandler(this.btnReiniciar_Click);
             // 
             // btnBuscar
             // 
@@ -136,21 +132,6 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // tablaMarca
-            // 
-            this.tablaMarca.AllowUserToAddRows = false;
-            this.tablaMarca.AllowUserToDeleteRows = false;
-            this.tablaMarca.AllowUserToOrderColumns = true;
-            this.tablaMarca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaMarca.Location = new System.Drawing.Point(66, 29);
-            this.tablaMarca.MultiSelect = false;
-            this.tablaMarca.Name = "tablaMarca";
-            this.tablaMarca.ReadOnly = true;
-            this.tablaMarca.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaMarca.Size = new System.Drawing.Size(389, 80);
-            this.tablaMarca.TabIndex = 17;
-            this.tablaMarca.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaMarca_CellContentClick);
             // 
             // txtPatente
             // 
@@ -186,15 +167,35 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Marca:";
             // 
-            // btnReiniciar
+            // tablaMarca2
             // 
-            this.btnReiniciar.Location = new System.Drawing.Point(285, 214);
-            this.btnReiniciar.Name = "btnReiniciar";
-            this.btnReiniciar.Size = new System.Drawing.Size(75, 23);
-            this.btnReiniciar.TabIndex = 19;
-            this.btnReiniciar.Text = "Reiniciar";
-            this.btnReiniciar.UseVisualStyleBackColor = true;
-            this.btnReiniciar.Click += new System.EventHandler(this.btnReiniciar_Click);
+            this.tablaMarca2.AllowUserToAddRows = false;
+            this.tablaMarca2.AllowUserToDeleteRows = false;
+            this.tablaMarca2.AllowUserToOrderColumns = true;
+            this.tablaMarca2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaMarca2.Location = new System.Drawing.Point(66, 34);
+            this.tablaMarca2.MultiSelect = false;
+            this.tablaMarca2.Name = "tablaMarca2";
+            this.tablaMarca2.ReadOnly = true;
+            this.tablaMarca2.RowHeadersVisible = false;
+            this.tablaMarca2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tablaMarca2.Size = new System.Drawing.Size(389, 83);
+            this.tablaMarca2.TabIndex = 20;
+            // 
+            // tablaChofer2
+            // 
+            this.tablaChofer2.AllowUserToAddRows = false;
+            this.tablaChofer2.AllowUserToDeleteRows = false;
+            this.tablaChofer2.AllowUserToResizeColumns = false;
+            this.tablaChofer2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaChofer2.Location = new System.Drawing.Point(66, 128);
+            this.tablaChofer2.MultiSelect = false;
+            this.tablaChofer2.Name = "tablaChofer2";
+            this.tablaChofer2.ReadOnly = true;
+            this.tablaChofer2.RowHeadersVisible = false;
+            this.tablaChofer2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tablaChofer2.Size = new System.Drawing.Size(389, 80);
+            this.tablaChofer2.TabIndex = 21;
             // 
             // Listado
             // 
@@ -204,12 +205,13 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "Listado";
             this.Text = "Listado";
+            this.Load += new System.EventHandler(this.Alta_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tablaAutos)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaMarca)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaMarca2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -224,10 +226,10 @@
         private System.Windows.Forms.TextBox txtPatente;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView tablaMarca;
-        private System.Windows.Forms.DataGridView tablaChofer;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnReiniciar;
+        private System.Windows.Forms.DataGridView tablaMarca2;
+        private System.Windows.Forms.DataGridView tablaChofer2;
     }
 }

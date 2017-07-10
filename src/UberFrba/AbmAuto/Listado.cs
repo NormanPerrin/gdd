@@ -29,16 +29,28 @@ namespace UberFrba.AbmAuto
         {
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
-            //uso metodos que estan en auto
-            CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
-            CapaInterfaz.IAuto.CargarMarca(this.tablaMarca);
-            CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
-            CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca, 0);
-            CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca, 2);
         }
-
+        private void Alta_Load(object sender, EventArgs e)
+        {
+            //uso metodos que estan en auto
+            CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer2);
+            CapaInterfaz.IAuto.CargarMarca(this.tablaMarca2);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer2, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca2, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca2, 2);
+        }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            chofer = 0;
+            marca = 0;
+            modelo = 0;
+            if (this.tablaChofer2.CurrentRow != null)
+            { chofer = Convert.ToInt32(this.tablaChofer2.CurrentRow.Cells[0].Value); }
+            if (this.tablaMarca2.CurrentRow != null)
+            { modelo = Convert.ToInt32(this.tablaMarca2.CurrentRow.Cells[0].Value); }
+            if (this.tablaMarca2.CurrentRow != null)
+            { marca = Convert.ToInt32(this.tablaMarca2.CurrentRow.Cells[2].Value); }
+
             CapaInterfaz.IAuto.BuscarAuto(this.tablaAutos, marca, modelo, txtPatente.Text, chofer);
             if (tablaAutos.DataSource != null)
             {
@@ -58,11 +70,11 @@ namespace UberFrba.AbmAuto
         {
             if (e.RowIndex > -1)
             {
-                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaMarca[0, e.RowIndex];
-                modelo = Convert.ToInt32(selectedCell.FormattedValue);
+               // System.Windows.Forms.DataGridViewCell selectedCell = this.tablaMarca[0, e.RowIndex];
+               // modelo = Convert.ToInt32(selectedCell.FormattedValue);
 
-                System.Windows.Forms.DataGridViewCell selectedCell2 = this.tablaMarca[2, e.RowIndex];
-                marca = Convert.ToInt32(selectedCell2.FormattedValue);
+               // System.Windows.Forms.DataGridViewCell selectedCell2 = this.tablaMarca[2, e.RowIndex];
+               // marca = Convert.ToInt32(selectedCell2.FormattedValue);
             }
         }
 
@@ -70,8 +82,8 @@ namespace UberFrba.AbmAuto
         {
             if (e.RowIndex > -1)
             {
-                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
-                chofer = Convert.ToInt32(selectedCell.FormattedValue);
+               // System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+               // chofer = Convert.ToInt32(selectedCell.FormattedValue);
             }
         }
 

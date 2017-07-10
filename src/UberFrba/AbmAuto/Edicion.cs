@@ -21,6 +21,8 @@ namespace UberFrba.AbmAuto
         string rodadoViejo;
         int habilitado;
 
+
+
         public Edicion(int id, int idChofer, string nomC, string apeC,int idTurno, string descT, string lic, string rod, int hab)
         {
             InitializeComponent();
@@ -37,16 +39,18 @@ namespace UberFrba.AbmAuto
             this.txtTurno.Text = descT;
             this.txtLicenciaVieja.Text = this.licenciaVieja;
             this.txtRodadoViejo.Text = this.rodadoViejo;
+        }
 
+        #region Acciones/Eventos
+        
+        private void Edicion_Load(object sender, EventArgs e)
+        {
             CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
             CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 1);
         }
-
-        #region Acciones/Eventos
-
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -105,7 +109,19 @@ namespace UberFrba.AbmAuto
 
         private void button6_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.newidTurno = 0;
+            if (this.tablaTurno.CurrentRow != null)
+            { newidTurno = Convert.ToInt32(this.tablaTurno.CurrentRow.Cells[0].Value); }
+            if (this.newidTurno == 0)
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("Seleccione bien el turno");
+            }
+            else
+            {
+                string respuesta = CapaInterfaz.IAuto.quitarTurno(this.idAuto, this.idChofer, this.newidTurno);
+                CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+                this.Close();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -115,13 +131,16 @@ namespace UberFrba.AbmAuto
 
         private void txtGuardarChofer_Click(object sender, EventArgs e)
         {
+            this.newidChofer = 0;
+            if (this.tablaChofer.CurrentRow != null)
+            { newidChofer = Convert.ToInt32(this.tablaChofer.CurrentRow.Cells[0].Value); }
             if (this.newidChofer == 0)
             {
                 CapaInterfaz.Decoracion.mostrarInfo("Seleccione bien el chofer"); 
             }
             else
             {
-                string respuesta = CapaInterfaz.IAuto.modificarChofer(this.idAuto, this.newidChofer, this.idTurno);
+                string respuesta = CapaInterfaz.IAuto.modificarChofer(this.idAuto, this.idChofer, this.newidChofer, this.idTurno);
                 CapaInterfaz.Decoracion.mostrarInfo(respuesta);
                 this.Close();
             }
@@ -129,13 +148,16 @@ namespace UberFrba.AbmAuto
 
         private void txtGuardarTurno_Click(object sender, EventArgs e)
         {
+            this.newidTurno = 0;
+            if (this.tablaTurno.CurrentRow != null)
+            { newidTurno = Convert.ToInt32(this.tablaTurno.CurrentRow.Cells[0].Value); }
             if (this.newidTurno == 0)
             {
                 CapaInterfaz.Decoracion.mostrarInfo("Seleccione bien el turno");
             }
             else
             {
-                string respuesta = CapaInterfaz.IAuto.modificarTurno(this.idAuto, this.idChofer, this.newidTurno);
+                string respuesta = CapaInterfaz.IAuto.modificarTurno(this.idAuto, this.idChofer, this.idTurno, this.newidTurno);
                 CapaInterfaz.Decoracion.mostrarInfo(respuesta);
                 this.Close();
             }
@@ -145,9 +167,8 @@ namespace UberFrba.AbmAuto
         {
             if (e.RowIndex > -1)
             {
-                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
-                //ID DEL NUEVO CHOFER HECHO POR DATAGRID
-                this.newidChofer = Convert.ToInt32(selectedCell.FormattedValue);
+                //System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+                //this.newidChofer = Convert.ToInt32(selectedCell.FormattedValue);
             }
         }
 
@@ -155,9 +176,25 @@ namespace UberFrba.AbmAuto
         {
             if (e.RowIndex > -1)
             {
-                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno[0, e.RowIndex];
-                //ID DEL NUEVO TURNO HECHO POR DATAGRID
-                this.newidTurno = Convert.ToInt32(selectedCell.FormattedValue);
+               // System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno[0, e.RowIndex];
+                //this.newidTurno = Convert.ToInt32(selectedCell.FormattedValue);
+            }
+        }
+
+        private void btnAgregarTurno_Click(object sender, EventArgs e)
+        {
+            this.newidTurno = 0;
+            if (this.tablaTurno.CurrentRow != null)
+            { newidTurno = Convert.ToInt32(this.tablaTurno.CurrentRow.Cells[0].Value); }
+            if (this.newidTurno == 0)
+            {
+                CapaInterfaz.Decoracion.mostrarInfo("Seleccione bien el turno");
+            }
+            else
+            {
+                string respuesta = CapaInterfaz.IAuto.agregarTurno(this.idAuto, this.idChofer, this.newidTurno);
+                CapaInterfaz.Decoracion.mostrarInfo(respuesta);
+                this.Close();
             }
         }
 

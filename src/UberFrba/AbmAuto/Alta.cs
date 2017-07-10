@@ -25,6 +25,19 @@ namespace UberFrba.AbmAuto
 
         private void BtnAlta_Click(object sender, EventArgs e)
         {
+            idChofer = 0;
+            turno = 0;
+            marca = 0;
+            modelo = 0;
+            if (this.tablaChofer.CurrentRow != null)
+            { idChofer = Convert.ToInt32(this.tablaChofer.CurrentRow.Cells[0].Value); }
+            if (this.tablaTurno.CurrentRow != null)
+            { turno = Convert.ToInt32(this.tablaTurno.CurrentRow.Cells[0].Value); }
+            if (this.tablaMarca.CurrentRow != null)
+            { modelo = Convert.ToInt32(this.tablaMarca.CurrentRow.Cells[0].Value); }
+            if (this.tablaMarca.CurrentRow != null)
+            { marca = Convert.ToInt32(this.tablaMarca.CurrentRow.Cells[2].Value); }
+            
                 //chequeo patente vacia
                 if (string.IsNullOrWhiteSpace(TxtPatente.Text))
                 {
@@ -67,8 +80,8 @@ namespace UberFrba.AbmAuto
         {
             if (e.RowIndex > -1)
             {
-                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
-                idChofer = Convert.ToInt32(selectedCell.FormattedValue);
+              //  System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+              //  idChofer = Convert.ToInt32(selectedCell.FormattedValue);
             }
         }
 
@@ -76,11 +89,11 @@ namespace UberFrba.AbmAuto
         {
             if (e.RowIndex > -1)
             {
-                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaMarca[0, e.RowIndex];
-                modelo = Convert.ToInt32(selectedCell.FormattedValue);
+             //  System.Windows.Forms.DataGridViewCell selectedCell = this.tablaMarca[0, e.RowIndex];
+             //   modelo = Convert.ToInt32(selectedCell.FormattedValue);
 
-                System.Windows.Forms.DataGridViewCell selectedCell2 = this.tablaMarca[2, e.RowIndex];
-                marca = Convert.ToInt32(selectedCell2.FormattedValue);
+             //   System.Windows.Forms.DataGridViewCell selectedCell2 = this.tablaMarca[2, e.RowIndex];
+             //   marca = Convert.ToInt32(selectedCell2.FormattedValue);
             }
         }
 
@@ -88,8 +101,8 @@ namespace UberFrba.AbmAuto
         {
             if (e.RowIndex > -1)
             {
-            System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno[0, e.RowIndex];
-            turno = Convert.ToInt32(selectedCell.FormattedValue);
+           // System.Windows.Forms.DataGridViewCell selectedCell = this.tablaTurno[0, e.RowIndex];
+           // turno = Convert.ToInt32(selectedCell.FormattedValue);
             }
         }
 

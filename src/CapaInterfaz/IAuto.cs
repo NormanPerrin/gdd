@@ -186,15 +186,27 @@ namespace CapaInterfaz
             return respuesta;
         }
 
-        public static string modificarChofer(int auto, int chofer, int turno)
+        public static string modificarChofer(int auto, int chofer, int nuevoChofer, int turno)
         {
-            string respuesta = CapaNegocio.NAuto.modificarChofer(auto, chofer, turno);
+            string respuesta = CapaNegocio.NAuto.modificarChofer(auto, chofer, nuevoChofer, turno);
             return respuesta;
         }
 
-        public static string modificarTurno(int auto, int chofer, int turno)
+        public static string modificarTurno(int auto, int chofer, int turno, int nuevoTurno)
         {
-            string respuesta = CapaNegocio.NAuto.modificarTurno(auto, chofer, turno);
+            string respuesta = CapaNegocio.NAuto.modificarTurno(auto, chofer, turno, nuevoTurno);
+            return respuesta;
+        }
+
+        public static string agregarTurno(int auto, int chofer, int turno)
+        {
+            string respuesta = CapaNegocio.NAuto.agregarrChofer(auto, chofer,  turno);
+            return respuesta;
+        }
+
+        public static string quitarTurno(int auto, int chofer, int turno)
+        {
+            string respuesta = CapaNegocio.NAuto.quitarChofer(auto, chofer,  turno);
             return respuesta;
         }
     }

@@ -111,12 +111,13 @@
             // 
             this.tablaChofer.AllowUserToAddRows = false;
             this.tablaChofer.AllowUserToDeleteRows = false;
-            this.tablaChofer.AllowUserToOrderColumns = true;
+            this.tablaChofer.AllowUserToResizeColumns = false;
             this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tablaChofer.Location = new System.Drawing.Point(68, 331);
             this.tablaChofer.MultiSelect = false;
             this.tablaChofer.Name = "tablaChofer";
             this.tablaChofer.ReadOnly = true;
+            this.tablaChofer.RowHeadersVisible = false;
             this.tablaChofer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaChofer.Size = new System.Drawing.Size(240, 123);
             this.tablaChofer.TabIndex = 15;
@@ -132,6 +133,7 @@
             this.tablaMarca.MultiSelect = false;
             this.tablaMarca.Name = "tablaMarca";
             this.tablaMarca.ReadOnly = true;
+            this.tablaMarca.RowHeadersVisible = false;
             this.tablaMarca.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaMarca.Size = new System.Drawing.Size(240, 123);
             this.tablaMarca.TabIndex = 16;
@@ -147,6 +149,7 @@
             this.tablaTurno.MultiSelect = false;
             this.tablaTurno.Name = "tablaTurno";
             this.tablaTurno.ReadOnly = true;
+            this.tablaTurno.RowHeadersVisible = false;
             this.tablaTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaTurno.Size = new System.Drawing.Size(240, 123);
             this.tablaTurno.TabIndex = 17;

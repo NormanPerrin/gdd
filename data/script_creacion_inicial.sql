@@ -317,6 +317,26 @@ IF OBJECT_ID('CRAZYDRIVER.spModificarTurnoAuto') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spModificarTurnoAuto;
 END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerSoloModelos') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerSoloModelos;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerSoloMarcas') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerSoloMarcas;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spQuitarTurnoAuto') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spQuitarTurnoAuto;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spAgregarTurnoAuto') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spAgregarTurnoAuto;
+END;
 ---- BORRO TABLAS
 
 IF OBJECT_ID('CRAZYDRIVER.FacturacionPorViaje','U') IS NOT NULL
@@ -904,7 +924,7 @@ GO
 
 CREATE PROC CRAZYDRIVER.spObtenerChoferes
 	AS
-		SELECT DISTINCT id_chofer, dni, nombre, apellido
+		SELECT id_chofer,dni, nombre, apellido
 		FROM CRAZYDRIVER.Chofer
 		WHERE habilitado = 1
 GO
@@ -914,6 +934,18 @@ CREATE PROC CRAZYDRIVER.spObtenerMarcasYModelos
 		SELECT DISTINCT m.id_modelo id_modelo, m.nombre Modelo, m.id_marca id_marca, m2.nombre Marca
 		FROM CRAZYDRIVER.Modelo m
 		JOIN CRAZYDRIVER.Marca m2 on m.id_marca = m2.id_marca
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerSoloMarcas
+	AS
+		SELECT DISTINCT m.id_marca id_marca, m.nombre nombre
+		FROM CRAZYDRIVER.Marca m
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerSoloModelos
+	AS
+		SELECT DISTINCT m.id_modelo id_modelo, m.nombre nombre, m.id_marca id_marca
+		FROM CRAZYDRIVER.Modelo m
 GO
 
 CREATE PROC CRAZYDRIVER.spBuscarRoles
@@ -1132,8 +1164,8 @@ CREATE PROC CRAZYDRIVER.spAgregarAuto
 	@modelo INT
 	AS
 			INSERT INTO CRAZYDRIVER.Auto
-				(patente, id_modelo)
-				VALUES (@patente, @modelo)
+				(patente, id_modelo, habilitado)
+				VALUES (@patente, @modelo, 0)
 GO
 
 CREATE PROC CRAZYDRIVER.spAltaAutomovil
@@ -1146,7 +1178,7 @@ CREATE PROC CRAZYDRIVER.spAltaAutomovil
 		DECLARE @idAuto int;
 
 		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.Auto
-			WHERE patente = @patente AND habilitado = 1)
+			WHERE patente = @patente)
 			BEGIN
 			RAISERROR('Patente existente',17,1);
 			RETURN
@@ -1703,13 +1735,22 @@ GO
 CREATE PROC CRAZYDRIVER.spHabilitarAuto
 	@idAuto int
 	AS
-	UPDATE CRAZYDRIVER.Auto set habilitado = 1 where id_auto = @idAuto;
+		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.AutoPorChofer apc 
+				JOIN CRAZYDRIVER.AutoPorChofer apc2 on apc.id_chofer = apc2.id_chofer AND apc.id_turno = apc2.id_turno
+				JOIN CRAZYDRIVER.Auto a on apc2.id_auto = a.id_auto 
+				WHERE  apc.id_auto=@idAuto AND a.habilitado = 1)
+					BEGIN
+					RAISERROR('Ya existe otro auto habilitado para este chofer en este turno.',17,1)
+					RETURN
+					END
+		ELSE UPDATE CRAZYDRIVER.Auto set habilitado = 1 where id_auto = @idAuto;
 GO
 
 CREATE PROC CRAZYDRIVER.spModificarChofer
 	@idAuto int,
 	@idChofer int,
-	@idTurno int
+	@idTurno int,
+	@idChoferNuevo int
 	AS
 		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.AutoPorChofer
 		where (id_turno=@idTurno AND id_chofer = @idChofer))
@@ -1718,34 +1759,70 @@ CREATE PROC CRAZYDRIVER.spModificarChofer
 			RETURN
 			END
 		ELSE
-			declare @chofer int;
-			 (SELECT @chofer = id_chofer FROM CRAZYDRIVER.AutoPorChofer 
-				WHERE id_auto = @idAuto AND id_turno = @idTurno)
 
 			INSERT INTO CRAZYDRIVER.AutoPorChofer (id_auto, id_chofer, id_turno) VALUES
-				(@idAuto, @idChofer, @idTurno)
+				(@idAuto, @idChoferNuevo, @idTurno)
 			DELETE FROM CRAZYDRIVER.AutoPorChofer
-			WHERE (id_auto = @idAuto AND id_chofer = @chofer AND id_turno=@idTurno)
+			WHERE (id_auto = @idAuto AND id_chofer = @idChofer AND id_turno=@idTurno)
+				
+GO
+
+CREATE PROC CRAZYDRIVER.spAgregarTurnoAuto
+	@idAuto int,
+	@idChofer int,
+	@idTurno int
+	AS
+		IF EXISTS (SELECT 1 from CRAZYDRIVER.AutoPorChofer
+				WHERE id_auto=@idAuto AND id_chofer=@idChofer AND id_turno=@idTurno)
+				BEGIN
+				RAISERROR('El auto ya posee el turno.',17,1)
+				RETURN
+				END
+		ELSE
+			INSERT INTO CRAZYDRIVER.AutoPorChofer (id_auto, id_chofer, id_turno) VALUES
+				(@idAuto, @idChofer, @idTurno)		
+				
+GO
+
+CREATE PROC CRAZYDRIVER.spQuitarTurnoAuto
+	@idAuto int,
+	@idChofer int,
+	@idTurno int
+	AS
+		DECLARE @total int;
+		SELECT @total = count(*) from CRAZYDRIVER.AutoPorChofer
+		WHERE id_auto=@idAuto AND id_chofer=@idChofer
+			IF (@total=1)
+				BEGIN
+				RAISERROR('No puede dejar el auto sin turnos, si quiere deshabilitelo.',17,1)
+				RETURN
+				END
+			ELSE
+				DELETE FROM CRAZYDRIVER.AutoPorChofer
+				WHERE (id_auto= @idAuto AND id_chofer = @idChofer AND id_turno = @idTurno)	
+				
 				
 GO
 
 CREATE PROC CRAZYDRIVER.spModificarTurnoAuto
 	@idAuto int,
 	@idChofer int,
-	@idTurno int
+	@idTurnoViejo int,
+	@idTurnoNuevo int
 	AS
-		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.AutoPorChofer
-		where (id_auto = @idAuto AND id_turno = @idTurno))
+		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.AutoPorChofer ac
+		JOIN CRAZYDRIVER.AutoPorChofer ac2 on ac.id_chofer = ac2.id_chofer
+		where (ac.id_auto = @idAuto AND ac.id_turno = @idTurnoNuevo AND ac2.id_turno != @idTurnoNuevo))
 			BEGIN
 			RAISERROR('Este auto ya tiene este turno.',17,1)
 			RETURN
 			END
 		ELSE
-			declare @turno int;
-				(SELECT @turno = id_turno FROM CRAZYDRIVER.AutoPorChofer 
-				WHERE id_auto = @idAuto AND id_chofer = @idChofer)
+			
 			INSERT INTO CRAZYDRIVER.AutoPorChofer (id_auto, id_chofer, id_turno) VALUES
-				(@idAuto, @idChofer, @idTurno)
+				(@idAuto, @idChofer, @idTurnoNuevo)
+			DELETE FROM CRAZYDRIVER.AutoPorChofer
+			WHERE (id_auto = @idAuto AND id_chofer = @idChofer AND id_turno=@idTurnoViejo)
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerViajes

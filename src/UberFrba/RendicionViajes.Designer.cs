@@ -120,6 +120,7 @@
             this.tablaTurno.MultiSelect = false;
             this.tablaTurno.Name = "tablaTurno";
             this.tablaTurno.ReadOnly = true;
+            this.tablaTurno.RowHeadersVisible = false;
             this.tablaTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaTurno.Size = new System.Drawing.Size(393, 89);
             this.tablaTurno.TabIndex = 24;
@@ -143,6 +144,7 @@
             this.tablaViaje.MultiSelect = false;
             this.tablaViaje.Name = "tablaViaje";
             this.tablaViaje.ReadOnly = true;
+            this.tablaViaje.RowHeadersVisible = false;
             this.tablaViaje.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaViaje.Size = new System.Drawing.Size(463, 177);
             this.tablaViaje.TabIndex = 3;
@@ -203,6 +205,7 @@
             this.tablaChofer.MultiSelect = false;
             this.tablaChofer.Name = "tablaChofer";
             this.tablaChofer.ReadOnly = true;
+            this.tablaChofer.RowHeadersVisible = false;
             this.tablaChofer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaChofer.Size = new System.Drawing.Size(393, 89);
             this.tablaChofer.TabIndex = 16;
@@ -258,6 +261,7 @@
             this.tablaViajes2.MultiSelect = false;
             this.tablaViajes2.Name = "tablaViajes2";
             this.tablaViajes2.ReadOnly = true;
+            this.tablaViajes2.RowHeadersVisible = false;
             this.tablaViajes2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaViajes2.Size = new System.Drawing.Size(463, 308);
             this.tablaViajes2.TabIndex = 21;
@@ -280,6 +284,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "RendicionViajes";
             this.Text = "RendicionViajes";
+            this.Load += new System.EventHandler(this.Edicion_Load);
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

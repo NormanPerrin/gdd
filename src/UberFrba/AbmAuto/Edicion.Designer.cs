@@ -43,6 +43,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabChofer = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tablaChofer = new System.Windows.Forms.DataGridView();
             this.txtApellidoChofer = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.txtGuardarChofer = new System.Windows.Forms.Button();
@@ -50,7 +51,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tabTurno = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
+            this.tablaTurno = new System.Windows.Forms.DataGridView();
+            this.btnQuitarTurno = new System.Windows.Forms.Button();
             this.txtGuardarTurno = new System.Windows.Forms.Button();
             this.txtTurno = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -60,19 +62,18 @@
             this.tabHabilitar = new System.Windows.Forms.TabPage();
             this.btnHabilitar = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.tablaChofer = new System.Windows.Forms.DataGridView();
-            this.tablaTurno = new System.Windows.Forms.DataGridView();
+            this.btnAgregarTurno = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabEdicion.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabChofer.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).BeginInit();
             this.tabTurno.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).BeginInit();
             this.tabBaja.SuspendLayout();
             this.tabHabilitar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -229,6 +230,22 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Seleccione el nuevo chofer:";
             // 
+            // tablaChofer
+            // 
+            this.tablaChofer.AllowUserToAddRows = false;
+            this.tablaChofer.AllowUserToDeleteRows = false;
+            this.tablaChofer.AllowUserToOrderColumns = true;
+            this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaChofer.Location = new System.Drawing.Point(25, 58);
+            this.tablaChofer.MultiSelect = false;
+            this.tablaChofer.Name = "tablaChofer";
+            this.tablaChofer.ReadOnly = true;
+            this.tablaChofer.RowHeadersVisible = false;
+            this.tablaChofer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tablaChofer.Size = new System.Drawing.Size(208, 77);
+            this.tablaChofer.TabIndex = 16;
+            this.tablaChofer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaChofer_CellContentClick);
+            // 
             // txtApellidoChofer
             // 
             this.txtApellidoChofer.Location = new System.Drawing.Point(142, 32);
@@ -286,8 +303,9 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnAgregarTurno);
             this.groupBox3.Controls.Add(this.tablaTurno);
-            this.groupBox3.Controls.Add(this.button6);
+            this.groupBox3.Controls.Add(this.btnQuitarTurno);
             this.groupBox3.Controls.Add(this.txtGuardarTurno);
             this.groupBox3.Controls.Add(this.txtTurno);
             this.groupBox3.Controls.Add(this.label12);
@@ -296,17 +314,33 @@
             this.groupBox3.Size = new System.Drawing.Size(259, 186);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Seleccione el nuevo turno:";
+            this.groupBox3.Text = "Modifique o añada un turno";
             // 
-            // button6
+            // tablaTurno
             // 
-            this.button6.Location = new System.Drawing.Point(97, 151);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 10;
-            this.button6.Text = "Cerrar";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.tablaTurno.AllowUserToAddRows = false;
+            this.tablaTurno.AllowUserToDeleteRows = false;
+            this.tablaTurno.AllowUserToOrderColumns = true;
+            this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tablaTurno.Location = new System.Drawing.Point(25, 58);
+            this.tablaTurno.MultiSelect = false;
+            this.tablaTurno.Name = "tablaTurno";
+            this.tablaTurno.ReadOnly = true;
+            this.tablaTurno.RowHeadersVisible = false;
+            this.tablaTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tablaTurno.Size = new System.Drawing.Size(212, 79);
+            this.tablaTurno.TabIndex = 18;
+            this.tablaTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaTurno_CellContentClick);
+            // 
+            // btnQuitarTurno
+            // 
+            this.btnQuitarTurno.Location = new System.Drawing.Point(6, 151);
+            this.btnQuitarTurno.Name = "btnQuitarTurno";
+            this.btnQuitarTurno.Size = new System.Drawing.Size(75, 23);
+            this.btnQuitarTurno.TabIndex = 10;
+            this.btnQuitarTurno.Text = "Quitar";
+            this.btnQuitarTurno.UseVisualStyleBackColor = true;
+            this.btnQuitarTurno.Click += new System.EventHandler(this.button6_Click);
             // 
             // txtGuardarTurno
             // 
@@ -314,7 +348,7 @@
             this.txtGuardarTurno.Name = "txtGuardarTurno";
             this.txtGuardarTurno.Size = new System.Drawing.Size(75, 23);
             this.txtGuardarTurno.TabIndex = 4;
-            this.txtGuardarTurno.Text = "Guardar";
+            this.txtGuardarTurno.Text = "Cambiar";
             this.txtGuardarTurno.UseVisualStyleBackColor = true;
             this.txtGuardarTurno.Click += new System.EventHandler(this.txtGuardarTurno_Click);
             // 
@@ -399,35 +433,15 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // tablaChofer
+            // btnAgregarTurno
             // 
-            this.tablaChofer.AllowUserToAddRows = false;
-            this.tablaChofer.AllowUserToDeleteRows = false;
-            this.tablaChofer.AllowUserToOrderColumns = true;
-            this.tablaChofer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaChofer.Location = new System.Drawing.Point(25, 58);
-            this.tablaChofer.MultiSelect = false;
-            this.tablaChofer.Name = "tablaChofer";
-            this.tablaChofer.ReadOnly = true;
-            this.tablaChofer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaChofer.Size = new System.Drawing.Size(208, 77);
-            this.tablaChofer.TabIndex = 16;
-            this.tablaChofer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaChofer_CellContentClick);
-            // 
-            // tablaTurno
-            // 
-            this.tablaTurno.AllowUserToAddRows = false;
-            this.tablaTurno.AllowUserToDeleteRows = false;
-            this.tablaTurno.AllowUserToOrderColumns = true;
-            this.tablaTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaTurno.Location = new System.Drawing.Point(25, 58);
-            this.tablaTurno.MultiSelect = false;
-            this.tablaTurno.Name = "tablaTurno";
-            this.tablaTurno.ReadOnly = true;
-            this.tablaTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaTurno.Size = new System.Drawing.Size(212, 79);
-            this.tablaTurno.TabIndex = 18;
-            this.tablaTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaTurno_CellContentClick);
+            this.btnAgregarTurno.Location = new System.Drawing.Point(92, 151);
+            this.btnAgregarTurno.Name = "btnAgregarTurno";
+            this.btnAgregarTurno.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregarTurno.TabIndex = 19;
+            this.btnAgregarTurno.Text = "Agregar";
+            this.btnAgregarTurno.UseVisualStyleBackColor = true;
+            this.btnAgregarTurno.Click += new System.EventHandler(this.btnAgregarTurno_Click);
             // 
             // Edicion
             // 
@@ -437,6 +451,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "Edicion";
             this.Text = "Edicion";
+            this.Load += new System.EventHandler(this.Edicion_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabEdicion.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -444,13 +459,13 @@
             this.tabChofer.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
             this.tabTurno.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).EndInit();
             this.tabBaja.ResumeLayout(false);
             this.tabHabilitar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tablaChofer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaTurno)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -484,13 +499,14 @@
         private System.Windows.Forms.TextBox txtNombreChofer;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnQuitarTurno;
         private System.Windows.Forms.Button txtGuardarTurno;
         private System.Windows.Forms.TextBox txtTurno;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtApellidoChofer;
         private System.Windows.Forms.DataGridView tablaChofer;
         private System.Windows.Forms.DataGridView tablaTurno;
+        private System.Windows.Forms.Button btnAgregarTurno;
 
     }
 }

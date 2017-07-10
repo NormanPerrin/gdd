@@ -22,6 +22,11 @@ namespace UberFrba
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
 
+            
+        }
+
+        private void Edicion_Load(object sender, EventArgs e)
+        {
             //uso metodos ya hechos en otra clase
             CapaInterfaz.Decoracion.Reorganizar(this);
             CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
@@ -44,17 +49,23 @@ namespace UberFrba
         {
             if (e.RowIndex > -1)
             {
-                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
-                idChofer = Convert.ToInt32(selectedCell.FormattedValue);
+                //System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+                //idChofer = Convert.ToInt32(selectedCell.FormattedValue);
             }
         }
 
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (turno == 0 || idChofer == 0 || turno == 0)
+            idChofer = 0;
+            turno = 0;
+            if (this.tablaChofer.CurrentRow != null)
+            { idChofer = Convert.ToInt32(this.tablaChofer.CurrentRow.Cells[0].Value); }
+            if (this.tablaTurno.CurrentRow != null)
+            { turno = Convert.ToInt32(this.tablaTurno.CurrentRow.Cells[0].Value); }
+            if (turno == 0 || idChofer == 0)
             {
-                CapaInterfaz.Decoracion.mostrarInfo("Selecciona otra vez valores en TODOS los campos");
+                CapaInterfaz.Decoracion.mostrarInfo("Selecciona otra vez valores en todos los campos");
             }
             else
             {
@@ -103,8 +114,8 @@ namespace UberFrba
         {
             if (e.RowIndex > -1)
             {
-                System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
-                turno = Convert.ToInt32(selectedCell.FormattedValue);
+                //System.Windows.Forms.DataGridViewCell selectedCell = this.tablaChofer[0, e.RowIndex];
+               // turno = Convert.ToInt32(selectedCell.FormattedValue);
             }
         }
 
