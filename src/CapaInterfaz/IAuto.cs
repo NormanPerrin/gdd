@@ -209,5 +209,15 @@ namespace CapaInterfaz
             string respuesta = CapaNegocio.NAuto.quitarChofer(auto, chofer,  turno);
             return respuesta;
         }
+
+        public static void CargarMarca2(DataGridView tablaMarca)
+        {
+            tablaMarca.DataSource = CapaNegocio.NAuto.ObtenerMarcas2();
+        }
+
+        public static void CargarChoferes2(DataGridView tablaChofer)
+        {
+            tablaChofer.DataSource = CapaNegocio.NAuto.ObtenerChoferes2();
+        }
     }
 }

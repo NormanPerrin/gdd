@@ -462,5 +462,25 @@ namespace CapaDatos
 
             return resultado; 
         }
+
+        public object ObtenerMarcas2()
+        {
+            Conexion Conexion = new Conexion();
+
+            DataTable DtResultado = new DataTable("Marcas");
+            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerMarcasYModelos2");
+
+            return DtResultado;
+        }
+
+        public object ObtenerChoferes2()
+        {
+            Conexion Conexion = new Conexion();
+
+            DataTable DtResultado = new DataTable("Choferes");
+            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerChoferes2");
+
+            return DtResultado;
+        }
     }
 }

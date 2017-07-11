@@ -33,8 +33,8 @@ namespace UberFrba.AbmAuto
         private void Alta_Load(object sender, EventArgs e)
         {
             //uso metodos que estan en auto
-            CapaInterfaz.IAuto.CargarChoferes(this.tablaChofer2);
-            CapaInterfaz.IAuto.CargarMarca(this.tablaMarca2);
+            CapaInterfaz.IAuto.CargarChoferes2(this.tablaChofer2);
+            CapaInterfaz.IAuto.CargarMarca2(this.tablaMarca2);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer2, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca2, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaMarca2, 2);

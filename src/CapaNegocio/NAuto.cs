@@ -122,5 +122,15 @@ namespace CapaNegocio
             CapaDatos.DAuto objeto = new CapaDatos.DAuto();
             return objeto.quitarTurno(auto, chofer, turno );
         }
+
+        public static object ObtenerMarcas2()
+        {
+            return new CapaDatos.DAuto().ObtenerMarcas2();
+        }
+
+        public static object ObtenerChoferes2()
+        {
+            return new CapaDatos.DAuto().ObtenerChoferes2();
+        }
     }
 }

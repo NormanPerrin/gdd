@@ -328,6 +328,16 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerSoloMarcas;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerMarcasYModelos2') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerMarcasYModelos2;
+END;
+
+IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferes2') IS NOT NULL
+BEGIN
+	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferes2;
+END;
+
 IF OBJECT_ID('CRAZYDRIVER.spQuitarTurnoAuto') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spQuitarTurnoAuto;
@@ -1203,6 +1213,38 @@ CREATE PROC CRAZYDRIVER.spBuscarCliente
 	and lower(c.apellido) like '%' + lower(@apellido) + '%'
 	and lower(c.nombre) like '%' + lower(@nombre) + '%';
 
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerMarcasYModelos2
+	AS 
+		declare @procedure1 table (id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255))
+		declare @procedure2 table (id_marca int, nombreMarca nvarchar(255), id_modelo int, nombreModelo nvarchar(255))
+
+		insert into  @procedure1 (id_marca , nombreMarca , id_modelo , nombreModelo) 
+		values (0, ' ', 0, ' ')
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerMarcasYModelos;
+
+		select * from @procedure1
+		union
+		select * from @procedure2;
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerChoferes2
+	AS 
+		declare @procedure1 table (id_chofer int, dni NUMERIC(18,0), nomChofer nvarchar(255), apeChofer nvarchar(255))
+		declare @procedure2 table (id_chofer int, dni NUMERIC(18,0), nomChofer nvarchar(255), apeChofer nvarchar(255))
+
+		insert into  @procedure1 (id_chofer, dni , nomChofer , apeChofer) 
+		values (0, 0, ' ', ' ')
+
+		insert into  @procedure2
+		exec CRAZYDRIVER.spObtenerChoferes;
+
+		select * from @procedure1
+		union
+		select * from @procedure2;
 GO
 
 CREATE PROC CRAZYDRIVER.spModificarCliente
