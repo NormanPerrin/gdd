@@ -71,7 +71,7 @@ namespace UberFrba
             {
                 CapaInterfaz.IRendicion.viajes(this.tablaViaje, this.fecha.Value, turno, idChofer);
 
-                this.fechaBuscada = this.fecha.Value;
+                //this.fechaBuscada = this.fecha.Value;
 
                 importe = CapaInterfaz.IRendicion.calcularImporte(this.tablaViaje);
 
@@ -95,7 +95,7 @@ namespace UberFrba
             {
                 CapaInterfaz.IRendicion.viajes2(this.tablaViaje, this.fecha.Value, idChofer);
 
-                CapaInterfaz.IRendicion.rendir(this.tablaViaje, this.fechaBuscada);
+                CapaInterfaz.IRendicion.rendir(this.tablaViaje, this.fecha.Value);
 
                 CapaInterfaz.IRendicion.viajes2(this.tablaViaje, this.fecha.Value, idChofer);
 
