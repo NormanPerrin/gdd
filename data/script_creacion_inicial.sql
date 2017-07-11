@@ -1871,7 +1871,7 @@ CREATE PROC CRAZYDRIVER.spObtenerViajes
 	@turno int,
 	@chofer int
 	AS
-		declare @fechaSinHora datetime = CONVERT (char(10), @fecha, 103);
+		declare @fechaSinHora char(10) = CONVERT (char(10), @fecha, 103);
 
 		SELECT c.id_chofer,c.nombre , c.apellido, v.id_turno, t.descripcion, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
 			FROM CRAZYDRIVER.Turno t
@@ -1887,7 +1887,7 @@ CREATE PROC CRAZYDRIVER.spObtenerViajes2
 	@fecha datetime,
 	@chofer int
 	AS
-		declare @fechaSinHora datetime = CONVERT (char(10), @fecha, 103);
+		declare @fechaSinHora char(10) = CONVERT (char(10), @fecha, 103);
 
 		SELECT c.id_chofer,c.nombre , c.apellido, v.id_turno, t.descripcion, v.fecha_inicio, v.id_viaje, (SELECT (t.precio_base+v.cant_km * t.valor_km)
 			FROM CRAZYDRIVER.Turno t
@@ -1911,7 +1911,7 @@ GO
 CREATE PROC CRAZYDRIVER.spRendir
 	@fecha datetime
 	AS
-		declare @fechaSinHora datetime = CONVERT (char(10), @fecha, 103);
+		declare @fechaSinHora char(10) = CONVERT (char(10), @fecha, 103);
 		declare @idRendicion int;
 		SELECT @idRendicion = (max(nro_rendicion)+1) from CRAZYDRIVER.Rendicion;
 		INSERT INTO CRAZYDRIVER.Rendicion (nro_rendicion ,fecha) VALUES (@idRendicion, @fechaSinHora)
