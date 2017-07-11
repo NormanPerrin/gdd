@@ -22,11 +22,6 @@ namespace UberFrba
             InitializeComponent();
             CapaInterfaz.Decoracion.Reorganizar(this);
 
-            
-        }
-
-        private void Edicion_Load(object sender, EventArgs e)
-        {
             //uso metodos ya hechos en otra clase
             CapaInterfaz.Decoracion.Reorganizar(this);
             CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
@@ -34,6 +29,11 @@ namespace UberFrba
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaTurno, 0);
             CapaInterfaz.IAuto.OcultarColumnas(this.tablaChofer, 0);
             this.fecha.Value = Properties.Settings.Default.FechaSistema;
+        }
+
+        private void Edicion_Load(object sender, EventArgs e)
+        {
+           
         }
 
         private void tablaTurno_CellContentClick(object sender, DataGridViewCellEventArgs e)
