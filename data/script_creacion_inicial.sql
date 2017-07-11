@@ -424,8 +424,6 @@ BEGIN
    DROP TABLE CRAZYDRIVER.Funcionalidad;
 END;
 
-
-
 ---- ESQUEMA POR SI NO EXISTE
 
 IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'CRAZYDRIVER')
@@ -993,6 +991,7 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferesPorTurno
 				AND (SELECT DISTINCT 1 FROM CRAZYDRIVER.Viaje v 
 					WHERE v.id_chofer = c.id_chofer
 						AND v.fecha_inicio BETWEEN @dateFrom AND @dateTo) IS NULL
+				AND (SELECT a.habilitado FROM CRAZYDRIVER.Auto a where apc.id_auto = a.id_auto) = 1
 			ORDER BY nombre
 GO
 
@@ -1886,4 +1885,4 @@ CREATE PROC CRAZYDRIVER.spImportePorViaje
 
 		INSERT INTO CRAZYDRIVER.RendicionPorViaje (nro_rendicion, id_viaje, importe)
 			VALUES (@idRendicion, @viaje, @importe)
-GO 
+GO
