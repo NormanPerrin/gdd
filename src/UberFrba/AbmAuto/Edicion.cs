@@ -40,9 +40,6 @@ namespace UberFrba.AbmAuto
             this.txtLicenciaVieja.Text = this.licenciaVieja;
             this.txtRodadoViejo.Text = this.rodadoViejo;
         }
-
-        #region Acciones/Eventos
-        
         private void Edicion_Load(object sender, EventArgs e)
         {
             CapaInterfaz.IAuto.CargarTurnos(this.tablaTurno);
@@ -85,8 +82,6 @@ namespace UberFrba.AbmAuto
             }
             this.Close();
         }
-
-        #endregion
 
         private void button3_Click(object sender, EventArgs e)
         {

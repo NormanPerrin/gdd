@@ -367,7 +367,7 @@ namespace CapaDatos
             parametros[2].Value = turno;
 
             parametros[3] = new SqlParameter();
-            parametros[3].ParameterName = "@idChoferViejo";
+            parametros[3].ParameterName = "@idChoferNuevo";
             parametros[3].SqlDbType = SqlDbType.Int;
             parametros[3].Value = chofer;
 

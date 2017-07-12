@@ -1827,16 +1827,20 @@ CREATE PROC CRAZYDRIVER.spModificarChofer
 	@idTurno int,
 	@idChoferNuevo int
 	AS
-		IF EXISTS (SELECT 1 FROM CRAZYDRIVER.AutoPorChofer
-		where (id_turno=@idTurno AND id_chofer = @idChofer))
+		IF EXISTS (
+			SELECT 1 
+				FROM CRAZYDRIVER.AutoPorChofer
+				WHERE (id_turno = @idTurno AND id_chofer = @idChofer)
+			)
 			BEGIN
-			RAISERROR('El chofer seleccionado ya posee un auto.',17,1)
-			RETURN
+				RAISERROR('El chofer seleccionado ya posee un auto.',17,1)
+				RETURN
 			END
 		ELSE
 
-			INSERT INTO CRAZYDRIVER.AutoPorChofer (id_auto, id_chofer, id_turno) VALUES
-				(@idAuto, @idChoferNuevo, @idTurno)
+			INSERT INTO CRAZYDRIVER.AutoPorChofer (id_auto, id_chofer, id_turno) 
+			VALUES (@idAuto, @idChoferNuevo, @idTurno)
+
 			DELETE FROM CRAZYDRIVER.AutoPorChofer
 			WHERE (id_auto = @idAuto AND id_chofer = @idChofer AND id_turno=@idTurno)
 				

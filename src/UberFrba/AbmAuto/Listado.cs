@@ -92,8 +92,18 @@ namespace UberFrba.AbmAuto
 
             if (this.tablaAutos.DataSource == null)
             {
+                return;
             }
-            else if(this.tablaAutos.CurrentRow != null)
+            idAuto = Convert.ToInt32(this.tablaAutos.Rows[0].Cells[0].Value);
+            idChofer = Convert.ToInt32(this.tablaAutos.Rows[0].Cells[6].Value);
+            nombreChofer = Convert.ToString(this.tablaAutos.Rows[0].Cells[7].Value);
+            apellidoChofer = Convert.ToString(this.tablaAutos.Rows[0].Cells[8].Value);
+            idTurno = Convert.ToInt32(this.tablaAutos.Rows[0].Cells[9].Value);
+            descTurno = Convert.ToString(this.tablaAutos.Rows[0].Cells[10].Value);
+            licencia = Convert.ToString(this.tablaAutos.Rows[0].Cells[11].Value);
+            rodado = Convert.ToString(this.tablaAutos.Rows[0].Cells[12].Value);
+            habilitado = Convert.ToInt32(this.tablaAutos.Rows[0].Cells[13].Value);
+            if (this.tablaAutos.CurrentRow != null)
             {
                 idAuto = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[0].Value);
                 idChofer = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[6].Value);
@@ -104,20 +114,22 @@ namespace UberFrba.AbmAuto
                 licencia = Convert.ToString(this.tablaAutos.CurrentRow.Cells[11].Value);
                 rodado = Convert.ToString(this.tablaAutos.CurrentRow.Cells[12].Value);
                 habilitado = Convert.ToInt32(this.tablaAutos.CurrentRow.Cells[13].Value);
-                Edicion ventana = new Edicion(idAuto, idChofer, nombreChofer, apellidoChofer, idTurno, descTurno, licencia, rodado, habilitado);
-                ventana.ShowDialog(this);
-                CapaInterfaz.IAuto.BuscarAuto(this.tablaAutos, marca, modelo, txtPatente.Text, chofer);
-                CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 0);
-                CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 2);
-                CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 4);
-                //idchofer
-                CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 6);
-                //idturno
-                CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 9);
-                //habilitado
-                //CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 13);
+
             }
-            
+
+            Edicion ventana = new Edicion(idAuto, idChofer, nombreChofer, apellidoChofer, idTurno, descTurno, licencia, rodado, habilitado);
+            ventana.ShowDialog(this);
+            CapaInterfaz.IAuto.BuscarAuto(this.tablaAutos, marca, modelo, txtPatente.Text, chofer);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 0);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 2);
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 4);
+            //idchofer
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 6);
+            //idturno
+            CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 9);
+            //habilitado
+            //CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 13);
+
         }
 
         private void button2_Click(object sender, EventArgs e)
