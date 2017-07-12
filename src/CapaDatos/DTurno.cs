@@ -25,7 +25,7 @@ namespace CapaDatos
         {
             Conexion Conexion = new Conexion();
             DataTable DtResultado = new DataTable("Turno");
-            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerTurnos");
+            DtResultado = Conexion.RetornarTabla("CRAZYDRIVER.spObtenerTurnosHabilitado");
             return DtResultado;
         }
 

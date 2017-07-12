@@ -58,6 +58,11 @@ BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerTurnos;
 END;
 
+IF OBJECT_ID('CRAZYDRIVER.spObtenerTurnosHabilitado') IS NOT NULL
+BEGIN
+	DROP PROCEDURE spObtenerTurnosHabilitado;
+END;
+
 IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferes') IS NOT NULL
 BEGIN
 	DROP PROCEDURE CRAZYDRIVER.spObtenerChoferes;
@@ -928,6 +933,13 @@ CREATE PROC CRAZYDRIVER.spObtenerTurnos
 	AS
 		SELECT DISTINCT id_turno, descripcion
 		FROM CRAZYDRIVER.Turno
+GO
+
+CREATE PROC CRAZYDRIVER.spObtenerTurnosHabilitado
+	AS
+		SELECT DISTINCT id_turno, descripcion
+		FROM CRAZYDRIVER.Turno
+		WHERE habilitado = 1
 GO
 
 CREATE PROC CRAZYDRIVER.spObtenerChoferes
