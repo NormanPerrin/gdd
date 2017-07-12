@@ -60,7 +60,7 @@ END;
 
 IF OBJECT_ID('CRAZYDRIVER.spObtenerTurnosHabilitado') IS NOT NULL
 BEGIN
-	DROP PROCEDURE spObtenerTurnosHabilitado;
+	DROP PROCEDURE CRAZYDRIVER.spObtenerTurnosHabilitado;
 END;
 
 IF OBJECT_ID('CRAZYDRIVER.spObtenerChoferes') IS NOT NULL
