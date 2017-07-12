@@ -1267,21 +1267,20 @@ CREATE PROC CRAZYDRIVER.spModificarCliente
 	  DECLARE @dnib int;
 	  DECLARE @telefonob int;
 
-
 	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = c.telefono
 	  from CRAZYDRIVER.Cliente c
 	  where (@dni = c.dni or @telefono = c.telefono) and c.id_cliente != @id_cliente;
 
 	  SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = CASE WHEN @telefonob is null then c.telefono else @telefonob END
 	  from CRAZYDRIVER.Chofer c
-	  where (@dni = c.dni or @telefono = c.telefono) and @usuario != c.id_usuario;
+	  where (@dni = c.dni or @telefono = c.telefono);
 
-	  IF (@telefonob is not null and @telefono = @telefonob)
+	  IF (@telefonob is not null and @telefonob = @telefono)
 		 BEGIN
 		 RAISERROR('Telefono existente',17,1);
 		 END
 
-	  ELSE IF (@dnib is not null and @dni = @dnib)
+	  ELSE IF (@dnib is not null and @dnib = @dni)
 		 BEGIN
 		 RAISERROR('DNI existente',17,1);
 		 END
