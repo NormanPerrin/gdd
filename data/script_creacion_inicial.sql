@@ -1436,7 +1436,7 @@ CREATE PROC CRAZYDRIVER.spCrearChofer
 			FROM CRAZYDRIVER.Chofer c
 			WHERE @choferDni = c.dni or @choferTelefono = c.telefono;
 		SELECT  @usuario = c.id_usuario, @dnib = c.dni, @telefonob = CASE WHEN @telefonob is null THEN c.telefono ELSE @telefonob END
-			FROM CRAZYDRIVER.Cliente c
+			FROM CRAZYDRIVER.Chofer c
 			WHERE @choferDni = c.dni or @choferTelefono = c.telefono;
 		IF (@telefonob is not null and @choferTelefono = @telefonob)
 			BEGIN
@@ -1444,7 +1444,7 @@ CREATE PROC CRAZYDRIVER.spCrearChofer
 			END
 		ELSE IF (@dnib is not null and @choferDni = @dnib)
 			BEGIN
-				RAISERROR('DNI existente',17,1);
+				RAISERROR('DNI existente',17,1); --> esto me tira error porque no me deja ser cliente
 			END
 		ELSE
 			BEGIN
