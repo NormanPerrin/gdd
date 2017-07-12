@@ -1830,7 +1830,7 @@ CREATE PROC CRAZYDRIVER.spModificarChofer
 		IF EXISTS (
 			SELECT 1 
 				FROM CRAZYDRIVER.AutoPorChofer
-				WHERE (id_turno = @idTurno AND id_chofer = @idChofer)
+				WHERE (id_turno = @idTurno AND id_chofer = @idChoferNuevo)
 			)
 			BEGIN
 				RAISERROR('El chofer seleccionado ya posee un auto.',17,1)

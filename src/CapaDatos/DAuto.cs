@@ -359,7 +359,7 @@ namespace CapaDatos
             parametros[1] = new SqlParameter();
             parametros[1].ParameterName = "@idChofer";
             parametros[1].SqlDbType = SqlDbType.Int;
-            parametros[1].Value = nuevoC;
+            parametros[1].Value = chofer;
 
             parametros[2] = new SqlParameter();
             parametros[2].ParameterName = "@idTurno";
@@ -369,7 +369,7 @@ namespace CapaDatos
             parametros[3] = new SqlParameter();
             parametros[3].ParameterName = "@idChoferNuevo";
             parametros[3].SqlDbType = SqlDbType.Int;
-            parametros[3].Value = chofer;
+            parametros[3].Value = nuevoC;
 
             string resultado = Conexion.Ejecutar(parametros, "CRAZYDRIVER.spModificarChofer");
             string respuesta = string.Empty;
