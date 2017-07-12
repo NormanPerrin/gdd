@@ -15,7 +15,6 @@ namespace UberFrba
         int idChofer;
         int importe;
         int turno;
-        DateTime fechaBuscada;
 
         public RendicionViajes()
         {

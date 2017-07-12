@@ -1243,7 +1243,7 @@ CREATE PROC CRAZYDRIVER.spObtenerMarcasYModelos2
 		select * from @procedure2;
 GO
 
-CREATE PROC CRAZYDRIVER.spObtenerChoferes2
+/*CREATE PROC CRAZYDRIVER.spObtenerChoferes2
 	AS 
 		declare @procedure1 table (id_chofer int, dni NUMERIC(18,0), nomChofer nvarchar(255), apeChofer nvarchar(255))
 		declare @procedure2 table (id_chofer int, dni NUMERIC(18,0), nomChofer nvarchar(255), apeChofer nvarchar(255))
@@ -1257,6 +1257,15 @@ CREATE PROC CRAZYDRIVER.spObtenerChoferes2
 		select * from @procedure1
 		union
 		select * from @procedure2;
+GO*/
+CREATE PROC CRAZYDRIVER.spObtenerChoferes2
+	AS 
+	SELECT 0 as id_chofer, null as dni, null as nombre, null as apellido
+	UNION
+	SELECT id_chofer, dni, nombre, apellido
+		FROM CRAZYDRIVER.Chofer
+		WHERE habilitado = 1
+	order by 1
 GO
 
 CREATE PROC CRAZYDRIVER.spModificarCliente
@@ -1410,6 +1419,17 @@ CREATE PROC CRAZYDRIVER.spActualizarChofer
 			END
 		ELSE
 			BEGIN
+
+				IF EXISTS (
+					SELECT 1
+						FROM CRAZYDRIVER.Cliente
+						WHERE dni = CAST(@choferDni AS NUMERIC(18,0)) OR telefono = CAST(@choferTelefono AS NUMERIC(18,0))
+				)
+				BEGIN
+					RAISERROR('Ya existe un cliente con el mismo DNI o con el mismo telefono' ,17,1);
+					RETURN	
+				END
+
 				UPDATE CRAZYDRIVER.Chofer
 					SET
 						nombre = @choferNombre,

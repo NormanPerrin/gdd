@@ -115,7 +115,7 @@ namespace UberFrba.AbmAuto
                 //idturno
                 CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 9);
                 //habilitado
-                CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 13);
+                //CapaInterfaz.IAuto.OcultarColumnas(this.tablaAutos, 13);
             }
             
         }
