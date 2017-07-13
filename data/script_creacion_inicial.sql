@@ -1043,10 +1043,13 @@ CREATE PROC CRAZYDRIVER.spObtenerClientes
 	SELECT @fh_anio = YEAR(@dateTo), @fh_mes = MONTH(@dateTo);
 
 	DECLARE @fd DATE;
-	SELECT @fd = CONVERT(varchar(4), @fd_anio) + '-' + CONVERT(varchar(2), @fd_mes) + '-01';
+	SELECT @fd = DATEFROMPARTS(@fd_anio, @fd_mes, 1);
+
+	declare @ultimoDia int;
+	select @ultimoDia = datediff(day, dateadd(day, 1-day(@fd), @fd),dateadd(month, 1, dateadd(day, 1-day(@fd), @fd)));
 
 	DECLARE @fh DATE;
-	SELECT @fh = CONVERT(varchar(4), @fd_anio) + '-' + CONVERT(varchar(2), @fd_mes) + '-' + CONVERT(varchar(2), DATEDIFF(DAY, @dateTo, DATEADD(MONTH, 1, @dateTo)));
+	select @fh = DATEFROMPARTS(@fd_anio, @fd_mes, @ultimoDia);
 
 	SELECT c.id_cliente, c.nombre, c.apellido FROM CRAZYDRIVER.Cliente c
 		WHERE c.habilitado = 1
